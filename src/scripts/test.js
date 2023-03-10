@@ -7,7 +7,6 @@ import { Stats } from "../models/stats_model.js"; // modules
 
 import fs from "fs";
 
-
 let team = new Team();
 team.name = "Mobile";
 
@@ -46,7 +45,17 @@ for (const team of teams) {
     }
 }
 
-console.log(nealStats);
+
+const jsonContents = JSON.stringify({
+    "Neal": nealStats
+}, null, 2);
+
+console.log(jsonContents);
+
+fs.writeFile('stats.json', jsonContents, 'utf8', (err) => {
+    console.log(err);
+});
+
 
 
 
