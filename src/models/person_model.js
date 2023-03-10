@@ -5,6 +5,6 @@ class Person {
     }
 }
 
-modules.export = {
+export {
     Person
 }

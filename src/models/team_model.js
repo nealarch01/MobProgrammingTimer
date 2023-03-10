@@ -1,18 +1,23 @@
 import { Person } from "./person_model.js";
+import { Stats } from "./stats_model.js";
 import { Configs } from "./configs_model.js";
 
 class Team {
     constructor() {
-        this.teamName = "";
+        this.name = "";
         this.members = [
-            Person("Neal"),
-            Person("Irvin"),
-            Person("Simon")
+            new Person("Neal"),
+            new Person("Irvin"),
+            new Person("Simon")
         ];
-        this.configs = Configs();
+        this.configs = new Configs();
+        this.stats = new Map(); // Map<Person, Stats>
+        for (let person of this.members) {
+            this.stats.set(person.name, new Stats());
+        }
     }
 }
 
-modules.export = {
+export {
     Team
 }

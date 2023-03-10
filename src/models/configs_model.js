@@ -2,10 +2,11 @@ import { Timer } from "./timer_model.js";
 
 class Configs {
     constructor() {
-        this.timerConfig = Timer();
+        this.timerConfig = new Timer();
     }
 }
 
-modules.export = {
+export {
     Configs
 }
+

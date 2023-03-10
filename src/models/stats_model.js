@@ -5,3 +5,7 @@ class Stats {
         this.observingTime_SEC = 1200;
     }
 }
+
+export {
+    Stats
+}
