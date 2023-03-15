@@ -13,6 +13,6 @@ class Timer {
     }
 }
 
-export {
+module.exports = {
     Timer
 }

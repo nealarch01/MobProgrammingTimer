@@ -1,6 +1,10 @@
-import { Person } from "./person_model.js";
-import { Stats } from "./stats_model.js";
-import { Configs } from "./configs_model.js";
+// import { Person } from "./person_model.js";
+// import { Stats } from "./stats_model.js";
+// import { Configs } from "./configs_model.js";
+
+const { Person } = require("./person_model");
+const { Stats } = require("./stats_model");
+const { Configs } = require("./configs_model");
 
 class Team {
     constructor() {
@@ -18,6 +22,6 @@ class Team {
     }
 }
 
-export {
+module.exports = {
     Team
 }

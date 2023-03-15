@@ -1,4 +1,5 @@
-import { Timer } from "./timer_model.js";
+// import { Timer } from "./timer_model.js";
+const { Timer } = require("./timer_model");
 
 class Configs {
     constructor() {
@@ -6,7 +7,7 @@ class Configs {
     }
 }
 
-export {
+module.exports = {
     Configs
 }
 

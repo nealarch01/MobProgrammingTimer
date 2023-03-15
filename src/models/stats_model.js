@@ -6,6 +6,6 @@ class Stats {
     }
 }
 
-export {
+module.exports = {
     Stats
 }
