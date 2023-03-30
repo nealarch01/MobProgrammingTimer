@@ -1,0 +1,26 @@
+.top-view {
+    width: 100%;
+    justify-content: space-between;
+}
+
+.info-panel {
+    justify-content: flex-star;
+    padding-left: 15px;
+}
+
+.timer-container {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.stats-container {
+    padding-right: 5px;
+}
+
+#stats-btn {
+    height: 40px;
+    width: 80px;
+}
+
+
+
