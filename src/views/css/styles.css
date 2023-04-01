@@ -73,83 +73,22 @@ h1 {
     flex: 2;
 }
 
-.team {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
+.team-members-container {
+    width: 85%;
     align-items: center;
 }
 
-.team > h1 {
-    padding-right: 25%;
-    margin-bottom: 15px;
-}
-
-.team-members.row {
-    width: 70%;
-    min-height: 50px;
-    background-color: white;
-}
-
-.team-member {
-    font-family: Arial;
-    color: white;
-    min-width: 40px;
-    height: 40px;
-    background-color:#2A6285;
-    margin: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-.start-btn {
-    width: 90%;
-    height: 80px;
-    background-color: #2A6285;
-    color: white;
-    font-weight: bold;
-    font-size: 3.0em;
-    border: none;
-    margin: 20px;
-    margin-bottom: 150px;
-}
-
-.load-btn, .save-btn {
-    margin-top: 15px;
-    margin-right: 2.5px;
-    margin-left: 2.5px;
-    height: 30px;
-    width: 100px;
-    font-weight: 600;
-}
-
-form.row {
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
-
-form.row > h2 {
+.team-members-container > h4 {
     padding: 0px;
-    margin: 0px;
-    padding-left: 2px;
-    font-family: Arial;
-    align-self: center;
+    margin-top: 15px;
+    margin-bottom: 4px;
+    align-self: flex-start;
 }
 
-.time-input {
-    height: 30px;
-    width: 45px;
+.member-list {
+    width: 100%;
+    height: 50px;
+    border: 1px solid black;
+    margin-bottom : 10px;
 }
 
-.step {
-    width: 40px;
-    font-weight: bold;
-    color: white;
-    font-size: 24px;
-    background-color: #2A6285;
-    border: none;
-}
