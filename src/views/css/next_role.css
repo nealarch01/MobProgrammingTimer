@@ -1,0 +1,32 @@
+.top-view {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.info-panel {
+    justify-content: flex-start;
+    padding-left: 15px;
+    flex: 1;
+}
+
+.quote-container {
+    padding-top: 30px;
+    padding-bottom: 100px;
+}
+
+.ctrl-btns-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+.ctrl-panel-btn {
+    width: 180px;
+    height: 60px;
+    margin-right: 10px;
+    margin-left: 10px;
+    font-weight: bold;
+
+}
