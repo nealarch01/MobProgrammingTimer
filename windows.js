@@ -1,29 +1,15 @@
 const { app, BrowserWindow, screen } = require("electron");
-const path = require('path')
-
-class Windows {
-	constructor() {
-		this.MainWindow = null;
-		this.TimerWidgetWindow = null;
-	}
-
-	isInitialized() {
-		if (this.MainWindow === null || this.TimerWidgetWindow === null) {
-			return false;
-		}
-		return true;
-	}
-}
-let windows = new Windows();
+const path = require('path');
 
 const createMainWindow = () => {
     const win = new BrowserWindow({
         width: 1000,
         height: 650,
-        minimizable: false,
+        minimizable: true,
         maximizable: false,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js')
+            preload: path.join(__dirname, "preload.js"),
+            nodeIntegration: true
         }
     });
     win.loadFile('./src/views/html/control_panel.html');
@@ -33,16 +19,20 @@ const createMainWindow = () => {
 // For MacOS when the x button is clicked, do not end the app and open the widget
 
 const createWidgetWindow = () => {
+    const width = 300;
+    const height = 200;
 	const workAreaSize = screen.getPrimaryDisplay().workAreaSize;
     const win = new BrowserWindow({
-        width: 250,
-        height: 150,
-        x: workAreaSize.width - 250,
-        y: workAreaSize.height - 150,
+        width: width,
+        height: height,
+        x: workAreaSize.width,
+        y: workAreaSize.height - height,
+        opacity: 0.8,
         show: false,
         frame: false,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js')
+            preload: path.join(__dirname, "preload.js"),
+            nodeIntegration: true
         }
     });
     win.loadFile('./src/views/html/timer_widget.html');
@@ -50,22 +40,25 @@ const createWidgetWindow = () => {
 }
 
 function initWindows() {
-	if (windows.isInitialized()) {
-		return;
-	}
-	MainWindow = createMainWindow();
-	TimerWidgetWindow = createWidgetWindow();
-	MainWindow.on("close", (event) => {
-        event.preventDefault();
-        MainWindow.hide();
+	let MainWindow = createMainWindow();
+	let TimerWidgetWindow = createWidgetWindow();
+    MainWindow.on("show", () => {
+        TimerWidgetWindow.hide();
+    });
+    MainWindow.on("minimize", () => {
         TimerWidgetWindow.show();
-	});
+    });
     TimerWidgetWindow.setAlwaysOnTop(true, "floating", 1);
-	windows.MainWindow = MainWindow;
-	windows.TimerWidgetWindow = TimerWidgetWindow;
+    return {
+        MainWindow,
+        TimerWidgetWindow
+    }
+}
+
+function moveTopLeft() {
+    console.log(windows.TimerWidgetWindow);
 }
 
 module.exports = {
-	windows,
 	initWindows
 };

@@ -11,6 +11,22 @@
 .widget{
     width: 100px !important;
     height: 100px !important;
+    border: 0.3em solid black !important;
+}
+
+.widget-pos-btn {
+    width: 50px;
+    height: 30px;
+    border: 1px solid black;
+}
+
+.widget-pos-btn:active {
+    opacity: 0.5;
+}
+
+.top-row, .bottom-row {
+    width: 90%;
+    justify-content: space-between;
 }
 
 .skip-btn {
