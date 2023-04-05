@@ -16,8 +16,6 @@ const createMainWindow = () => {
     return win;
 }
 
-// For MacOS when the x button is clicked, do not end the app and open the widget
-
 const createWidgetWindow = () => {
     const width = 300;
     const height = 200;
@@ -36,7 +34,7 @@ const createWidgetWindow = () => {
         }
     });
     win.loadFile('./src/views/html/timer_widget.html');
-    return win; // Return a reference
+    return win;
 }
 
 function initWindows() {
@@ -53,10 +51,6 @@ function initWindows() {
         MainWindow,
         TimerWidgetWindow
     }
-}
-
-function moveTopLeft() {
-    console.log(windows.TimerWidgetWindow);
 }
 
 module.exports = {
