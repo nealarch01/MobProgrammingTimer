@@ -17,8 +17,11 @@ const createMainWindow = () => {
 }
 
 const createWidgetWindow = () => {
-    const width = 300;
-    const height = 200;
+    // Debug width and height
+    // const width = 500;
+    // const height = 300;
+    const width = 300; // 300
+    const height = 200; // 200
 	const workAreaSize = screen.getPrimaryDisplay().workAreaSize;
     const win = new BrowserWindow({
         width: width,
@@ -37,7 +40,7 @@ const createWidgetWindow = () => {
     return win;
 }
 
-function initWindows() {
+function createWindows() {
 	let MainWindow = createMainWindow();
 	let TimerWidgetWindow = createWidgetWindow();
     MainWindow.on("show", () => {
@@ -54,5 +57,5 @@ function initWindows() {
 }
 
 module.exports = {
-	initWindows
+	createWindows
 };
