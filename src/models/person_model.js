@@ -1,8 +1,9 @@
+import { Stats } from "./stats_model"
+
 class Person {
-    constructor(name) {
+    constructor(name, stats) {
         this.name = name;
-        this.role = "";
-        this.active = false;
+        this.stats = stats;
     }
 }
 
