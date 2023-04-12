@@ -20,15 +20,16 @@ const createWidgetWindow = () => {
     // Debug width and height
     // const width = 500;
     // const height = 300;
-    const width = 300; // 300
-    const height = 200; // 200
+    const width = 130; 
+    const height = 145; 
 	const workAreaSize = screen.getPrimaryDisplay().workAreaSize;
     const win = new BrowserWindow({
         width: width,
         height: height,
         x: workAreaSize.width,
         y: workAreaSize.height - height,
-        opacity: 0.8,
+        opacity: 0.4,
+        resizable: false,
         show: false,
         frame: false,
         webPreferences: {
@@ -40,16 +41,21 @@ const createWidgetWindow = () => {
     return win;
 }
 
-function createWindows() {
-	let MainWindow = createMainWindow();
-	let TimerWidgetWindow = createWidgetWindow();
+function initializeWindowEvents(MainWindow, TimerWidgetWindow) {
+    MainWindow.on("minimize", (event) => {
+        event.preventDefault();
+        MainWindow.hide();
+        TimerWidgetWindow.show();
+    });
     MainWindow.on("show", () => {
         TimerWidgetWindow.hide();
     });
-    MainWindow.on("minimize", () => {
-        TimerWidgetWindow.show();
-    });
     TimerWidgetWindow.setAlwaysOnTop(true, "floating", 1);
+}
+
+function createWindows() {
+	let MainWindow = createMainWindow();
+	let TimerWidgetWindow = createWidgetWindow();
     return {
         MainWindow,
         TimerWidgetWindow
@@ -57,5 +63,6 @@ function createWindows() {
 }
 
 module.exports = {
-	createWindows
+	createWindows,
+    initializeWindowEvents
 };

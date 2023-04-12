@@ -1,31 +1,29 @@
 const { app, BrowserWindow, screen } = require('electron');
 const { ipcMain } = require("electron");
-const { createWindows, createMainWindow, createWidgetWindow } = require("./windows");
+const { createWindows, createMainWindow, createWidgetWindow, initializeWindowEvents } = require("./browser_windows");
 
-const TimerControls = require("./timer");
+const { TimerController } = require("./src/controllers/timer_controller");
 
 const isDev = true;
 
 function initializeTimer(MainWindow, TimerWidgetWindow) {
-    TimerControls.setTimerText(MainWindow, TimerWidgetWindow);
+    const timerController = new TimerController(undefined, MainWindow, TimerWidgetWindow); // TODO: pass in a team timer config
     ipcMain.handle("startTimer", () => {
-        if (TimerControls.isActive()) {
+        if (timerController.isActive()) {
             return;
         }
-        TimerControls.startTimer(MainWindow, TimerWidgetWindow);
+        timerController.startTimer();
+        MainWindow.minimize();
     });
     ipcMain.handle("stopTimer", () => {
-        if (!TimerControls.isActive()) { return; }
-        TimerControls.stopTimer();
+        if (!timerController.isActive()) { return; }
+        timerController.stopTimer();
     });
     ipcMain.handle("isActive", async () => {
-        return TimerControls.isActive();
-    });
-    ipcMain.handle("timeRemainingMMSS", async () => {
-        return TimerControls.timeRemainingMMSS();
+        return timerController.isActive();
     });
     ipcMain.handle("setTimerText", () => {
-        TimerControls.setTimerText(MainWindow, TimerWidgetWindow);
+        timerController.setTimerText();
     });
 }
 
@@ -36,19 +34,22 @@ function initializeTimerWidget(TimerWidgetWindow) {
         TimerWidgetWindow.setPosition(0, 0);
     });
     ipcMain.handle("moveTopRight", () => {
-        TimerWidgetWindow.setPosition(workAreaSize.width - timerWidgetWindowSize[0], 0);
+        TimerWidgetWindow.setPosition(workAreaSize.width - timerWidgetWindowSize.width, 0);
     });
     ipcMain.handle("moveBottomRight", () => {
-        TimerWidgetWindow.setPosition(workAreaSize.width - timerWidgetWindowSize[0], workAreaSize.height - timerWidgetWindowSize[1]);
+        TimerWidgetWindow.setPosition(workAreaSize.width - timerWidgetWindowSize.width, workAreaSize.height - timerWidgetWindowSize.height);
     });
     ipcMain.handle("moveBottomLeft", () => {
-        TimerWidgetWindow.setPosition(0, workAreaSize.height - timerWidgetWindowSize[1]);
+        TimerWidgetWindow.setPosition(0, workAreaSize.height - timerWidgetWindowSize.height);
     });
 }
 
 app.whenReady().then(() => {
     console.log(`Node.js version: ${process.versions.node}`);
     const { MainWindow, TimerWidgetWindow } = createWindows();
+    MainWindow.on("ready-to-show", () => {
+        initializeWindowEvents(MainWindow, TimerWidgetWindow);
+    });
     initializeTimerWidget(TimerWidgetWindow);
     initializeTimer(MainWindow, TimerWidgetWindow);
 });

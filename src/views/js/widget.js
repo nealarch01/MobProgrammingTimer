@@ -4,17 +4,17 @@ const bottomLeftBtn = document.getElementById('bottom-left-btn');
 const bottomRightBtn = document.getElementById('bottom-right-btn');
 
 topLeftBtn.addEventListener("click", () => {
-    TimerWidget.moveTopLeft();
+    TimerWidgetBridge.moveTopLeft();
 });
 
 topRightBtn.addEventListener("click", () => {
-    TimerWidget.moveTopRight();
+    TimerWidgetBridge.moveTopRight();
 });
 
 bottomLeftBtn.addEventListener("click", () => {
-    TimerWidget.moveBottomLeft();
+    TimerWidgetBridge.moveBottomLeft();
 });
 
 bottomRightBtn.addEventListener("click", () => {
-    TimerWidget.moveBottomRight();
+    TimerWidgetBridge.moveBottomRight();
 });

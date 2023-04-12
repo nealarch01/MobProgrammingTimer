@@ -8,16 +8,22 @@
     border-radius: 50%;
 }
 
-.widget{
-    width: 100px !important;
-    height: 100px !important;
-    border: 0.3em solid black !important;
+.widget {
+    width: 75px !important;
+    height: 75px !important;
+    border: 0.1em solid black !important;
+}
+
+.widget > h2 {
+    font-size: 0.9em;
 }
 
 .widget-pos-btn {
-    width: 50px;
-    height: 30px;
+    width: 40px;
+    height: 25px;
     border: 1px solid black;
+    margin-top: 2px;
+    margin-bottom: 4px;
 }
 
 .widget-pos-btn:active {
@@ -26,7 +32,7 @@
 
 .top-row, .bottom-row {
     width: 90%;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .skip-btn {
