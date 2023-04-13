@@ -1,0 +1,15 @@
+{
+    "Neal": {
+      "drivingTime_SEC": 2400,
+      "navigatingTime_SEC": 2400,
+      "observingTime_SEC": 2400
+    },
+
+    "Irvin": {
+        "drivingTime_SEC": 2400,
+        "navigatingTime_SEC": 2400,
+        "observingTime_SEC": 2400
+      }
+  }
+
+  

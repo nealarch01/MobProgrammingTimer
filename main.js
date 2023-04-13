@@ -4,7 +4,36 @@ const { createWindows, createMainWindow, createWidgetWindow, initializeWindowEve
 
 const { TimerController } = require("./src/controllers/timer_controller");
 
+const storage = require('electron-json-storage');
+const path = require('path');
+
 const isDev = true;
+
+var activeQueue = [];
+
+var inactiveQueue = [];
+
+var filepath = path.join(__dirname, "./configs");
+
+storage.setDataPath(filepath);
+
+storage.get('placeholder',function(err, res) { //TODO: placeholder should be team configs
+    if (err) console.log(err);
+
+    console.log(res); //remove this
+
+    if(res == undefined) {
+        activeQueue = [];
+        inactiveQueue = [];
+    }
+    else {
+        keys = Object.keys(res);
+        activeQueue = res[keys[0]];
+        inactiveQueue = [];
+    }
+    console.log(activeQueue);
+});
+
 
 function initializeTimer(MainWindow, TimerWidgetWindow) {
     const timerController = new TimerController(undefined, MainWindow, TimerWidgetWindow); // TODO: pass in a team timer config
@@ -42,6 +71,10 @@ function initializeTimerWidget(TimerWidgetWindow) {
     ipcMain.handle("moveBottomLeft", () => {
         TimerWidgetWindow.setPosition(0, workAreaSize.height - timerWidgetWindowSize.height);
     });
+}
+
+function initializeTeams() {
+    let 
 }
 
 app.whenReady().then(() => {
