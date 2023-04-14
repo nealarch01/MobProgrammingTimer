@@ -58,7 +58,10 @@ function initializeTimer(MainWindow, TimerWidgetWindow) {
 
 function initializeTimerWidget(TimerWidgetWindow) {
     const workAreaSize = screen.getPrimaryDisplay().workAreaSize;
-    const timerWidgetWindowSize = TimerWidgetWindow.getSize();
+    const timerWidgetWindowSize = {
+        width: TimerWidgetWindow.getSize()[0],
+        height: TimerWidgetWindow.getSize()[1]
+    }
     ipcMain.handle("moveTopLeft", () => {
         TimerWidgetWindow.setPosition(0, 0);
     });

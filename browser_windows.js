@@ -32,6 +32,7 @@ const createWidgetWindow = () => {
         resizable: false,
         show: false,
         frame: false,
+        closable: false,
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
             nodeIntegration: true
