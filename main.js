@@ -3,37 +3,9 @@ const { ipcMain } = require("electron");
 const { createWindows, createMainWindow, createWidgetWindow, initializeWindowEvents } = require("./browser_windows");
 
 const { TimerController } = require("./src/controllers/timer_controller");
-
-const storage = require('electron-json-storage');
-const path = require('path');
+const { team_controller } = require("./src/controllers/team_controller")
 
 const isDev = true;
-
-var activeQueue = [];
-
-var inactiveQueue = [];
-
-var filepath = path.join(__dirname, "./configs");
-
-storage.setDataPath(filepath);
-
-storage.get('placeholder',function(err, res) { //TODO: placeholder should be team configs
-    if (err) console.log(err);
-
-    console.log(res); //remove this
-
-    if(res == undefined) {
-        activeQueue = [];
-        inactiveQueue = [];
-    }
-    else {
-        keys = Object.keys(res);
-        activeQueue = res[keys[0]];
-        inactiveQueue = [];
-    }
-    console.log(activeQueue);
-});
-
 
 function initializeTimer(MainWindow, TimerWidgetWindow) {
     const timerController = new TimerController(undefined, MainWindow, TimerWidgetWindow); // TODO: pass in a team timer config
@@ -81,6 +53,8 @@ function initializeTeams() {
 }
 
 app.whenReady().then(() => {
+    let tc = new team_controller();
+    tc.initTeams();
     console.log(`Node.js version: ${process.versions.node}`);
     const { MainWindow, TimerWidgetWindow } = createWindows();
     MainWindow.on("ready-to-show", () => {
