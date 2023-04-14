@@ -47,7 +47,7 @@ const createWidgetWindow = () => {
 
 function initializeWindowEvents(MainWindow, TimerWidgetWindow, app) {
     app.on("activate", () => { // MacOS
-        MainWindow.show();
+        MainWindow.restore();
     });
     MainWindow.on("minimize", () => {
         TimerWidgetWindow.show();
