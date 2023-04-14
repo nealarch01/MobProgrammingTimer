@@ -11,24 +11,22 @@ class TeamController {
 
         this.filepath = path.join(__dirname, "../../configs");
     } 
-    initQueue(err, res) {
-        
-            if(res == undefined) {
-                this.activeQueue = [];
-                this.inactiveQueue = [];
-            }
-            else {
-                let keys = Object.keys(res);
-                this.activeQueue = res[keys[0]];
-                this.inactiveQueue = [];
-            }
-            console.log(this.activeQueue);
-    }
-    initTeams() { 
+
+    async initTeams() { 
 
         storage.setDataPath(this.filepath);
 
-        storage.get('placeholder',this.initQueue.bind(this)); //TODO: change to team configs
+        let res = storage.getSync('placeholder'); //TODO: change to team configs
+
+        if(res == undefined) {
+            this.activeQueue = [];
+            this.inactiveQueue = [];
+        }
+        else {
+            let keys = Object.keys(res);
+            this.activeQueue = res[keys[0]];
+            this.inactiveQueue = [];
+        }
 
     }
     }

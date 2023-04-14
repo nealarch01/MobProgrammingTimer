@@ -51,7 +51,10 @@ function initializeTimerWidget(TimerWidgetWindow) {
 
 app.whenReady().then(() => {
     let tc = new TeamController();
-    tc.initTeams();
+    tc.initTeams().then(()=> {
+        console.log(tc.activeQueue);
+    })
+    
     console.log(`Node.js version: ${process.versions.node}`);
     const { MainWindow, TimerWidgetWindow } = createWindows();
     initializeWindowEvents(MainWindow, TimerWidgetWindow, app);
