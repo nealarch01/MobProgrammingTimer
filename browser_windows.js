@@ -4,7 +4,7 @@ const path = require('path');
 const createMainWindow = () => {
     const win = new BrowserWindow({
         width: 1000,
-        height: 650,
+        height: 700,
         minimizable: true,
         maximizable: false,
         webPreferences: {
@@ -30,6 +30,8 @@ const createWidgetWindow = () => {
         y: workAreaSize.height - height,
         opacity: 0.4,
         resizable: false,
+        minimizable: false,
+        maximizable: false,
         show: false,
         frame: false,
         closable: false,
@@ -42,14 +44,15 @@ const createWidgetWindow = () => {
     return win;
 }
 
-function initializeWindowEvents(MainWindow, TimerWidgetWindow) {
-    MainWindow.on("minimize", (event) => {
-        event.preventDefault();
-        MainWindow.hide();
-        TimerWidgetWindow.show();
+function initializeWindowEvents(MainWindow, TimerWidgetWindow, app) {
+    app.on("activate", () => { // If the app icon is pressed, show the main window
+        MainWindow.show();
     });
     MainWindow.on("show", () => {
         TimerWidgetWindow.hide();
+    });
+    MainWindow.on("hide", () => {
+        TimerWidgetWindow.show();
     });
     TimerWidgetWindow.setAlwaysOnTop(true, "floating", 1);
 }

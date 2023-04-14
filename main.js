@@ -54,9 +54,7 @@ app.whenReady().then(() => {
     tc.initTeams();
     console.log(`Node.js version: ${process.versions.node}`);
     const { MainWindow, TimerWidgetWindow } = createWindows();
-    MainWindow.on("ready-to-show", () => {
-        initializeWindowEvents(MainWindow, TimerWidgetWindow);
-    });
+    initializeWindowEvents(MainWindow, TimerWidgetWindow, app);
     initializeTimerWidget(TimerWidgetWindow);
     initializeTimer(MainWindow, TimerWidgetWindow);
 });
