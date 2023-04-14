@@ -3,7 +3,7 @@ const { ipcMain } = require("electron");
 const { createWindows, createMainWindow, createWidgetWindow, initializeWindowEvents } = require("./browser_windows");
 
 const { TimerController } = require("./src/controllers/timer_controller");
-const { team_controller } = require("./src/controllers/team_controller")
+const { TeamController } = require("./src/controllers/team_controller")
 
 const isDev = true;
 
@@ -53,7 +53,7 @@ function initializeTeams() {
 }
 
 app.whenReady().then(() => {
-    let tc = new team_controller();
+    let tc = new TeamController();
     tc.initTeams();
     console.log(`Node.js version: ${process.versions.node}`);
     const { MainWindow, TimerWidgetWindow } = createWindows();
