@@ -26,7 +26,7 @@ const createWidgetWindow = () => {
     const win = new BrowserWindow({
         width: width,
         height: height,
-        x: workAreaSize.width,
+        x: workAreaSize.width - width,
         y: workAreaSize.height - height,
         opacity: 0.4,
         resizable: false,
