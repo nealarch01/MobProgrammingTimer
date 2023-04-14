@@ -45,9 +45,14 @@ const createWidgetWindow = () => {
 }
 
 function initializeWindowEvents(MainWindow, TimerWidgetWindow, app) {
-    app.on("activate", () => { // If the app icon is pressed, show the main window
+    app.on("activate", () => { 
+        // Check if MainWindow 
         MainWindow.show();
     });
+    MainWindow.on("minimize", (event) => {
+        event.preventDefault();
+        MainWindow.hide(); 
+    })
     MainWindow.on("show", () => {
         TimerWidgetWindow.hide();
     });
