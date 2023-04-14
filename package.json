@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron main.js"
+    "start": "electron main.js",
+    "mock-teams": "node ./src/scripts/create_mock_teams.js"
   },
   "keywords": [],
   "author": "",
