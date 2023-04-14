@@ -48,9 +48,6 @@ function initializeTimerWidget(TimerWidgetWindow) {
     });
 }
 
-function initializeTeams() {
-    let 
-}
 
 app.whenReady().then(() => {
     let tc = new TeamController();

@@ -12,9 +12,7 @@ class TeamController {
         this.filepath = path.join(__dirname, "../../configs");
     } 
     initQueue(err, res) {
-
-            //console.log(res); //remove this
-
+        
             if(res == undefined) {
                 this.activeQueue = [];
                 this.inactiveQueue = [];
