@@ -14,7 +14,7 @@ function initializeTimer(MainWindow, TimerWidgetWindow) {
             return;
         }
         timerController.startTimer();
-        MainWindow.minimize();
+        MainWindow.hide();
     });
     ipcMain.handle("stopTimer", () => {
         if (!timerController.isActive()) { return; }
