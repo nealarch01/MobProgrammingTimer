@@ -1,4 +1,4 @@
-const { app, BrowserWindow, screen } = require("electron");
+const { app, BrowserWindow, screen, Notification } = require("electron");
 const path = require('path');
 
 const createMainWindow = () => {
@@ -35,6 +35,7 @@ const createWidgetWindow = () => {
         show: false,
         frame: false,
         closable: false,
+        focusable: false,
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
             nodeIntegration: true
@@ -45,21 +46,16 @@ const createWidgetWindow = () => {
 }
 
 function initializeWindowEvents(MainWindow, TimerWidgetWindow, app) {
-    app.on("activate", () => { 
-        // Check if MainWindow 
+    app.on("activate", () => { // MacOS
         MainWindow.show();
     });
-    MainWindow.on("minimize", (event) => {
-        event.preventDefault();
-        MainWindow.hide(); 
-    })
-    MainWindow.on("show", () => {
-        TimerWidgetWindow.hide();
-    });
-    MainWindow.on("hide", () => {
+    MainWindow.on("minimize", () => {
         TimerWidgetWindow.show();
     });
-    TimerWidgetWindow.setAlwaysOnTop(true, "floating", 1);
+    MainWindow.on("restore", () => {
+        TimerWidgetWindow.hide();
+    });
+    TimerWidgetWindow.setAlwaysOnTop(true, "floating");
 }
 
 function createWindows() {
