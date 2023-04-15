@@ -28,7 +28,7 @@ class TimerController {
 
     startTimer() {
         const oneSecondInMilliseconds = 1000;
-        this.timerInterval = setInterval(() => {
+        this.#timerInterval = setInterval(() => {
             if (this.#timeRemaining === 0) {
                 this.stopTimer();
                 this.#roundComplete();
@@ -40,8 +40,8 @@ class TimerController {
     }
 
     stopTimer() {
-        clearInterval(this.timerInterval);
-        this.timerInterval = null;
+        clearInterval(this.#timerInterval);
+        this.#timerInterval = null;
     }
 
     #roundComplete() {
