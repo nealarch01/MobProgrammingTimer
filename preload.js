@@ -11,5 +11,5 @@ contextBridge.exposeInMainWorld("TimerControllerBridge", {
     start: () => ipcRenderer.invoke("startTimer"),
     stop: () => ipcRenderer.invoke("stopTimer"),
     isActive: () => ipcRenderer.invoke("isActive"),
-    setTimerText: () => ipcRenderer.invoke("setTimerText"),
+    renderTimerText: () => ipcRenderer.invoke("renderTimerText"),
 });

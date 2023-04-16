@@ -3,7 +3,7 @@ const toggleTimerBtn = document.getElementById("start-stop-btn");
 const optionsBtn = document.getElementById("options-btn");
 const statsBtn = document.getElementById("stats-btn");
 
-TimerControllerBridge.setTimerText();
+TimerControllerBridge.renderTimerText();
 
 function disableButtons() {
     optionsBtn.disabled = true;

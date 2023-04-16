@@ -1,4 +1,4 @@
-const { app, BrowserWindow, screen } = require('electron');
+const { app, BrowserWindow, screen, remote } = require('electron');
 const { ipcMain } = require("electron");
 const { createWindows, createMainWindow, createWidgetWindow, initializeWindowEvents } = require("./browser_windows");
 
@@ -23,8 +23,8 @@ function initializeTimer(MainWindow, TimerWidgetWindow) {
     ipcMain.handle("isActive", async () => {
         return timerController.isActive();
     });
-    ipcMain.handle("setTimerText", () => {
-        timerController.setTimerText();
+    ipcMain.handle("renderTimerText", () => {
+        timerController.renderTimerText();
     });
 }
 

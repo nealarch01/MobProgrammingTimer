@@ -2,6 +2,8 @@ const { BrowserWindow } = require("electron");
 
 const { Timer } = require("../models/timer_model.js");
 
+const path = require("path");
+
 class TimerController {
     #timerConfig;
     #timeRemaining;
@@ -19,7 +21,7 @@ class TimerController {
         }
         this.#timerConfig = timerConfig;
 		this.#timeRemaining = timerConfig.roundTime_SEC;
-        this.#roundsLeft = timerConfig.roundsBeforeBreak;
+        this.#roundsLeft = timerConfig.roundsUntilNextBreak;
         this.#timerInterval = null;
         this.#MainWindow = MainWindow;
         this.#TimerWidgetWindow = TimerWidgetWindow;
@@ -27,15 +29,18 @@ class TimerController {
     }
 
     startTimer() {
+        if (this.#timerInterval !== null) {
+            return;
+        }
         const oneSecondInMilliseconds = 1000;
         this.#timerInterval = setInterval(() => {
-            if (this.#timeRemaining === 0) {
+            if (this.#timeRemaining <= 0) {
                 this.stopTimer();
                 this.#roundComplete();
                 return;
             }
             this.#timeRemaining--;
-            this.setTimerText();
+            this.renderTimerText();
         }, oneSecondInMilliseconds);
     }
 
@@ -45,31 +50,58 @@ class TimerController {
     }
 
     #roundComplete() {
-        if (this.#roundsLeft === 0) {
-            this.#roundsLeft = this.#timerConfig.roundsBeforeBreak;
-            this.#timeRemaining = this.#timerConfig.breakTime_SEC;
+        if (this.#MainWindow.isMinimized()) { 
+            this.#MainWindow.restore();
+        }
+        if (this.#roundsLeft <= 0) {
+            this.setTimeRemainingToBreakTime();
+            this.redirectToBreakPage();
         } else {
             this.#roundsLeft--;
-            this.#timeRemaining = this.#timerConfig.roundTime_SEC;
+            this.setTimeRemainingToRoundTime();
+            this.redirectToNextRolePage();
         }
+    }
+
+    redirectToBreakPage() {
+        this.#MainWindow.webContents.executeJavaScript(`
+            window.location.href = "./break_page.html";
+        `);
+    }
+
+    redirectToNextRolePage() {
+        this.#MainWindow.webContents.executeJavaScript(`
+            window.location.href = "./next_role.html";
+        `);
     }
 
     isActive() {
         return this.#timerInterval !== null;
     }
 
-    setTimerConfig(timerConfig) {
-        this.#timerConfig = timerConfig;
-        this.#timeRemaining = timerConfig.roundTime_SEC;
-    }
-
-	setTimerText() {
+	renderTimerText() {
         const updateTimerTextJS = () => {
             return `document.getElementById("timer-text").innerText = "${this.timeRemainingMMSS()}";`;
         }
 		this.#MainWindow.webContents.executeJavaScript(updateTimerTextJS());
 		this.#TimerWidgetWindow.webContents.executeJavaScript(updateTimerTextJS());
 	}
+
+    setTimeRemainingToRoundTime() {
+        this.#timeRemaining = this.#timerConfig.roundTime_SEC;
+    }
+
+    setTimeRemainingToBreakTime() {
+        this.#timeRemaining = this.#timerConfig.breakTime_SEC;
+    }
+
+    resetRoundsLeft() {
+        this.#roundsLeft = this.#timerConfig.roundsUntilNextBreak;
+    }
+
+    setRoundsLeft(roundsLeft) {
+        this.#roundsLeft = roundsLeft;
+    }
 
 	timeRemainingMMSS() {
 		const minutes = Math.floor(this.#timeRemaining / 60);
