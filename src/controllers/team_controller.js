@@ -21,13 +21,13 @@ class TeamController {
         this.allTeams = [new Team(this.teamName, this.teamMembers)];
     }
 
-    async initTeams() { 
+    async initTeams() {
 
         storage.setDataPath(this.filepath);
 
         let res = storage.getSync('placeholder'); //TODO: change to team configs
 
-        if(res == undefined) {
+        if (res == undefined) {
             this.activeQueue = [];
             this.inactiveQueue = [];
         }
@@ -38,19 +38,17 @@ class TeamController {
         }
 
     }
-    writeFile(params) {
+    writeFile(data) {
         console.log("SAVE CLICKED");
-        console.log(params);
         let filepath = path.join(__dirname, "../../configs/mock_teams.json");
-        fs.writeFile(filepath, JSON.stringify(params, null, 4), "utf8", (err) => {
+        fs.writeFile(filepath, JSON.stringify(data, null, 4), "utf8", (err) => {
             console.log(err ?? "Successfully write to file");
         });
     }
-    saveTimerConfigs(params) {
-        this.writeFile(params);
-        console.log("SAVE CLICKED");
+    saveTimerConfigs(data) {
+        this.writeFile(data);
     }
-    }
+}
 
 module.exports = {
     TeamController

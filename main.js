@@ -49,8 +49,7 @@ function initializeTimerWidget(TimerWidgetWindow) {
 }
 
 function initializeTeamConfig(teamController) {
-    ipcMain.handle("saveTeamConfigs", (args) => {
-        const { params } = args;
+    ipcMain.handle("saveTeamConfigs", (event, params) => {
         teamController.saveTimerConfigs(params);
     });
 }
