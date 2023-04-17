@@ -4,6 +4,10 @@ const optionsBtn = document.getElementById("options-btn");
 const statsBtn = document.getElementById("stats-btn");
 
 TimerControllerBridge.renderTimerText();
+if (TimerControllerBridge.isActive()) {
+    disableButtons();
+    toggleStartStopBtnText();
+}
 
 function disableButtons() {
     optionsBtn.disabled = true;
@@ -25,12 +29,12 @@ function toggleStartStopBtnText() {
 
 function activate() {
     disableButtons();
-    TimerControllerBridge.start();
+    TimerControllerBridge.startTimer();
 }
 
 function deactivate() {
     enableButtons();
-    TimerControllerBridge.stop();
+    TimerControllerBridge.stopTimer();
 }
 
 toggleTimerBtn.addEventListener("click", async () => {
