@@ -11,6 +11,7 @@ class TimerController {
     #timerInterval;
     #MainWindow;
     #TimerWidgetWindow;
+    #BreakTimer;
 
     constructor(timerConfig = undefined, MainWindow, TimerWidgetWindow) {
         if (TimerController.instance) {
@@ -23,6 +24,7 @@ class TimerController {
 		this.#timeRemaining = timerConfig.roundTime_SEC;
         this.#roundsLeft = timerConfig.roundsUntilNextBreak;
         this.#timerInterval = null;
+        this.#BreakTimer = null;
         this.#MainWindow = MainWindow;
         this.#TimerWidgetWindow = TimerWidgetWindow;
         TimerController.instance = this;
@@ -32,7 +34,6 @@ class TimerController {
         if (this.#timerInterval !== null) {
             return;
         }
-        const oneSecondInMilliseconds = 1000;
         this.#timerInterval = setInterval(() => {
             if (this.#timeRemaining <= 0) {
                 this.stopTimer();
@@ -41,7 +42,7 @@ class TimerController {
             }
             this.#timeRemaining--;
             this.renderTimerText();
-        }, oneSecondInMilliseconds);
+        }, 1000);
     }
 
     stopTimer() {
@@ -53,17 +54,41 @@ class TimerController {
         if (this.#MainWindow.isMinimized()) { 
             this.#MainWindow.restore();
         }
+        this.#roundsLeft--;
         if (this.#roundsLeft <= 0) {
-            this.setTimeRemainingToBreakTime();
-            this.redirectToBreakPage();
+            console.log("Starting break..");
+            this.startBreak();
         } else {
-            this.#roundsLeft--;
+            console.log("Moving to next role..");
             this.setTimeRemainingToRoundTime();
-            this.redirectToNextRolePage();
+            // this.redirectToNextRolePage();
         }
     }
 
+    startBreak() {
+        this.setTimeRemainingToBreakTime();
+        this.redirectToBreakPage();
+        this.#timerInterval = setInterval(() => {
+            console.log(this.#timeRemaining);
+            if (this.#timeRemaining <= 0) {
+                this.stopBreak();
+                return;
+            }
+            this.#timeRemaining--;
+            this.renderTimerText();
+        }, 1000);
+    }
+
+    stopBreak() {
+        clearInterval(this.#timerInterval);
+        this.setTimeRemainingToRoundTime();
+        this.redirectToNextRolePage();
+        this.resetRoundsLeft();
+        this.#timerInterval = null;
+    }
+
     redirectToBreakPage() {
+        console.log("Redirecting to break page..")
         this.#MainWindow.webContents.executeJavaScript(`
             window.location.href = "./break_page.html";
         `);
