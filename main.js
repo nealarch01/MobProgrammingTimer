@@ -48,9 +48,10 @@ function initializeTimerWidget(TimerWidgetWindow) {
     });
 }
 
-function initializeTeamConfig() {
-    ipcMain.handle("saveTeamConfigs", (param) => {
-        
+function initializeTeamConfig(teamController) {
+    ipcMain.handle("saveTeamConfigs", (args) => {
+        const { params } = args;
+        teamController.saveTimerConfigs(params);
     });
 }
 
@@ -59,12 +60,13 @@ app.whenReady().then(() => {
     tc.initTeams().then(()=> {
         console.log(tc.activeQueue);
     })
-    
+    initializeTeamConfig(tc);
     console.log(`Node.js version: ${process.versions.node}`);
     const { MainWindow, TimerWidgetWindow } = createWindows();
     initializeWindowEvents(MainWindow, TimerWidgetWindow, app);
     initializeTimerWidget(TimerWidgetWindow);
     initializeTimer(MainWindow, TimerWidgetWindow);
+    
 });
 
 app.on("window-all-closed", () => {
