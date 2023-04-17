@@ -1,7 +1,7 @@
-import { Stats } from "./stats_model"
+const { Stats } = require("./stats_model");
 
 class Person {
-    constructor(name, stats) {
+    constructor(name, stats = new Stats()) {
         this.name = name;
         this.stats = stats;
     }

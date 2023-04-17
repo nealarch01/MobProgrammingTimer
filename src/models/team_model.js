@@ -1,19 +1,12 @@
-// import { Person } from "./person_model.js";
-// import { Stats } from "./stats_model.js";
-// import { Configs } from "./configs_model.js";
-
 const { Person } = require("./person_model");
 const { Stats } = require("./stats_model");
-const { Configs } = require("./configs_model");
+const { Timer } = require("./timer_model");
 
 class Team {
-    constructor() {
+    constructor(name, members) {
         this.name = "";
-        this.members = [ // Including active and inactive members
-            new Person("Neal"),
-            new Person("Irvin"),
-            new Person("Simon")
-        ];
+        this.members = members;
+        this.timerConfig = new Timer();
     }
 }
 
