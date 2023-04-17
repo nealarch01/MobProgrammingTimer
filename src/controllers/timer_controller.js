@@ -9,9 +9,13 @@ class TimerController {
     #timeRemaining;
     #roundsLeft;
     #timerInterval;
+
+    #activeQueue;
+    #inactiveQueue;
+
     #MainWindow;
     #TimerWidgetWindow;
-    #BreakTimer;
+
 
     constructor(timerConfig = undefined, MainWindow, TimerWidgetWindow) {
         if (TimerController.instance) {
@@ -24,7 +28,10 @@ class TimerController {
 		this.#timeRemaining = timerConfig.roundTime_SEC;
         this.#roundsLeft = timerConfig.roundsUntilNextBreak;
         this.#timerInterval = null;
-        this.#BreakTimer = null;
+
+        this.#activeQueue = [];
+        this.#inactiveQueue = [];
+
         this.#MainWindow = MainWindow;
         this.#TimerWidgetWindow = TimerWidgetWindow;
         TimerController.instance = this;
@@ -56,12 +63,10 @@ class TimerController {
         }
         this.#roundsLeft--;
         if (this.#roundsLeft <= 0) {
-            console.log("Starting break..");
             this.startBreak();
         } else {
-            console.log("Moving to next role..");
             this.setTimeRemainingToRoundTime();
-            // this.redirectToNextRolePage();
+            this.redirectToNextRolePage();
         }
     }
 
@@ -69,7 +74,6 @@ class TimerController {
         this.setTimeRemainingToBreakTime();
         this.redirectToBreakPage();
         this.#timerInterval = setInterval(() => {
-            console.log(this.#timeRemaining);
             if (this.#timeRemaining <= 0) {
                 this.stopBreak();
                 return;
@@ -79,12 +83,16 @@ class TimerController {
         }, 1000);
     }
 
-    stopBreak() {
+    stopBreak(postponeBy = undefined) {
         clearInterval(this.#timerInterval);
+        this.#timerInterval = null;
         this.setTimeRemainingToRoundTime();
         this.redirectToNextRolePage();
-        this.resetRoundsLeft();
-        this.#timerInterval = null;
+        if (postponeBy === undefined) {
+            this.resetRoundsLeft();
+        } else {
+            this.setRoundsLeft(postponeBy);
+        }
     }
 
     redirectToBreakPage() {
