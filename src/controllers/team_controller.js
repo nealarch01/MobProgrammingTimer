@@ -10,6 +10,8 @@ class TeamController {
         this.inactiveQueue = [];
 
         this.filepath = path.join(__dirname, "../../configs");
+
+        this.currentTeam; //TODO: EQUAL TO LOADED IN TEAM
     } 
 
     async initTeams() { 
@@ -28,6 +30,9 @@ class TeamController {
             this.inactiveQueue = [];
         }
 
+    }
+    getTimerConfigs() {
+        
     }
     }
 

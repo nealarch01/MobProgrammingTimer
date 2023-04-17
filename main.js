@@ -48,6 +48,11 @@ function initializeTimerWidget(TimerWidgetWindow) {
     });
 }
 
+function initializeTeamConfig() {
+    ipcMain.handle("saveTeamConfigs", (param) => {
+        
+    });
+}
 
 app.whenReady().then(() => {
     let tc = new TeamController();
