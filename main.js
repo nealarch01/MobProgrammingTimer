@@ -1,9 +1,29 @@
-const { app, BrowserWindow, screen } = require('electron');
+const { app, BrowserWindow, screen, dialog } = require('electron');
 const { ipcMain } = require("electron");
 const { createWindows, createMainWindow, createWidgetWindow, initializeWindowEvents } = require("./browser_windows");
 
 const { TimerController } = require("./src/controllers/timer_controller");
 const { TeamController } = require("./src/controllers/team_controller")
+
+const { promisify } = require('util')
+const prompt = require('electron-prompt')
+
+const promptAsync = promisify(prompt)
+
+// prompt({
+//     title: 'example',
+//     label: 'add team?',
+//     type: 'input'
+// }).then((r) => {
+//     if (r === null) {
+//         console.log('cancelled')
+//     }
+//     else {
+//         console.log('result', r);
+//     }
+// })
+//     .catch(console.error);
+
 
 const isDev = true;
 
@@ -52,11 +72,50 @@ function initializeTeamConfig(teamController) {
     ipcMain.handle("saveTeamConfigs", (event, params) => {
         teamController.saveTimerConfigs(params);
     });
+    ipcMain.handle("confirmSave", async () => {
+        const options = {
+            type: 'question',
+            buttons: ['Yes', 'No'],
+            defaultId: 0,
+            title: 'Confirm Save',
+            message: 'Do you want to save your changes?'
+        }
+
+        const result = await dialog.showMessageBox(null, options);
+        console.log(result.response);
+        return result.response;
+
+    });
+    ipcMain.handle("addTeam", async () => {
+        try {
+            const result = await promptAsync({
+              title: 'Prompt example',
+              label: 'Team Name: ',
+              value: 'temp',
+              inputAttrs: {
+                type: 'text'
+              },
+              type: 'input'
+            })
+        
+            if (result === null) {
+              console.log('User cancelled')
+              return null
+            } else {
+              console.log('Result:', result)
+              return result
+            }
+          } catch (err) {
+            console.error('Error:', err)
+            return null
+          }
+        });
+
 }
 
 app.whenReady().then(() => {
     let tc = new TeamController();
-    tc.initTeams().then(()=> {
+    tc.initTeams().then(() => {
         console.log(tc.activeQueue);
     })
     initializeTeamConfig(tc);
@@ -65,7 +124,8 @@ app.whenReady().then(() => {
     initializeWindowEvents(MainWindow, TimerWidgetWindow, app);
     initializeTimerWidget(TimerWidgetWindow);
     initializeTimer(MainWindow, TimerWidgetWindow);
-    
+
+
 });
 
 app.on("window-all-closed", () => {

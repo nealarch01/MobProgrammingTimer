@@ -17,6 +17,8 @@ const rndBeforeBreakInc = document.getElementById("rounds-before-break-increment
 const exitBtn = document.getElementById("exit-btn");
 const saveBtn = document.getElementById("save-btn");
 
+let tempName = "";
+
 let mobTime_MIN = 0;
 
 let breakTime_MIN = 0;
@@ -32,7 +34,6 @@ rndBeforeBreakInput.value = RBBTime_MIN;
 mobTimeDec.addEventListener("click", function() {
     mobTime_MIN -= 1;
     mobTimeInput.value = mobTime_MIN;
-    
 });
 
 mobTimeInc.addEventListener("click", function() {
@@ -73,11 +74,18 @@ rndBeforeBreakInput.addEventListener("change", (event) => {
     RBBTime_MIN = parseInt(event.target.value)
 })
 
-saveBtn.addEventListener("click", function() {
+saveBtn.addEventListener("click", async function() {
     const params = {
+        tempName,
         mobTime_MIN,
         breakTime_MIN,
         RBBTime_MIN
     }
-    TeamControllerBridge.saveTeamConfigs(params);
+    let saveInput = await TeamControllerBridge.confirmSave();
+    if (saveInput === 0)
+        TeamControllerBridge.saveTeamConfigs(params);
+});
+
+newTeamBtn.addEventListener("click", async function() {
+    await TeamControllerBridge.addTeam(tempName);
 });

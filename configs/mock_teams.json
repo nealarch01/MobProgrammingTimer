@@ -1,5 +1,70 @@
-{
-    "mobTime_MIN": 0,
-    "breakTime_MIN": 0,
-    "RBBTime_MIN": 1
-}
+[
+    {
+        "name": "Web Dev",
+        "members": [
+            {
+                "name": "Neal",
+                "stats": {
+                    "drivingTime_SEC": 0,
+                    "navigatingTime_SEC": 0,
+                    "observingTime_SEC": 0
+                }
+            },
+            {
+                "name": "Irvin",
+                "stats": {
+                    "drivingTime_SEC": 0,
+                    "navigatingTime_SEC": 0,
+                    "observingTime_SEC": 0
+                }
+            },
+            {
+                "name": "John",
+                "stats": {
+                    "drivingTime_SEC": 0,
+                    "navigatingTime_SEC": 0,
+                    "observingTime_SEC": 0
+                }
+            }
+        ],
+        "timerConfig": {
+            "roundTime_SEC": 600,
+            "breakAfterRounds": 10,
+            "breakTime_SEC": 300
+        }
+    },
+    {
+        "name": "Mobile Dev",
+        "members": [
+            {
+                "name": "Joe",
+                "stats": {
+                    "drivingTime_SEC": 0,
+                    "navigatingTime_SEC": 0,
+                    "observingTime_SEC": 0
+                }
+            },
+            {
+                "name": "Chris",
+                "stats": {
+                    "drivingTime_SEC": 0,
+                    "navigatingTime_SEC": 0,
+                    "observingTime_SEC": 0
+                }
+            },
+            {
+                "name": "Alex",
+                "stats": {
+                    "drivingTime_SEC": 0,
+                    "navigatingTime_SEC": 0,
+                    "observingTime_SEC": 0
+                }
+            }
+        ],
+        "timerConfig": {
+            "roundTime_SEC": 600,
+            "breakAfterRounds": 10,
+            "breakTime_SEC": 300
+        }
+    }
+]
