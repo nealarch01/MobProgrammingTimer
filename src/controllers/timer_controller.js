@@ -93,6 +93,7 @@ class TimerController {
         } else {
             this.setRoundsLeft(postponeBy);
         }
+        console.log("Rounds until next break: " + this.#roundsLeft);
     }
 
     redirectToBreakPage() {

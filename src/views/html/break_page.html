@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +10,7 @@
     <link rel="stylesheet" href="../css/timer.css">
     <link rel="stylesheet" href="../css/break_page.css">
 </head>
+
 <body>
     <div class="timer-container top-view">
         <div class="timer-circle">
@@ -24,13 +26,12 @@
 
     <div class="ctrl-btns-container row">
         <h4>After</h4>
-        <button class="ctrl-panel-btn" id="start-stop-btn">-</button>
         <div class="break-turns-container">
-            <div class="break-turns" id="break-number">
-                10
-            </div>
-        <a href=""><button class="ctrl-panel-btn" id="options-btn">+</button></a>
-    </div>
-    <script src="../js/break_page.js"></script>
+            <button class="step-btn" id="decrement-btn">-</button>
+            <input type="text" id="next-break-input" value="5">
+            <button class="step-btn" id="increment-btn">+</button>
+        </div>
+        <script src="../js/break_page.js"></script>
 </body>
+
 </html>

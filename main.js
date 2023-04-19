@@ -20,8 +20,8 @@ function initializeTimer(MainWindow, TimerWidgetWindow) {
         if (!timerController.isActive()) { return; }
         timerController.stopTimer();
     });
-    ipcMain.handle("stopBreak", ({ postponeBy }) => {
-        timerController.stopBreak(postponeBy);
+    ipcMain.handle("stopBreak", (event, params) => {
+        timerController.stopBreak(params.postponeBy);
     });
     ipcMain.handle("isActive", async () => {
         return timerController.isActive();
