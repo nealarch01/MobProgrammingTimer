@@ -14,3 +14,9 @@ contextBridge.exposeInMainWorld("TimerControllerBridge", {
     isActive: () => ipcRenderer.invoke("isActive"),
     renderTimerText: () => ipcRenderer.invoke("renderTimerText"),
 });
+
+contextBridge.exposeInMainWorld("TeamControllerBridge", {
+    saveTeamConfigs: (params) => ipcRenderer.invoke("saveTeamConfigs", params),
+    confirmSave: async () => ipcRenderer.invoke("confirmSave"),
+    addTeam: async (teamName) => ipcRenderer.invoke("addTeam", teamName),
+});
