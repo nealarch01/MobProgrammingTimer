@@ -7,18 +7,8 @@ const path = require("path");
 function writeToFile(data) {
     let filepath = path.join(__dirname, "../../configs/mock_teams.json");
     console.log("Writing to file");
-    let teamDataExcludingStats = data.map(team => {
-        return {
-            name: team.name,
-            members: team.members.map(member => {
-                return {
-                    name: member.name
-                }
-            })
-        }
-    });
     // Replace teamDataExcludingStats with data to include stats
-    fs.writeFile(filepath, JSON.stringify(teamDataExcludingStats, null, 4), "utf8", (err) => {
+    fs.writeFile(filepath, JSON.stringify(data, null, 4), "utf8", (err) => {
         console.log(err ?? "Successfully write to file");
     });
 }
