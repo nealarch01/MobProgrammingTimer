@@ -76,7 +76,7 @@ rndBeforeBreakInput.addEventListener("change", (event) => {
 
 saveBtn.addEventListener("click", async function() {
     const params = {
-        tempName,
+        tempName,                                   //TODO: THIS NEEDS TO BE SET TO THE CURRENTLY SELECTED TEAM
         mobTime_MIN,
         breakTime_MIN,
         RBBTime_MIN
@@ -89,3 +89,7 @@ saveBtn.addEventListener("click", async function() {
 newTeamBtn.addEventListener("click", async function() {
     await TeamControllerBridge.addTeam(tempName);
 });
+
+removeTeamBtn.addEventListener("click", async function() {
+    await TeamControllerBridge.removeTeam(tempName); //TODO: REMOVE CURRENTLY SELECTED TEAM
+})

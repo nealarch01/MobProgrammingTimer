@@ -55,6 +55,12 @@ class TeamController {
         this.currentTeamIndex = this.allTeams.length - 1;
         writeFile(this.allTeams);
     }
+    removeTeam(teamName) { //remove team by name, not index
+        let index = this.allTeams.indexOf(teamName);
+        this.allTeams.splice(index, 1);
+        this.writeFile(this.allTeams);
+        console.log(this.allTeams);
+    }
 }
 
 module.exports = {
