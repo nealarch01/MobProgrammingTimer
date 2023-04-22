@@ -3,6 +3,12 @@ const toggleTimerBtn = document.getElementById("start-stop-btn");
 const optionsBtn = document.getElementById("options-btn");
 const statsBtn = document.getElementById("stats-btn");
 
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Tab") {
+        event.preventDefault();
+    }
+});
+
 TimerControllerBridge.renderTimerText();
 
 TimerControllerBridge.isActive()

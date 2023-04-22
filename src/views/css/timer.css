@@ -1,21 +1,67 @@
-.timer-circle {
-    width: 300px;
-    height: 300px;
-    border: 0.5em solid black;
+.timer-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
 }
 
-.widget {
-    width: 75px !important;
-    height: 75px !important;
-    border: 0.1em solid black !important;
+.timer-container.widget {
+    width: 75px;
+    height: 75px;
 }
 
-.widget > h2 {
-    font-size: 0.9em;
+.timer-svg {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(-90deg);
+	scale: -1 1 1;
+}
+
+#timer-circle {
+    cx: 150px; /* timer-svg.width / 2 */
+    cy: 150px; /* Valid in SVG2 */
+    stroke: black;
+    stroke-width: 4px;
+    fill: none;
+    /* r = x - stroke_width */
+    r: 146px;
+    /* stroke_dasharray = (r * 2pi) + stroke_width  */
+    stroke-dasharray: 917px;
+}
+
+.timer-svg.widget {
+    width: 75px;
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(-90deg);
+    scale: -1 1 1;
+}
+
+#timer-circle.widget {
+    cx: 37.5px;
+    cy: 37.5px;
+    stroke: black;
+    stroke-width: 2px;  
+    /* r = x - stroke_width */
+    r: 31px;
+    /* stroke_dasharray = (r * 2pi) + stroke_width  */
+    stroke-dasharray: 197px;
+}
+
+#timer-text {
+    z-index: 1;
+    position: absolute;
+}
+
+#timer-text.widget {
+    font-size: 0.75em;
+    color: black;
+    margin: 0px;
+    padding: 0px;
 }
 
 .widget-pos-btn {
@@ -35,10 +81,6 @@
     justify-content: space-around;
 }
 
-.skip-btn {
-    margin-left: 6px;
-}
-
 .arrow-right {
     width: 0; 
     height: 0; 
@@ -48,7 +90,4 @@
     cursor: pointer;
 }
 
-.timer-container {
-    justify-content: center;
-    align-items: center;
-}
+
