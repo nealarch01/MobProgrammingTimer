@@ -49,6 +49,7 @@ class TimerController {
             }
             this.#timeRemaining--;
             this.renderTimerText();
+            this.renderCircleTimer(this.#timerConfig.roundTime_SEC);
         }, 1000);
     }
 
@@ -80,6 +81,7 @@ class TimerController {
             }
             this.#timeRemaining--;
             this.renderTimerText();
+            // this.renderCircleTimer(this.#timerConfig.breakTime_SEC);
         }, 1000);
     }
 
@@ -115,11 +117,26 @@ class TimerController {
 
 	renderTimerText() {
         const updateTimerTextJS = () => {
-            return `document.getElementById("timer-text").innerText = "${this.timeRemainingMMSS()}";`;
+            return `
+                timerText.innerText = "${this.timeRemainingMMSS()}";
+            `;
+            // return `document.getElementById("timer-text").innerText = "${this.timeRemainingMMSS()}";`;
         }
-		this.#MainWindow.webContents.executeJavaScript(updateTimerTextJS());
-		this.#TimerWidgetWindow.webContents.executeJavaScript(updateTimerTextJS());
+        this.#MainWindow.webContents.executeJavaScript(updateTimerTextJS());
+        this.#TimerWidgetWindow.webContents.executeJavaScript(updateTimerTextJS());
 	}
+
+    renderCircleTimer(totalTime) { // In case the total time is a break
+        const js = `
+            percentageComplete = ${this.#timeRemaining / totalTime};
+            console.log(percentageComplete)
+            offset = maxStrokeDash - (percentageComplete * maxStrokeDash);
+            console.log(offset);
+            circleTimer.style.strokeDashoffset = offset;
+        `
+        this.#MainWindow.webContents.executeJavaScript(js);
+        this.#TimerWidgetWindow.webContents.executeJavaScript(js);
+    }
 
     setTimeRemainingToRoundTime() {
         this.#timeRemaining = this.#timerConfig.roundTime_SEC;

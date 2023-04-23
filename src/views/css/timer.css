@@ -29,6 +29,7 @@
     r: 146px;
     /* stroke_dasharray = (r * 2pi) + stroke_width  */
     stroke-dasharray: 917px;
+    transition: 0.35s ease-out;
 }
 
 .timer-svg.widget {
