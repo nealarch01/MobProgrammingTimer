@@ -1,12 +1,14 @@
 const { BrowserWindow } = require("electron");
 
 const { Timer } = require("../models/timer_model.js");
+const { Person } = require("../models/person_model.js");
 
 const path = require("path");
 
 class TimerController {
     #timerConfig;
     #timeRemaining;
+    #totalTime;
     #roundsLeft;
     #timerInterval;
 
@@ -26,11 +28,12 @@ class TimerController {
         }
         this.#timerConfig = timerConfig;
 		this.#timeRemaining = timerConfig.roundTime_SEC;
+        this.#totalTime = timerConfig.roundTime_SEC;
         this.#roundsLeft = timerConfig.roundsUntilNextBreak;
         this.#timerInterval = null;
 
-        this.#activeQueue = [];
-        this.#inactiveQueue = [];
+        this.#activeQueue = [new Person("Neal"), new Person("Irvin"), new Person("Jesse"), new Person("Prof F")];
+        this.#inactiveQueue = [new Person("John")];
 
         this.#MainWindow = MainWindow;
         this.#TimerWidgetWindow = TimerWidgetWindow;
@@ -49,7 +52,7 @@ class TimerController {
             }
             this.#timeRemaining--;
             this.renderTimerText();
-            this.renderCircleTimer(this.#timerConfig.roundTime_SEC);
+            this.renderCircleTimer();
         }, 1000);
     }
 
@@ -100,23 +103,27 @@ class TimerController {
         return this.#timerInterval !== null;
     }
 
+    getAllMembers() {
+        return {
+            active: this.#activeQueue,
+            inactive: this.#inactiveQueue
+        }
+    }
+
 	renderTimerText() {
         const updateTimerTextJS = () => {
             return `
                 timerText.innerText = "${this.timeRemainingMMSS()}";
             `;
-            // return `document.getElementById("timer-text").innerText = "${this.timeRemainingMMSS()}";`;
         }
         this.#MainWindow.webContents.executeJavaScript(updateTimerTextJS());
         this.#TimerWidgetWindow.webContents.executeJavaScript(updateTimerTextJS());
 	}
 
-    renderCircleTimer(totalTime) { // In case the total time is a break
+    renderCircleTimer() { // In case the total time is a break
         const js = `
-            percentageComplete = ${this.#timeRemaining / totalTime};
-            console.log(percentageComplete)
+            percentageComplete = ${this.#timeRemaining / this.#totalTime};
             offset = maxStrokeDash - (percentageComplete * maxStrokeDash);
-            console.log(offset);
             circleTimer.style.strokeDashoffset = offset;
         `
         this.#MainWindow.webContents.executeJavaScript(js);
@@ -125,10 +132,12 @@ class TimerController {
 
     setTimeRemainingToRoundTime() {
         this.#timeRemaining = this.#timerConfig.roundTime_SEC;
+        this.#totalTime = this.#timerConfig.roundTime_SEC;
     }
 
     setTimeRemainingToBreakTime() {
         this.#timeRemaining = this.#timerConfig.breakTime_SEC;
+        this.#totalTime = this.#timerConfig.breakTime_SEC;
     }
 
     resetRoundsLeft() {

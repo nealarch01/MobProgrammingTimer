@@ -9,14 +9,14 @@ let postponeBy = 1;
 nextBreakInput.value = postponeBy;
 
 function activate() {
-    skipBreakBtn.disabled = false;
+    skipBreakBtn.disabled = true;
     toggleTimerBtn.innerText = "Stop";
     const minimizeMainWindow = false;
-    TimerControllerBridge.startTimer(false);
+    TimerControllerBridge.startTimer(minimizeMainWindow);
 }
 
 function deactivate() {
-    skipBreakBtn.disabled = true;
+    skipBreakBtn.disabled = false;
     toggleTimerBtn.innerText = "Start";
     TimerControllerBridge.stopTimer();
 }
