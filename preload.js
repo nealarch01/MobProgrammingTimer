@@ -13,10 +13,12 @@ contextBridge.exposeInMainWorld("TimerControllerBridge", {
     skipBreak: (postponeBy) => ipcRenderer.invoke("skipBreak", { postponeBy }),
     isActive: () => ipcRenderer.invoke("isActive"),
     renderTimerText: () => ipcRenderer.invoke("renderTimerText"),
+    getAllMembers: () => ipcRenderer.invoke("getAllMembers"),
 });
 
 contextBridge.exposeInMainWorld("TeamControllerBridge", {
     saveTeamConfigs: (params) => ipcRenderer.invoke("saveTeamConfigs", params),
     confirmSave: async () => ipcRenderer.invoke("confirmSave"),
     addTeam: async (teamName) => ipcRenderer.invoke("addTeam", teamName),
+    getAllTeams: async () => ipcRenderer.invoke("getAllTeams"),
 });

@@ -1,10 +1,12 @@
+const teamSelector = document.getElementById("team-selector");
+
 const newTeamBtn = document.getElementById("new-team-btn");
 const removeTeamBtn = document.getElementById("remove-team-btn");
 const editTeamBtn = document.getElementById("edit-team-btn");
 
-const mobTimeDec = document.getElementById("mob-time-decrementer");
-const mobTimeInput = document.getElementById("mob-time-input");
-const mobTimeInc = document.getElementById("mob-time-incrementer");
+const roundTimeDec = document.getElementById("mob-time-decrementer");
+const roundTimeInput = document.getElementById("mob-time-input");
+const roundTimeInc = document.getElementById("mob-time-incrementer");
 
 const breakTimeDec = document.getElementById("break-time-decrementer");
 const breakTimeInput = document.getElementById("break-time-input");
@@ -17,33 +19,87 @@ const rndBeforeBreakInc = document.getElementById("rounds-before-break-increment
 const exitBtn = document.getElementById("exit-btn");
 const saveBtn = document.getElementById("save-btn");
 
+let allTeams = [];
+let currentTeamIndex = -1;
+
+function convertMinutesToSeconds(minutes) {
+    return minutes * 60;
+}
+
+function convertSecondsToMinutes(seconds) {
+    return seconds / 60;
+}
+
+function setInputValues() {
+    if (currentTeamIndex === -1) {
+        roundTimeInput.value = 600;
+        breakTimeInput.value = 300;
+        rndBeforeBreakInput.value = 5;
+    } else {
+        const timerConfig = allTeams[currentTeamIndex].timerConfig;
+        roundTimeInput.value = convertSecondsToMinutes(timerConfig.roundTime_SEC);
+        breakTimeInput.value = convertSecondsToMinutes(timerConfig.breakTime_SEC);
+        rndBeforeBreakInput.value = timerConfig.roundsUntilNextBreak;
+    }
+}
+
+teamSelector.addEventListener("change", (event) => {
+    currentTeamIndex = parseInt(event.target.value);
+    setInputValues();
+});
+
+function resetTeamSelector() {
+    teamSelector.innerHTML = "";
+    const NoneOption = document.createElement("option");
+    NoneOption.value = "-1";
+    NoneOption.innerHTML = "None";
+    teamSelector.add(NoneOption);
+}
+
+async function setAllTeams() {
+    resetTeamSelector(); 
+    allTeams = await TeamControllerBridge.getAllTeams();
+    allTeams.forEach((team, index) => {
+        let option = document.createElement("option");
+        option.value = index;
+        option.text = team.name;
+        teamSelector.add(option);
+    });
+}
+
+setAllTeams();
+
+
+
+
+
 let tempName = "";
 
-let mobTime_MIN = 0;
+let roundTime_MIN = 0;
 
 let breakTime_MIN = 0;
 
-let RBBTime_MIN = 1;
+let roundsUntilBreak = 1;
 
-mobTimeInput.value = mobTime_MIN;
+roundTimeInput.value = roundTime_MIN;
 
 breakTimeInput.value = breakTime_MIN;
 
-rndBeforeBreakInput.value = RBBTime_MIN;
+rndBeforeBreakInput.value = roundsUntilBreak;
 
-mobTimeDec.addEventListener("click", function() {
-    mobTime_MIN -= 1;
-    mobTimeInput.value = mobTime_MIN;
+roundTimeDec.addEventListener("click", function() {
+    roundTime_MIN -= 1;
+    roundTimeInput.value = roundTime_MIN;
 });
 
-mobTimeInc.addEventListener("click", function() {
-    mobTime_MIN += 1;
-    mobTimeInput.value = mobTime_MIN;
+roundTimeInc.addEventListener("click", function() {
+    roundTime_MIN += 1;
+    roundTimeInput.value = roundTime_MIN;
     
 });
 
-mobTimeInput.addEventListener("change", (event) => {
-    mobTime_MIN = parseInt(event.target.value)
+roundTimeInput.addEventListener("change", (event) => {
+    roundTime_MIN = parseInt(event.target.value)
 })
 
 breakTimeInc.addEventListener("click", function() {
@@ -61,26 +117,20 @@ breakTimeInput.addEventListener("change", (event) => {
 })
 
 rndBeforeBreakDec.addEventListener("click", function() {
-    RBBTime_MIN -= 1;
-    rndBeforeBreakInput.value = RBBTime_MIN;
+    roundsUntilBreak -= 1;
+    rndBeforeBreakInput.value = roundsUntilBreak;
 });
 
 rndBeforeBreakInc.addEventListener("click", function() {
-    RBBTime_MIN += 1;
-    rndBeforeBreakInput.value = RBBTime_MIN;
+    roundsUntilBreak += 1;
+    rndBeforeBreakInput.value = roundsUntilBreak;
 });
 
 rndBeforeBreakInput.addEventListener("change", (event) => {
-    RBBTime_MIN = parseInt(event.target.value)
+    roundsUntilBreak = parseInt(event.target.value)
 })
 
 saveBtn.addEventListener("click", async function() {
-    const params = {
-        tempName,
-        mobTime_MIN,
-        breakTime_MIN,
-        RBBTime_MIN
-    }
     let saveInput = await TeamControllerBridge.confirmSave();
     if (saveInput === 0)
         TeamControllerBridge.saveTeamConfigs(params);

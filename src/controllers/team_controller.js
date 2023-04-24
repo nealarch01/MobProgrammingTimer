@@ -18,28 +18,23 @@ class TeamController {
 
         this.currentTeamIndex = 0; //TODO: EQUAL TO LOADED IN TEAM
 
-        this.allTeams = [new Team(this.teamName, this.teamMembers)];
+        this.allTeams = [];
     }
 
     async initTeams() {
-
         storage.setDataPath(this.filepath);
-
         let res = storage.getSync('mock_teams'); //TODO: change to team configs
-
         if (res == undefined) {
             this.activeQueue = [];
             this.inactiveQueue = [];
-        }
-        else {
+        } else {
             let keys = Object.keys(res);
             this.activeQueue = res[keys[0]];
             this.inactiveQueue = [];
-
             this.allTeams = res;
         }
-
     }
+
     writeFile(data) {
         console.log("SAVE CLICKED");
         let filepath = path.join(__dirname, "../../configs/placeholder.json"); //TODO: MOVE TO mock_teams*********
@@ -47,13 +42,19 @@ class TeamController {
             console.log(err ?? "Successfully write to file");
         });
     }
+
     saveTimerConfigs(data) {
         this.writeFile(data);
     }
+
     addTeam(teamName, members = []) {
         this.allTeams.push(new Team(teamName, members));
         this.currentTeamIndex = this.allTeams.length - 1;
         writeFile(this.allTeams);
+    }
+
+    getAllTeams() {
+        return this.allTeams;
     }
 }
 

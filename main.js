@@ -52,6 +52,9 @@ function initializeTimer(MainWindow, TimerWidgetWindow) {
     ipcMain.handle("renderTimerText", () => {
         timerController.renderTimerText();
     });
+    ipcMain.handle("getAllMembers", async () => {
+        return timerController.getAllMembers();
+    });
 }
 
 function initializeTimerWidget(TimerWidgetWindow) {
@@ -95,27 +98,30 @@ function initializeTeamConfig(teamController) {
     ipcMain.handle("addTeam", async () => {
         try {
             const result = await promptAsync({
-              title: 'Prompt example',
-              label: 'Team Name: ',
-              value: 'temp',
-              inputAttrs: {
-                type: 'text'
-              },
-              type: 'input'
+                title: 'Prompt example',
+                label: 'Team Name: ',
+                value: 'temp',
+                inputAttrs: {
+                    type: 'text'
+                },
+                type: 'input'
             })
-        
+
             if (result === null) {
-              console.log('User cancelled')
-              return null
+                console.log('User cancelled')
+                return null
             } else {
-              console.log('Result:', result)
-              return result
+                console.log('Result:', result)
+                return result
             }
-          } catch (err) {
+        } catch (err) {
             console.error('Error:', err)
             return null
-          }
-        });
+        }
+    });
+    ipcMain.handle("getAllTeams", async () => {
+        return teamController.getAllTeams();
+    });
 
 }
 

@@ -1,6 +1,6 @@
 {
     "tempName": "",
-    "mobTime_MIN": 0,
-    "breakTime_MIN": 0,
-    "RBBTime_MIN": 1
+    "mobTime_MIN": 100,
+    "breakTime_MIN": 200,
+    "RBBTime_MIN": 300
 }

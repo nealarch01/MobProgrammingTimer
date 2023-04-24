@@ -29,7 +29,7 @@
         ],
         "timerConfig": {
             "roundTime_SEC": 600,
-            "breakAfterRounds": 10,
+            "roundsUntilNextBreak": 2,
             "breakTime_SEC": 300
         }
     },
@@ -63,7 +63,7 @@
         ],
         "timerConfig": {
             "roundTime_SEC": 600,
-            "breakAfterRounds": 10,
+            "roundsUntilNextBreak": 2,
             "breakTime_SEC": 300
         }
     }
