@@ -1,13 +1,6 @@
-const timerText = document.getElementById("timer-text");
 const toggleTimerBtn = document.getElementById("start-stop-btn");
 const optionsBtn = document.getElementById("options-btn");
 const statsBtn = document.getElementById("stats-btn");
-
-const circleTimer = document.getElementById("timer-circle");
-const circleTimerProperties = window.getComputedStyle(circleTimer);
-const maxStrokeDash = parseInt(circleTimerProperties.getPropertyValue("stroke-dasharray"));
-var percentageComplete;
-var offset;
 
 document.addEventListener("keydown", (event) => {
     if (event.key === "Tab") {
@@ -46,7 +39,8 @@ function toggleStartStopBtnText() {
 
 function activate() {
     disableButtons();
-    TimerControllerBridge.startTimer();
+    const shouldMinimizeMainWindow = true;
+    TimerControllerBridge.startTimer(shouldMinimizeMainWindow);
 }
 
 function deactivate() {

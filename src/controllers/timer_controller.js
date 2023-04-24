@@ -63,39 +63,24 @@ class TimerController {
             this.#MainWindow.restore();
         }
         this.#roundsLeft--;
-        if (this.#roundsLeft <= 0) {
-            this.startBreak();
-        } else {
-            this.setTimeRemainingToRoundTime();
-            this.redirectToNextRolePage();
-        }
-    }
-
-    startBreak() {
-        this.setTimeRemainingToBreakTime();
-        this.redirectToBreakPage();
-        this.#timerInterval = setInterval(() => {
-            if (this.#timeRemaining <= 0) {
-                this.stopBreak();
-                return;
-            }
-            this.#timeRemaining--;
-            this.renderTimerText();
-            // this.renderCircleTimer(this.#timerConfig.breakTime_SEC);
-        }, 1000);
-    }
-
-    stopBreak(postponeBy = undefined) {
-        clearInterval(this.#timerInterval);
-        this.#timerInterval = null;
+        if (this.#roundsLeft === 0) {
+            this.setTimeRemainingToBreakTime();
+            this.redirectToBreakPage();
+            return;
+        }  
+        this.resetRoundsLeft();
         this.setTimeRemainingToRoundTime();
         this.redirectToNextRolePage();
+    }
+
+    skipBreak(postponeBy = undefined) {
         if (postponeBy === undefined) {
             this.resetRoundsLeft();
         } else {
             this.setRoundsLeft(postponeBy);
         }
-        console.log("Rounds until next break: " + this.#roundsLeft);
+        this.setTimeRemainingToRoundTime();
+        this.redirectToNextRolePage();
     }
 
     redirectToBreakPage() {

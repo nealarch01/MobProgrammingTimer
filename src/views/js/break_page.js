@@ -1,37 +1,58 @@
-const timerText = document.getElementById("timer-text");
-const endBreakBtn = document.getElementById("end-break-btn");
-const pushBreakBtn = document.getElementById("push-break-btn");
+const toggleTimerBtn = document.getElementById("toggle-timer-btn");
+const skipBreakBtn = document.getElementById("skip-break-btn");
 
-const decrementButton = document.getElementById("decrement-btn");
+const decrementBtn = document.getElementById("decrement-btn");
 const nextBreakInput = document.getElementById("next-break-input");
-const incrementButton = document.getElementById("increment-btn");
+const incrementBtn = document.getElementById("increment-btn");
 
 let postponeBy = 1;
 nextBreakInput.value = postponeBy;
 
-TimerControllerBridge.renderTimerText();
+function activate() {
+    skipBreakBtn.disabled = false;
+    toggleTimerBtn.innerText = "Stop";
+    const minimizeMainWindow = false;
+    TimerControllerBridge.startTimer(false);
+}
 
-endBreakBtn.addEventListener("click", () => {
-    TimerControllerBridge.stopBreak();
+function deactivate() {
+    skipBreakBtn.disabled = true;
+    toggleTimerBtn.innerText = "Start";
+    TimerControllerBridge.stopTimer();
+}
+
+toggleTimerBtn.addEventListener("click", async () => {
+    const isActive = await TimerControllerBridge.isActive();
+    if (!isActive) {
+        activate();
+    } else {
+        deactivate();
+    }
 });
 
-pushBreakBtn.addEventListener("click", () => {
-    TimerControllerBridge.stopBreak(postponeBy);
+skipBreakBtn.addEventListener("click", () => {
+    TimerControllerBridge.skipBreak(postponeBy);
 });
 
-incrementButton.addEventListener("click", () => {
+incrementBtn.addEventListener("click", () => {
     postponeBy++;
     nextBreakInput.value = postponeBy;
 });
 
-decrementButton.addEventListener("click", () => {
+decrementBtn.addEventListener("click", () => {
     postponeBy--;
+    if (postponeBy < 1) {
+        postponeBy = 1;
+    }
     nextBreakInput.value = postponeBy;
 });
 
 nextBreakInput.addEventListener("change", () => {
     const value = parseInt(nextBreakInput.value);
     if (isNaN(value)) {
+        nextBreakInput.value = postponeBy;
+        return;
+    } else if (value < 1) {
         nextBreakInput.value = postponeBy;
         return;
     }

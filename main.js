@@ -29,19 +29,22 @@ const isDev = true;
 
 function initializeTimer(MainWindow, TimerWidgetWindow) {
     const timerController = new TimerController(undefined, MainWindow, TimerWidgetWindow); // TODO: pass in a team timer config
-    ipcMain.handle("startTimer", () => {
+    ipcMain.handle("startTimer", (event, params) => {
+        const { minimize } = params;
         if (timerController.isActive()) {
             return;
         }
         timerController.startTimer();
-        MainWindow.minimize();
+        if (minimize === true) {
+            MainWindow.minimize();
+        }
     });
     ipcMain.handle("stopTimer", () => {
         if (!timerController.isActive()) { return; }
         timerController.stopTimer();
     });
-    ipcMain.handle("stopBreak", (event, params) => {
-        timerController.stopBreak(params.postponeBy);
+    ipcMain.handle("skipBreak", (event, params) => {
+        timerController.skipBreak(params.postponeBy);
     });
     ipcMain.handle("isActive", async () => {
         return timerController.isActive();

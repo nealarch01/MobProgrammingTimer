@@ -12,25 +12,30 @@
 </head>
 
 <body>
+    <h2>Break Time!</h2>
     <div class="timer-container">
         <h2 id="timer-text"></h2>            
         <svg class="timer-svg">
             <circle id="timer-circle"></circle>
         </svg>
     </div>
-    <div class="ctrl-btns-container col">
-        <button class="ctrl-panel-btn" id="end-break-btn">End Break</button>
-        <button class="ctrl-panel-btn" id="push-break-btn">Push Break</button>
+    <div class="col">
+        <button class="ctrl-panel-btn" id="toggle-timer-btn">Start Break</button>
     </div>
 
-    <div class="ctrl-btns-container row">
-        <h4>After</h4>
-        <div class="break-turns-container">
+    <div class="divider"></div>
+    <div class="postpone-container col">
+        <div class="row" style="margin-top: 15px;">
+            <h4 style="margin: 0px; margin-top: 10px; margin-right: 10px;">Rounds Until Next Break:</h4>
             <button class="step-btn" id="decrement-btn">-</button>
-            <input type="text" id="next-break-input" value="5">
+            <input type="text" id="next-break-input" min="1" value="5">
             <button class="step-btn" id="increment-btn">+</button>
         </div>
-        <script src="../js/break_page.js"></script>
+        <button class="ctrl-panel-btn" id="skip-break-btn">Postpone Break</button>
+    </div>
+
+    <script src="../js/timer.js"></script>
+    <script src="../js/break_page.js"></script>
 </body>
 
 </html>

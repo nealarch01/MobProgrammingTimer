@@ -7,6 +7,7 @@ skipBtn.addEventListener("click", () => {
 
 startBtn.addEventListener("click", () => {
     window.location.href = "./control_panel.html";
-    TimerControllerBridge.startTimer();
+    const minimizeMainWindow = true;
+    TimerControllerBridge.startTimer(minimizeMainWindow);
 });
 
