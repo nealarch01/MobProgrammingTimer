@@ -12,9 +12,9 @@ const breakTimeDec = document.getElementById("break-time-decrementer");
 const breakTimeInput = document.getElementById("break-time-input");
 const breakTimeInc = document.getElementById("break-time-incrementer");
 
-const rndBeforeBreakDec = document.getElementById("rounds-before-break-decrementer");
-const rndBeforeBreakInput = document.getElementById("rounds-before-break-input");
-const rndBeforeBreakInc = document.getElementById("rounds-before-break-incrementer");
+const rndsUntilNextBreakDec = document.getElementById("rounds-before-break-decrementer");
+const rndsUntilNextBreakInput = document.getElementById("rounds-before-break-input");
+const rndsUntilNextBreakInc = document.getElementById("rounds-before-break-incrementer");
 
 const exitBtn = document.getElementById("exit-btn");
 const saveBtn = document.getElementById("save-btn");
@@ -34,12 +34,12 @@ function setInputValues() {
     if (currentTeamIndex === -1) {
         roundTimeInput.value = 600;
         breakTimeInput.value = 300;
-        rndBeforeBreakInput.value = 5;
+        rndsUntilNextBreakInput.value = 5;
     } else {
         const timerConfig = allTeams[currentTeamIndex].timerConfig;
         roundTimeInput.value = convertSecondsToMinutes(timerConfig.roundTime_SEC);
         breakTimeInput.value = convertSecondsToMinutes(timerConfig.breakTime_SEC);
-        rndBeforeBreakInput.value = timerConfig.roundsUntilNextBreak;
+        rndsUntilNextBreakInput.value = timerConfig.roundsUntilNextBreak;
     }
 }
 
@@ -69,23 +69,22 @@ async function setAllTeams() {
 
 setAllTeams();
 
-
-
-
-
 let tempName = "";
 
 let roundTime_MIN = 0;
 
 let breakTime_MIN = 0;
 
-let roundsUntilBreak = 1;
+let roundsUntilNextBreak = 1;
 
 roundTimeInput.value = roundTime_MIN;
 
 breakTimeInput.value = breakTime_MIN;
 
-rndBeforeBreakInput.value = roundsUntilBreak;
+rndsUntilNextBreakInput.value = roundsUntilNextBreak;
+
+
+// EVENT LISTENERS
 
 roundTimeDec.addEventListener("click", function() {
     roundTime_MIN -= 1;
@@ -116,18 +115,18 @@ breakTimeInput.addEventListener("change", (event) => {
     breakTime_MIN = parseInt(event.target.value)
 })
 
-rndBeforeBreakDec.addEventListener("click", function() {
-    roundsUntilBreak -= 1;
-    rndBeforeBreakInput.value = roundsUntilBreak;
+rndsUntilNextBreakDec.addEventListener("click", function() {
+    roundsUntilNextBreak -= 1;
+    rndsUntilNextBreakInput.value = roundsUntilNextBreak;
 });
 
-rndBeforeBreakInc.addEventListener("click", function() {
-    roundsUntilBreak += 1;
-    rndBeforeBreakInput.value = roundsUntilBreak;
+rndsUntilNextBreakInc.addEventListener("click", function() {
+    roundsUntilNextBreak += 1;
+    rndsUntilNextBreakInput.value = roundsUntilNextBreak;
 });
 
-rndBeforeBreakInput.addEventListener("change", (event) => {
-    roundsUntilBreak = parseInt(event.target.value)
+rndsUntilNextBreakInput.addEventListener("change", (event) => {
+    roundsUntilNextBreak = parseInt(event.target.value)
 })
 
 saveBtn.addEventListener("click", async function() {
