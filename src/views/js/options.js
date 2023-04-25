@@ -172,8 +172,14 @@ rndsUntilNextBreakInput.addEventListener("change", (event) => {
 
 saveBtn.addEventListener("click", async function() {
     let saveInput = await TeamControllerBridge.confirmSave();
-    if (saveInput === 0)
-        TeamControllerBridge.saveTeamConfigs(params);
+    if (saveInput === true) {
+        TeamControllerBridge.saveTeamConfigs({
+            roundTime_SEC: convertMinutesToSeconds(roundTime_MIN),
+            breakTime_SEC: convertMinutesToSeconds(breakTime_MIN),
+            roundsUntilNextBreak: roundsUntilNextBreak,
+            selectedTeam: currentTeamIndex
+        });
+    }
 });
 
 newTeamBtn.addEventListener("click", async function() {

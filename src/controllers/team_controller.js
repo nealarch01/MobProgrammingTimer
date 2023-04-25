@@ -28,23 +28,22 @@ class TeamController {
             this.activeQueue = [];
             this.inactiveQueue = [];
         } else {
-            let keys = Object.keys(res);
-            this.activeQueue = res[keys[0]];
+            this.activeQueue = [];
             this.inactiveQueue = [];
             this.allTeams = res;
         }
     }
 
-    writeFile(data) {
-        console.log("SAVE CLICKED");
+    writeFile() {
         let filepath = path.join(__dirname, "../../configs/placeholder.json"); //TODO: MOVE TO mock_teams*********
-        fs.writeFile(filepath, JSON.stringify(data, null, 4), "utf8", (err) => {
+        fs.writeFile(filepath, JSON.stringify(this.allTeams, null, 4), "utf8", (err) => {
             console.log(err ?? "Successfully write to file");
         });
     }
 
-    saveTimerConfigs(data) {
-        this.writeFile(data);
+    saveTimerConfigs(timerConfigData) {
+        this.allTeams[this.currentTeamIndex].timerConfigs = timerConfigData;
+        this.writeFile();
     }
 
     addTeam(teamName, members = []) {
@@ -55,6 +54,16 @@ class TeamController {
 
     getAllTeams() {
         return this.allTeams;
+    }
+
+    getCurrentTeam() {
+        if (this.allTeams.length == 0) {
+            return null;
+        }
+        return {
+            team: this.allTeams[this.currentTeamIndex],
+            index: this.currentTeamIndex
+        }
     }
 }
 

@@ -1,33 +1,20 @@
-const { app, BrowserWindow, screen, remote, dialog } = require('electron');
+const { app, BrowserWindow, screen, remote, dialog } = require("electron");
 const { ipcMain } = require("electron");
 const { createWindows, createMainWindow, createWidgetWindow, initializeWindowEvents } = require("./browser_windows");
 
 const { TimerController } = require("./src/controllers/timer_controller");
-const { TeamController } = require("./src/controllers/team_controller")
+const { TeamController } = require("./src/controllers/team_controller");
 
-const { promisify } = require('util')
-const prompt = require('electron-prompt')
+const { Timer } = require("./src/models/timer_model");
+
+const { promisify } = require("util")
+const prompt = require("electron-prompt")
 
 const promptAsync = promisify(prompt)
 
-// prompt({
-//     title: 'example',
-//     label: 'add team?',
-//     type: 'input'
-// }).then((r) => {
-//     if (r === null) {
-//         console.log('cancelled')
-//     }
-//     else {
-//         console.log('result', r);
-//     }
-// })
-//     .catch(console.error);
-
-
 const isDev = true;
 
-function initializeTimer(MainWindow, TimerWidgetWindow) {
+function initializeTimerController(MainWindow, TimerWidgetWindow, teamController) {
     const timerController = new TimerController(undefined, MainWindow, TimerWidgetWindow); // TODO: pass in a team timer config
     ipcMain.handle("startTimer", (event, params) => {
         const { minimize } = params;
@@ -55,6 +42,70 @@ function initializeTimer(MainWindow, TimerWidgetWindow) {
     ipcMain.handle("getAllMembers", async () => {
         return timerController.getAllMembers();
     });
+    return timerController;
+}
+
+function initializeTeamController() {
+    let teamController = new TeamController();
+    teamController.initTeams()
+    ipcMain.handle("saveTeamConfigs", (event, params) => {
+        const { roundTime_SEC, breakTime_SEC, roundsUntilNextBreak, selectedTeam } = params;
+        if (selectedTeam === -1 || selectedTeam === undefined || selectedTeam === null) {
+            return;
+        }
+        const newTimerConfig = new Timer(roundTime_SEC, breakTime_SEC, roundsUntilNextBreak);
+        teamController.saveTimerConfigs(params);
+    });
+    ipcMain.handle("confirmSave", async () => {
+        const options = {
+            type: "question",
+            buttons: ["Yes", "No"],
+            defaultId: 0,
+            title: "Confirm Save",
+            message: "Do you want to save your changes?"
+        }
+        const result = await dialog.showMessageBox(null, options);
+        return result.response === 0 ? true : false;
+    });
+    ipcMain.handle("addTeam", async () => {
+        try {
+            const result = await promptAsync({
+                title: "Create Team",
+                label: "Team Name: ",
+                value: "",
+                inputAttrs: {
+                    type: "text"
+                },
+                type: "input"
+            });
+            return result;
+        } catch (err) {
+            console.error("Error:", err)
+            return null
+        }
+    });
+    ipcMain.handle("renameTeam", async (event, params) => {
+        try {
+            const result = await promptAsync({
+                title: "Rename Team",
+                label: "Team Name: ",
+                value: params.teamName,
+                inputAttrs: {
+                    type: "text"
+                },
+                type: "input"
+            });
+        } catch (err) {
+            return null;
+        }
+    });
+    ipcMain.handle("getAllTeams", async () => {
+        return teamController.getAllTeams();
+    });
+    ipcMain.handle("getCurrentTeam", async () => {
+        return teamController.getCurrentTeam();
+    });
+    return teamController;
 }
 
 function initializeTimerWidget(TimerWidgetWindow) {
@@ -77,71 +128,18 @@ function initializeTimerWidget(TimerWidgetWindow) {
     });
 }
 
-function initializeTeamConfig(teamController) {
-    ipcMain.handle("saveTeamConfigs", (event, params) => {
-        teamController.saveTimerConfigs(params);
-    });
-    ipcMain.handle("confirmSave", async () => {
-        const options = {
-            type: 'question',
-            buttons: ['Yes', 'No'],
-            defaultId: 0,
-            title: 'Confirm Save',
-            message: 'Do you want to save your changes?'
-        }
-
-        const result = await dialog.showMessageBox(null, options);
-        console.log(result.response);
-        return result.response;
-
-    });
-    ipcMain.handle("addTeam", async () => {
-        try {
-            const result = await promptAsync({
-                title: 'Prompt example',
-                label: 'Team Name: ',
-                value: 'temp',
-                inputAttrs: {
-                    type: 'text'
-                },
-                type: 'input'
-            })
-
-            if (result === null) {
-                console.log('User cancelled')
-                return null
-            } else {
-                console.log('Result:', result)
-                return result
-            }
-        } catch (err) {
-            console.error('Error:', err)
-            return null
-        }
-    });
-    ipcMain.handle("getAllTeams", async () => {
-        return teamController.getAllTeams();
-    });
-
-}
-
 app.whenReady().then(() => {
-    let tc = new TeamController();
-    tc.initTeams().then(() => {
-        console.log(tc.activeQueue);
-    })
-    initializeTeamConfig(tc);
     console.log(`Node.js version: ${process.versions.node}`);
     const { MainWindow, TimerWidgetWindow } = createWindows();
     initializeWindowEvents(MainWindow, TimerWidgetWindow, app);
     initializeTimerWidget(TimerWidgetWindow);
-    initializeTimer(MainWindow, TimerWidgetWindow);
-
-
+    const teamController = initializeTeamController();
+    const timerController = initializeTimerController(MainWindow, TimerWidgetWindow, teamController);
 });
 
 app.on("window-all-closed", () => {
-    if (process.platform !== 'darwin') {
+    // TODO: Fix this
+    if (process.platform !== "darwin") {
         app.quit();
     }
 });

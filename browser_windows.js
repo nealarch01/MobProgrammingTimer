@@ -49,6 +49,9 @@ function initializeWindowEvents(MainWindow, TimerWidgetWindow, app) {
     app.on("activate", () => { // MacOS
         MainWindow.restore();
     });
+    MainWindow.on("blur", () => {
+        MainWindow.minimize();
+    })
     MainWindow.on("minimize", () => {
         TimerWidgetWindow.show();
     });
