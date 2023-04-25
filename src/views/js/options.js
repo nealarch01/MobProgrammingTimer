@@ -67,13 +67,25 @@ async function setAllTeams() {
     });
 }
 
+function updateInput(value) {
+    value = parseInt(value);
+    if (isNaN(value)) {
+        return NaN;
+    }
+    if (value < 0) {
+        return NaN;
+    }
+}
+
+
+
 setAllTeams();
 
 let tempName = "";
 
-let roundTime_MIN = 0;
+let roundTime_MIN = 10;
 
-let breakTime_MIN = 0;
+let breakTime_MIN = 5;
 
 let roundsUntilNextBreak = 1;
 
@@ -88,6 +100,9 @@ rndsUntilNextBreakInput.value = roundsUntilNextBreak;
 
 roundTimeDec.addEventListener("click", function() {
     roundTime_MIN -= 1;
+    if (roundTime_MIN < 1) {
+        roundTime_MIN = 1;
+    }
     roundTimeInput.value = roundTime_MIN;
 });
 
@@ -98,8 +113,18 @@ roundTimeInc.addEventListener("click", function() {
 });
 
 roundTimeInput.addEventListener("change", (event) => {
-    roundTime_MIN = parseInt(event.target.value)
-})
+    let value = parseInt(event.target.value);
+    if (isNaN(value)) {
+        roundTimeInput.value = roundTime_MIN;
+        return;
+    }
+    if (value < 1) {
+        roundTimeInput.value = roundTime_MIN;
+        return;
+    }
+    roundTime_MIN = value;
+    roundTimeInput.value = roundTime_MIN;
+});
 
 breakTimeInc.addEventListener("click", function() {
     breakTime_MIN += 1;
@@ -108,15 +133,31 @@ breakTimeInc.addEventListener("click", function() {
 
 breakTimeDec.addEventListener("click", function() {
     breakTime_MIN -= 1;
+    if (breakTime_MIN < 1) {
+        breakTime_MIN = 1;
+    }
     breakTimeInput.value = breakTime_MIN
 });
 
 breakTimeInput.addEventListener("change", (event) => {
+    let value = event.target.value;
+    if (isNaN(value)) {
+        breakTimeInput.value = breakTime_MIN;
+        return;
+    }
+    if (value < 1) {
+        breakTimeInput.value = breakTime_MIN;
+        return;
+    }
     breakTime_MIN = parseInt(event.target.value)
+    breakTimeInput.value = breakTime_MIN;
 })
 
 rndsUntilNextBreakDec.addEventListener("click", function() {
     roundsUntilNextBreak -= 1;
+    if (roundsUntilNextBreak < 0) {
+        roundsUntilNextBreak = 0;
+    }
     rndsUntilNextBreakInput.value = roundsUntilNextBreak;
 });
 
