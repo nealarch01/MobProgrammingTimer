@@ -16,9 +16,10 @@ class TeamController {
         this.teamName = "";
         this.teamMembers = [];
 
-        this.currentTeamIndex = 0; //TODO: EQUAL TO LOADED IN TEAM
+        this.currentTeamIndex = -1;
 
         this.allTeams = [];
+        this.noneTeam = new Team("None", []);
     }
 
     async initTeams() {
@@ -41,8 +42,12 @@ class TeamController {
         });
     }
 
-    saveTimerConfigs(timerConfigData) {
-        this.allTeams[this.currentTeamIndex].timerConfigs = timerConfigData;
+    saveTimerConfigs(timerConfig) {
+        if (this.currentTeamIndex === -1) {
+            this.noneTeam.timerConfig = timerConfig;
+            return;
+        }
+        this.allTeams[this.currentTeamIndex].timerConfigs = timerConfig;
         this.writeFile();
     }
 
@@ -57,11 +62,14 @@ class TeamController {
     }
 
     getCurrentTeam() {
-        if (this.allTeams.length == 0) {
-            return null;
+        if (this.currentTeamIndex === -1 || this.allTeams.length === 0) {
+            return {
+                data: this.noneTeam,
+                index: -1
+            }
         }
         return {
-            team: this.allTeams[this.currentTeamIndex],
+            data: this.allTeams[this.currentTeamIndex],
             index: this.currentTeamIndex
         }
     }

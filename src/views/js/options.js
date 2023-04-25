@@ -22,6 +22,11 @@ const saveBtn = document.getElementById("save-btn");
 let allTeams = [];
 let currentTeamIndex = -1;
 
+TeamControllerBridge.getCurrentTeam()
+    .then((team) => {
+        currentTeamIndex = team.index;
+    });
+
 function convertMinutesToSeconds(minutes) {
     return minutes * 60;
 }
@@ -173,12 +178,14 @@ rndsUntilNextBreakInput.addEventListener("change", (event) => {
 saveBtn.addEventListener("click", async function() {
     let saveInput = await TeamControllerBridge.confirmSave();
     if (saveInput === true) {
-        TeamControllerBridge.saveTeamConfigs({
+        const updatedConfigs = await TeamControllerBridge.saveTeamConfigs({
             roundTime_SEC: convertMinutesToSeconds(roundTime_MIN),
             breakTime_SEC: convertMinutesToSeconds(breakTime_MIN),
             roundsUntilNextBreak: roundsUntilNextBreak,
             selectedTeam: currentTeamIndex
         });
+        TimerControllerBridge.updateConfigs(updatedConfigs);
+        window.location.href = "./control_panel.html";
     }
 });
 

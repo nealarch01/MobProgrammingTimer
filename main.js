@@ -1,4 +1,4 @@
-const { app, BrowserWindow, screen, remote, dialog } = require("electron");
+const { app, BrowserWindow, screen, remote, dialog, ipcRenderer } = require("electron");
 const { ipcMain } = require("electron");
 const { createWindows, createMainWindow, createWidgetWindow, initializeWindowEvents } = require("./browser_windows");
 
@@ -15,7 +15,9 @@ const promptAsync = promisify(prompt)
 const isDev = true;
 
 function initializeTimerController(MainWindow, TimerWidgetWindow, teamController) {
-    const timerController = new TimerController(undefined, MainWindow, TimerWidgetWindow); // TODO: pass in a team timer config
+    const currentTeam = teamController.getCurrentTeam();
+    const currentTeamConfig = currentTeam.data.timerConfig;
+    const timerController = new TimerController(currentTeamConfig, MainWindow, TimerWidgetWindow); // TODO: pass in a team timer config
     ipcMain.handle("startTimer", (event, params) => {
         const { minimize } = params;
         if (timerController.isActive()) {
@@ -42,19 +44,21 @@ function initializeTimerController(MainWindow, TimerWidgetWindow, teamController
     ipcMain.handle("getAllMembers", async () => {
         return timerController.getAllMembers();
     });
+    ipcMain.handle("updateConfigs", (event, params) => {
+        const { configs } = params;
+        timerController.updateConfigs(configs);
+    });
     return timerController;
 }
 
 function initializeTeamController() {
     let teamController = new TeamController();
     teamController.initTeams()
-    ipcMain.handle("saveTeamConfigs", (event, params) => {
+    ipcMain.handle("saveTeamConfigs", async (event, params) => {
         const { roundTime_SEC, breakTime_SEC, roundsUntilNextBreak, selectedTeam } = params;
-        if (selectedTeam === -1 || selectedTeam === undefined || selectedTeam === null) {
-            return;
-        }
         const newTimerConfig = new Timer(roundTime_SEC, breakTime_SEC, roundsUntilNextBreak);
         teamController.saveTimerConfigs(params);
+        return newTimerConfig;
     });
     ipcMain.handle("confirmSave", async () => {
         const options = {

@@ -1,8 +1,8 @@
 class Timer {
-    constructor() {
-        this.roundTime_SEC = 600; // 10 minutes 
-        this.roundsUntilNextBreak = 2;
-        this.breakTime_SEC = 300; // 5 minutes
+    constructor(roundTime_SEC = 600, roundsUntilNextBreak = 2, breakTime_SEC = 300) {
+        this.roundTime_SEC = roundTime_SEC;
+        this.roundsUntilNextBreak = roundsUntilNextBreak
+        this.breakTime_SEC = breakTime_SEC;
     }
 }
 
