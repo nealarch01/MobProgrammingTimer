@@ -1,5 +1,5 @@
 {
-    "lastTeamIndex": 0,
+    "lastTeamIndex": 1,
     "teams": [
         {
             "name": "Web Dev",
@@ -30,14 +30,8 @@
                 }
             ],
             "timerConfig": {
-                "roundTime_SEC": 480,
-                "breakTime_SEC": 300,
-                "roundsUntilNextBreak": 1,
-                "selectedTeam": 0
-            },
-            "timerConfigs": {
-                "roundTime_SEC": 600,
-                "breakTime_SEC": 300,
+                "roundTime_SEC": 180,
+                "breakTime_SEC": 120,
                 "roundsUntilNextBreak": 1,
                 "selectedTeam": 0
             }
@@ -71,15 +65,9 @@
                 }
             ],
             "timerConfig": {
-                "roundTime_SEC": 120,
+                "roundTime_SEC": 540,
                 "breakTime_SEC": 300,
-                "roundsUntilNextBreak": 1,
-                "selectedTeam": 1
-            },
-            "timerConfigs": {
-                "roundTime_SEC": 180,
-                "breakTime_SEC": 300,
-                "roundsUntilNextBreak": 1,
+                "roundsUntilNextBreak": 0,
                 "selectedTeam": 1
             }
         }
