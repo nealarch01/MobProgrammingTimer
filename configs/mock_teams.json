@@ -1,70 +1,79 @@
-[
-    {
-        "name": "Web Dev",
-        "members": [
-            {
-                "name": "Neal",
-                "stats": {
-                    "drivingTime_SEC": 0,
-                    "navigatingTime_SEC": 0,
-                    "observingTime_SEC": 0
+{
+    "last_team_index": 1,
+    "teams": [
+        {
+            "name": "Web Dev",
+            "members": [
+                {
+                    "name": "Neal",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Irvin",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "John",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
                 }
-            },
-            {
-                "name": "Irvin",
-                "stats": {
-                    "drivingTime_SEC": 0,
-                    "navigatingTime_SEC": 0,
-                    "observingTime_SEC": 0
-                }
-            },
-            {
-                "name": "John",
-                "stats": {
-                    "drivingTime_SEC": 0,
-                    "navigatingTime_SEC": 0,
-                    "observingTime_SEC": 0
-                }
+            ],
+            "timerConfig": {
+                "roundTime_SEC": 600,
+                "roundsUntilNextBreak": 2,
+                "breakTime_SEC": 300
             }
-        ],
-        "timerConfig": {
-            "roundTime_SEC": 600,
-            "roundsUntilNextBreak": 2,
-            "breakTime_SEC": 300
-        }
-    },
-    {
-        "name": "Mobile Dev",
-        "members": [
-            {
-                "name": "Joe",
-                "stats": {
-                    "drivingTime_SEC": 0,
-                    "navigatingTime_SEC": 0,
-                    "observingTime_SEC": 0
+        },
+        {
+            "name": "Mobile Dev",
+            "members": [
+                {
+                    "name": "Joe",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Chris",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Alex",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
                 }
+            ],
+            "timerConfig": {
+                "roundTime_SEC": 600,
+                "roundsUntilNextBreak": 2,
+                "breakTime_SEC": 300
             },
-            {
-                "name": "Chris",
-                "stats": {
-                    "drivingTime_SEC": 0,
-                    "navigatingTime_SEC": 0,
-                    "observingTime_SEC": 0
-                }
-            },
-            {
-                "name": "Alex",
-                "stats": {
-                    "drivingTime_SEC": 0,
-                    "navigatingTime_SEC": 0,
-                    "observingTime_SEC": 0
-                }
+            "timerConfigs": {
+                "roundTime_SEC": 600,
+                "breakTime_SEC": 300,
+                "roundsUntilNextBreak": 1,
+                "selectedTeam": 1
             }
-        ],
-        "timerConfig": {
-            "roundTime_SEC": 600,
-            "roundsUntilNextBreak": 2,
-            "breakTime_SEC": 300
         }
-    }
-]
+    ]
+}

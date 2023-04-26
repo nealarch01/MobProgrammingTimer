@@ -174,7 +174,13 @@ rndsUntilNextBreakInc.addEventListener("click", function() {
 
 rndsUntilNextBreakInput.addEventListener("change", (event) => {
     roundsUntilNextBreak = parseInt(event.target.value)
-})
+});
+
+exitBtn.addEventListener("click", () => {
+    const selectedTeam = parseInt(teamSelector.value);
+    TeamControllerBridge.setCurrentTeam(selectedTeam);
+    window.location.href = "./control_panel.html";
+});
 
 saveBtn.addEventListener("click", async function() {
     let saveInput = await TeamControllerBridge.confirmSave();
