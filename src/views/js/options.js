@@ -17,6 +17,9 @@ const rndBeforeBreakInc = document.getElementById("rounds-before-break-increment
 const exitBtn = document.getElementById("exit-btn");
 const saveBtn = document.getElementById("save-btn");
 
+const personInput = document.getElementById("team-members");
+const teamContainer = document.getElementById("member-list-ID");
+
 let tempName = "";
 
 let mobTime_MIN = 0;
@@ -92,4 +95,14 @@ newTeamBtn.addEventListener("click", async function() {
 
 removeTeamBtn.addEventListener("click", async function() {
     await TeamControllerBridge.removeTeam(tempName); //TODO: REMOVE CURRENTLY SELECTED TEAM
-})
+});
+
+personInput.addEventListener("keypress", function(k) {
+    if(k.key === 'Enter') {
+        console.log(personInput.value);
+        var temp = document.createElement("div");
+        temp.innerHTML = personInput.value;
+        temp.className = "member-field";
+        teamContainer.appendChild(temp);
+    }
+});

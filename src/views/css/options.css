@@ -2,3 +2,27 @@
 	width: 85%;
 	align-items: center;
 }
+
+
+.member-field {
+	display: flex;
+	margin-top: 1vw;
+	margin-left: 2px;
+    width: 10%;
+    height: 60%;
+	border-width: .1px;	
+}
+
+.team-members {
+	display: flex;
+	flex-direction: row;
+	margin: auto;
+    width: 350px;
+    height: 75px;
+    font-weight: bold;
+    font-size: 100px;
+	color: black;
+    background-color: #2A6285;
+    border: none;
+    cursor: pointer;
+}
