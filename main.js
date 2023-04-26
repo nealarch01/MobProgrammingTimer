@@ -71,43 +71,42 @@ function initializeTeamController() {
         const result = await dialog.showMessageBox(null, options);
         return result.response === 0 ? true : false;
     });
-    ipcMain.handle("addTeam", async () => {
-        try {
-            const result = await promptAsync({
-                title: "Create Team",
-                label: "Team Name: ",
-                value: "",
-                inputAttrs: {
-                    type: "text"
-                },
-                type: "input"
-            });
-            return result;
-        } catch (err) {
-            console.error("Error:", err)
-            return null
-        }
+    ipcMain.handle("teamNamePrompt", async (event, params) => {
+        const { title, name } = params;
+        const input = await promptAsync({
+            title: title,
+            label: "Team Name: ",
+            value: name,
+            inputAttrs: {
+                type: "text"
+            },
+            type: "input"
+        });
+        return input;
+    })
+    ipcMain.handle("createTeam", (event, params) => {
+        const { teamName } = params;
+        teamController.createTeam(teamName);
     });
     ipcMain.handle("renameTeam", async (event, params) => {
-        try {
-            const result = await promptAsync({
-                title: "Rename Team",
-                label: "Team Name: ",
-                value: params.teamName,
-                inputAttrs: {
-                    type: "text"
-                },
-                type: "input"
-            });
-        } catch (err) {
-            return null;
-        }
     });
     ipcMain.handle("getAllTeams", async () => {
         return teamController.getAllTeams();
     });
     ipcMain.handle("getCurrentTeam", async () => {
         return teamController.getCurrentTeam();
+    });
+    ipcMain.handle("setCurrentTeam", async (event, params) => {
+        const { selectedIndex } = params;
+        if (typeof selectedIndex !== "number") {
+            console.log("Error");
+            return;
+        }
+        if (selectedIndex >= teamController.getAllTeams().length) {
+            console.log("Error");
+            return;
+        }
+        teamController.setCurrentTeam(selectedIndex);
     });
     return teamController;
 }

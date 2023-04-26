@@ -40,11 +40,13 @@ function setInputValues() {
         roundTimeInput.value = 600;
         breakTimeInput.value = 300;
         rndsUntilNextBreakInput.value = 5;
+        teamSelector.value = "-1";
     } else {
         const timerConfig = allTeams[currentTeamIndex].timerConfig;
         roundTimeInput.value = convertSecondsToMinutes(timerConfig.roundTime_SEC);
         breakTimeInput.value = convertSecondsToMinutes(timerConfig.breakTime_SEC);
         rndsUntilNextBreakInput.value = timerConfig.roundsUntilNextBreak;
+        teamSelector.value = `${currentTeamIndex}`;
     }
 }
 
@@ -70,6 +72,7 @@ async function setAllTeams() {
         option.text = team.name;
         teamSelector.add(option);
     });
+    setInputValues();
 }
 
 function updateInput(value) {
@@ -85,8 +88,6 @@ function updateInput(value) {
 
 
 setAllTeams();
-
-let tempName = "";
 
 let roundTime_MIN = 10;
 
@@ -177,18 +178,36 @@ rndsUntilNextBreakInput.addEventListener("change", (event) => {
 
 saveBtn.addEventListener("click", async function() {
     let saveInput = await TeamControllerBridge.confirmSave();
-    if (saveInput === true) {
-        const updatedConfigs = await TeamControllerBridge.saveTeamConfigs({
-            roundTime_SEC: convertMinutesToSeconds(roundTime_MIN),
-            breakTime_SEC: convertMinutesToSeconds(breakTime_MIN),
-            roundsUntilNextBreak: roundsUntilNextBreak,
-            selectedTeam: currentTeamIndex
-        });
-        TimerControllerBridge.updateConfigs(updatedConfigs);
-        window.location.href = "./control_panel.html";
+    if (!saveInput) {
+        return;
     }
+    const selectedTeam = parseInt(teamSelector.value);
+    TeamControllerBridge.setCurrentTeam(selectedTeam);
+    const updatedConfigs = await TeamControllerBridge.saveTeamConfigs({
+        roundTime_SEC: convertMinutesToSeconds(roundTime_MIN),
+        breakTime_SEC: convertMinutesToSeconds(breakTime_MIN),
+        roundsUntilNextBreak: roundsUntilNextBreak,
+        selectedTeam: currentTeamIndex
+    });
+    TimerControllerBridge.updateConfigs(updatedConfigs);
+    window.location.href = "./control_panel.html";
 });
 
 newTeamBtn.addEventListener("click", async function() {
-    await TeamControllerBridge.addTeam(tempName);
+    const input = await TeamControllerBridge.teamNamePrompt();
+    if (input === null) {
+        prompt("An error occured.");
+        return;
+    }
+    // Check if input exists in allTeams array
+    for (let i = 0; i < allTeams.length; i++) {
+        if (allTeams[i].name === input) {
+            prompt("Team name already exists.");
+            return;
+        }
+    }
+    // No duplicate names found, create new team
+    const newTeam = await TeamControllerBridge.createNewTeam(input);
+    // Refresh the entire page
+    window.location.href = "./options.html";
 });
