@@ -2,7 +2,7 @@ const teamSelector = document.getElementById("team-selector");
 
 const newTeamBtn = document.getElementById("new-team-btn");
 const removeTeamBtn = document.getElementById("remove-team-btn");
-const editTeamBtn = document.getElementById("edit-team-btn");
+const renameTeamBtn = document.getElementById("edit-team-btn");
 
 const roundTimeDec = document.getElementById("mob-time-decrementer");
 const roundTimeInput = document.getElementById("mob-time-input");
@@ -20,11 +20,11 @@ const exitBtn = document.getElementById("exit-btn");
 const saveBtn = document.getElementById("save-btn");
 
 let allTeams = [];
-let currentTeamIndex = -1;
+let selectedTeam = -1;
 
 TeamControllerBridge.getCurrentTeam()
     .then((team) => {
-        currentTeamIndex = team.index;
+        selectedTeam = team.index;
     });
 
 function convertMinutesToSeconds(minutes) {
@@ -36,22 +36,24 @@ function convertSecondsToMinutes(seconds) {
 }
 
 function setInputValues() {
-    if (currentTeamIndex === -1) {
-        roundTimeInput.value = 10;
-        breakTimeInput.value = 5;
-        rndsUntilNextBreakInput.value = 5;
-        teamSelector.value = "-1";
+    if (selectedTeam == -1) {
+        roundTime_MIN = 10;
+        breakTime_MIN = 5;
+        roundsUntilNextBreak = 3;
     } else {
-        const timerConfig = allTeams[currentTeamIndex].timerConfig;
-        roundTimeInput.value = convertSecondsToMinutes(timerConfig.roundTime_SEC);
-        breakTimeInput.value = convertSecondsToMinutes(timerConfig.breakTime_SEC);
-        rndsUntilNextBreakInput.value = timerConfig.roundsUntilNextBreak;
-        teamSelector.value = `${currentTeamIndex}`;
+        const timerConfig = allTeams[selectedTeam].timerConfig;
+        roundTime_MIN = convertSecondsToMinutes(timerConfig.roundTime_SEC);
+        breakTime_MIN = convertSecondsToMinutes(timerConfig.breakTime_SEC);
+        roundsUntilNextBreak = timerConfig.roundsUntilNextBreak;
     }
+    roundTimeInput.value = roundTime_MIN;
+    breakTimeInput.value = breakTime_MIN;
+    rndsUntilNextBreakInput.value = roundsUntilNextBreak;
+    teamSelector.value = `${selectedTeam}`;
 }
 
 teamSelector.addEventListener("change", (event) => {
-    currentTeamIndex = parseInt(event.target.value);
+    selectedTeam = parseInt(event.target.value);
     setInputValues();
 });
 
@@ -193,14 +195,14 @@ saveBtn.addEventListener("click", async function() {
         roundTime_SEC: convertMinutesToSeconds(roundTime_MIN),
         breakTime_SEC: convertMinutesToSeconds(breakTime_MIN),
         roundsUntilNextBreak: roundsUntilNextBreak,
-        selectedTeam: currentTeamIndex
+        selectedTeam: selectedTeam
     });
     TimerControllerBridge.updateConfigs(updatedConfigs);
     window.location.href = "./control_panel.html";
 });
 
 newTeamBtn.addEventListener("click", async function() {
-    const input = await TeamControllerBridge.teamNamePrompt();
+    const input = await TeamControllerBridge.teamNamePrompt("Enter team name", "");
     if (input === null) {
         prompt("An error occured.");
         return;
@@ -216,4 +218,10 @@ newTeamBtn.addEventListener("click", async function() {
     const newTeam = await TeamControllerBridge.createNewTeam(input);
     // Refresh the entire page
     window.location.href = "./options.html";
+});
+
+renameTeamBtn.addEventListener("click", async () => {
+    // Get the current name of the team
+    const currentTeam = allTeams[selectedTeam];
+    const input = await TeamControllerBridge.teamNamePrompt("Rename team", currentTeam.name);
 });
