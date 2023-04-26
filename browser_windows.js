@@ -1,4 +1,4 @@
-const { app, BrowserWindow, screen, Notification } = require("electron");
+const { app, BrowserWindow, screen, dialog } = require("electron");
 const path = require('path');
 
 const createMainWindow = () => {
@@ -46,6 +46,24 @@ const createWidgetWindow = () => {
 }
 
 function initializeWindowEvents(MainWindow, TimerWidgetWindow, app) {
+    // When the close button is clicked
+    MainWindow.on("close", (event) => {
+        // Prompt the user if they want to quit or minimize
+        const options = {
+            type: "question",
+            buttons: ["Quit", "Minimize"],
+            defaultId: 0,
+            title: "",
+            message: "Do you want to quit or minimize?"
+        }
+        const selectedNum = dialog.showMessageBoxSync(null, options)
+        if (selectedNum === 1) {
+            event.preventDefault();
+            MainWindow.minimize();
+            return;
+        }
+        TimerWidgetWindow.destroy();
+    });
     app.on("activate", () => { // MacOS
         MainWindow.restore();
     });
