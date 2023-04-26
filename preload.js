@@ -18,9 +18,9 @@ contextBridge.exposeInMainWorld("TimerControllerBridge", {
 });
 
 contextBridge.exposeInMainWorld("TeamControllerBridge", {
-    saveTeamConfigs: (params) => ipcRenderer.invoke("saveTeamConfigs", params),
+    saveTeamConfigs: (timerConfig) => ipcRenderer.invoke("saveTeamConfigs", timerConfig),
     confirmSave: async () => ipcRenderer.invoke("confirmSave"),
-    teamNamePrompt: async () => ipcRenderer.invoke("teamNamePrompt"),
+    teamNamePrompt: async (title, name) => ipcRenderer.invoke("teamNamePrompt", { title, name }),
     createTeam: async (teamName) => ipcRenderer.invoke("createTeam", { teamName }),
     getAllTeams: async () => ipcRenderer.invoke("getAllTeams"),
     getCurrentTeam: async () => ipcRenderer.invoke("getCurrentTeam"),
