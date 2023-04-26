@@ -1,9 +1,23 @@
-const timerText = document.getElementById("timer-text");
 const toggleTimerBtn = document.getElementById("start-stop-btn");
 const optionsBtn = document.getElementById("options-btn");
 const statsBtn = document.getElementById("stats-btn");
 
-TimerControllerBridge.setTimerText();
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Tab") {
+        event.preventDefault();
+    }
+});
+
+TimerControllerBridge.renderTimerText();
+
+TimerControllerBridge.isActive()
+    .then((isActive) => {
+        if (isActive) {
+            disableButtons();
+            toggleStartStopBtnText();
+        }
+    });
+
 
 function disableButtons() {
     optionsBtn.disabled = true;
@@ -25,12 +39,13 @@ function toggleStartStopBtnText() {
 
 function activate() {
     disableButtons();
-    TimerControllerBridge.start();
+    const shouldMinimizeMainWindow = true;
+    TimerControllerBridge.startTimer(shouldMinimizeMainWindow);
 }
 
 function deactivate() {
     enableButtons();
-    TimerControllerBridge.stop();
+    TimerControllerBridge.stopTimer();
 }
 
 toggleTimerBtn.addEventListener("click", async () => {

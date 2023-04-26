@@ -1,4 +1,4 @@
-const { app, BrowserWindow, screen, dialog } = require('electron');
+const { app, BrowserWindow, screen, remote, dialog } = require('electron');
 const { ipcMain } = require("electron");
 const { createWindows, createMainWindow, createWidgetWindow, initializeWindowEvents } = require("./browser_windows");
 
@@ -29,22 +29,28 @@ const isDev = true;
 
 function initializeTimer(MainWindow, TimerWidgetWindow) {
     const timerController = new TimerController(undefined, MainWindow, TimerWidgetWindow); // TODO: pass in a team timer config
-    ipcMain.handle("startTimer", () => {
+    ipcMain.handle("startTimer", (event, params) => {
+        const { minimize } = params;
         if (timerController.isActive()) {
             return;
         }
         timerController.startTimer();
-        MainWindow.minimize();
+        if (minimize === true) {
+            MainWindow.minimize();
+        }
     });
     ipcMain.handle("stopTimer", () => {
         if (!timerController.isActive()) { return; }
         timerController.stopTimer();
     });
+    ipcMain.handle("skipBreak", (event, params) => {
+        timerController.skipBreak(params.postponeBy);
+    });
     ipcMain.handle("isActive", async () => {
         return timerController.isActive();
     });
-    ipcMain.handle("setTimerText", () => {
-        timerController.setTimerText();
+    ipcMain.handle("renderTimerText", () => {
+        timerController.renderTimerText();
     });
 }
 

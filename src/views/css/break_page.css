@@ -28,12 +28,23 @@
     height: 60px;
     margin: 10px;
     font-weight: bold;
+}
 
+.step-btn {
+    width: 90;
+    height: 40px;
+    font-weight: bold;
 }
 
 .break-turns-container {
     display: flex;
     width: 85%;
+}
+
+.postpone-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .break-turns {

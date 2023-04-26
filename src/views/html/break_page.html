@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,26 +10,32 @@
     <link rel="stylesheet" href="../css/timer.css">
     <link rel="stylesheet" href="../css/break_page.css">
 </head>
+
 <body>
+    <h2>Break Time!</h2>
     <div class="timer-container">
-        <div class="timer-circle">
-            <h1>9:59</h1>
-        </div>
+        <h2 id="timer-text"></h2>            
+        <svg class="timer-svg">
+            <circle id="timer-circle"></circle>
+        </svg>
     </div>
-    <div class="ctrl-btns-container col">
-    <button class="ctrl-panel-btn" id="start-stop-btn">End Break</button>
-		<a href=""><button class="ctrl-panel-btn" id="options-btn">Push Break</button></a>
+    <div class="col">
+        <button class="ctrl-panel-btn" id="toggle-timer-btn">Start Break</button>
     </div>
 
-    <div class="ctrl-btns-container row">
-        <h4>After</h4>
-        <button class="ctrl-panel-btn" id="start-stop-btn">-</button>
-        <div class="break-turns-container">
-            <div class="break-turns" id="break-number">
-                10
-            </div>
-        <a href=""><button class="ctrl-panel-btn" id="options-btn">+</button></a>
+    <div class="divider"></div>
+    <div class="postpone-container col">
+        <div class="row" style="margin-top: 15px;">
+            <h4 style="margin: 0px; margin-top: 10px; margin-right: 10px;">Rounds Until Next Break:</h4>
+            <button class="step-btn" id="decrement-btn">-</button>
+            <input type="text" id="next-break-input" min="1" value="5">
+            <button class="step-btn" id="increment-btn">+</button>
         </div>
+        <button class="ctrl-panel-btn" id="skip-break-btn">Postpone Break</button>
+    </div>
 
+    <script src="../js/timer.js"></script>
+    <script src="../js/break_page.js"></script>
 </body>
+
 </html>

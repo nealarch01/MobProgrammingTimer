@@ -8,10 +8,11 @@ contextBridge.exposeInMainWorld("TimerWidgetBridge", {
 });
 
 contextBridge.exposeInMainWorld("TimerControllerBridge", {
-    start: () => ipcRenderer.invoke("startTimer"),
-    stop: () => ipcRenderer.invoke("stopTimer"),
+    startTimer: (minimize) => ipcRenderer.invoke("startTimer", { minimize }),
+    stopTimer: () => ipcRenderer.invoke("stopTimer"),
+    skipBreak: (postponeBy) => ipcRenderer.invoke("skipBreak", { postponeBy }),
     isActive: () => ipcRenderer.invoke("isActive"),
-    setTimerText: () => ipcRenderer.invoke("setTimerText"),
+    renderTimerText: () => ipcRenderer.invoke("renderTimerText"),
 });
 
 contextBridge.exposeInMainWorld("TeamControllerBridge", {
