@@ -37,8 +37,8 @@ function convertSecondsToMinutes(seconds) {
 
 function setInputValues() {
     if (currentTeamIndex === -1) {
-        roundTimeInput.value = 600;
-        breakTimeInput.value = 300;
+        roundTimeInput.value = 10;
+        breakTimeInput.value = 5;
         rndsUntilNextBreakInput.value = 5;
         teamSelector.value = "-1";
     } else {
