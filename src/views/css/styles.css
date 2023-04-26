@@ -25,6 +25,11 @@ h1 {
     margin: 2px;
 }
 
+h2, h3, h4 {
+    margin: 0px;
+    padding: 0px;
+}
+
 .row {
     display: flex;
     flex-direction: row;
