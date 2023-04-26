@@ -71,3 +71,7 @@ toggleTimerBtn.addEventListener("click", async () => {
     }
     toggleStartStopBtnText();
 });
+
+statsBtn.addEventListener("click", () => {
+    window.location.href = "./statistics.html";
+});
