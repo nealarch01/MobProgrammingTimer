@@ -31,7 +31,7 @@
     r: 140px;
     /* stroke_dasharray = (r * 2pi) + stroke_width  */
     stroke-dasharray: 879px;
-    transition: 0.35s ease-out;
+    transition: 1s linear;
     z-index: 2;
 }
 
@@ -56,11 +56,11 @@
     cx: 37.5px;
     cy: 37.5px;
     stroke: #2A6285;
-    stroke-width: 2px;  
+    stroke-width: 4px;  
     /* r = x - stroke_width */
-    r: 31px;
+    r: 33.5px;
     /* stroke_dasharray = (r * 2pi) + stroke_width  */
-    stroke-dasharray: 195px;
+    stroke-dasharray: 210px;
     z-index: 2;
 }
 
@@ -69,9 +69,9 @@
     cy: 37.5px;
     /* stroke: #132b3b; */
     stroke: #232021;
-    stroke-width: 2px;
+    stroke-width: 4px;
     fill: none;
-    r: 31;
+    r: 33.5;
     z-index: 3;
 }
 
@@ -80,11 +80,11 @@
     position: absolute;
     font-size: 3.0em;
     color: white;
-    font-family: "Libre Franklin";
+    font-family: "Source Sans Pro";
 }
 
 #timer-text.widget {
-    font-size: 0.75em;
+    font-size: 1.2em;
     margin: 0px;
     padding: 0px;
 }
@@ -92,6 +92,8 @@
 .widget-pos-btn {
     width: 40px;
     height: 25px;
+    border: none;
+    border-radius: 5px;
     border: 1px solid black;
     margin-top: 2px;
     margin-bottom: 4px;
