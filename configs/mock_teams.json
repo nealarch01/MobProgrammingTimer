@@ -1,5 +1,5 @@
 {
-    "lastTeamIndex": 1,
+    "lastTeamIndex": 0,
     "teams": [
         {
             "name": "Web Dev",
@@ -31,8 +31,8 @@
             ],
             "timerConfig": {
                 "roundTime_SEC": 180,
-                "breakTime_SEC": 120,
-                "roundsUntilNextBreak": 1
+                "roundsUntilNextBreak": 120,
+                "breakTime_SEC": 1
             }
         },
         {
