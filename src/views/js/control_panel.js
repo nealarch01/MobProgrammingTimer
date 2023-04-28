@@ -72,6 +72,10 @@ toggleTimerBtn.addEventListener("click", async () => {
     toggleStartStopBtnText();
 });
 
+optionsBtn.addEventListener("click", () => {
+    window.location.href = "./options.html";
+});
+
 statsBtn.addEventListener("click", () => {
     window.location.href = "./statistics.html";
 });
