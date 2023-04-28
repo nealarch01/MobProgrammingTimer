@@ -36,6 +36,10 @@
 }
 
 .tool-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     width: 150px;
     height: 40px;
     border: none;
@@ -49,6 +53,10 @@
     color: #FAFAFA;
     font-family: "Libre Franklin";
     /* color: white; */
+}
+
+.tool-btn > span {
+    margin-right: 3px;
 }
 
 .tool-btn:hover {
