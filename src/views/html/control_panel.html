@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/timer.css">
     <link rel="stylesheet" href="../css/control_panel.css">
+    <link rel="stylesheet" href="../../../node_modules/material-icons/iconfont/material-icons.css">
 </head>
 
 <body>
@@ -21,38 +22,45 @@
             <h3 id="navigator-text"></h3>
         </div>
 
-        <div class="timer-container" style="margin-left: 100px;">
-            <h2 id="timer-text" style="margin-right: 100px"></h2>            
+
+        <div class="timer-container">
+            <h2 id="timer-text"></h2>
             <svg class="timer-svg">
                 <circle id="timer-inner-circle"></circle>
                 <circle id="timer-circle"></circle>
             </svg>
-            <div class="skip-btn row" style="align-self: center; margin-left: 20px">
-                <div class="arrow-right"></div>
-                <div class="arrow-right"></div>
-            </div>
         </div>
 
-        <div class="stats-container row">
-            <button id="stats-btn">Stats</button>
+        <div class="tools-container col">
+            <button class="tool-btn" id="options-btn">Options</button>
+            <button class="tool-btn" id="stats-btn">Stats</button>
         </div>
 
     </div>
 
     <!-- Control panel buttons -->
     <div class="ctrl-btns-container">
-        <button class="ctrl-panel-btn" id="reset-btn">Reset</button>
-        <button class="ctrl-panel-btn" id="start-stop-btn">Start</button>
-		<button class="ctrl-panel-btn" id="options-btn">Options</button>
+        <button class="ctrl-panel-btn" id="reset-btn">
+            Reset
+            <span class="material-icons" style="font-size: 1.0em; transform: scaleX(-1)">next_plan</span>
+        </button>
+        <button class="ctrl-panel-btn" id="start-stop-btn">
+            Start
+            <span class="material-icons" style="font-size: 1.2em;">play_circle</span>
+        </button>
+        <button class="ctrl-panel-btn" id="skip-btn">
+            Skip
+            <span class="material-icons" style="font-size: 1.2em;">next_plan</span>
+        </button>
     </div>
 
     <div class="team-members-container col">
-        <h4>Queue</h4>
+        <h3>Queue</h3>
         <div class="member-list" id="active-queue">
 
         </div>
 
-        <h4>Inactive</h4>
+        <h3>Inactive</h3>
         <div class="member-list" id="inactive-list">
 
         </div>

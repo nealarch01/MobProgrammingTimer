@@ -23,6 +23,7 @@
     cx: 150px; /* timer-svg.width / 2 */
     cy: 150px; /* Valid in SVG2 */
     stroke: #2A6285;
+    /* stroke: white; */
     stroke-width: 10px;
     stroke-linecap: round;
     fill: none;
@@ -37,7 +38,8 @@
 #timer-inner-circle {
     cx: 150px; /* timer-svg.width / 2 */
     cy: 150px; /* Valid in SVG2 */
-    stroke: #132b3b;
+    /* stroke: #132b3b; */
+    stroke: #232021;
     stroke-width: 10px;
     stroke-linecap: round;
     fill: none;
@@ -65,7 +67,8 @@
 #timer-inner-circle.widget {
     cx: 37.5px;
     cy: 37.5px;
-    stroke: #132b3b;
+    /* stroke: #132b3b; */
+    stroke: #232021;
     stroke-width: 2px;
     fill: none;
     r: 31;
@@ -75,7 +78,9 @@
 #timer-text {
     z-index: 1;
     position: absolute;
-    font-size: 2.5em;
+    font-size: 3.0em;
+    color: white;
+    font-family: "Libre Franklin";
 }
 
 #timer-text.widget {
