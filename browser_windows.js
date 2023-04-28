@@ -21,7 +21,7 @@ const createWidgetWindow = () => {
     // Debug width and height
     // const width = 500;
     // const height = 300;
-    const width = 130; 
+    const width = 115; 
     const height = 145; 
 	const workAreaSize = screen.getPrimaryDisplay().workAreaSize;
     const win = new BrowserWindow({
@@ -29,7 +29,7 @@ const createWidgetWindow = () => {
         height: height,
         x: workAreaSize.width - width,
         y: workAreaSize.height - height,
-        opacity: 0.4,
+        opacity: 0.8,
         resizable: false,
         minimizable: false,
         maximizable: false,
