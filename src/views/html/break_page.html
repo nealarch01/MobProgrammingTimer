@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mob Programming Timer</title>
+    <title>Break</title>
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/timer.css">
     <link rel="stylesheet" href="../css/break_page.css">
+    <link rel="stylesheet" href="../../../node_modules/material-icons/iconfont/material-icons.css">
 </head>
 
 <body>
-    <h2>Break Time!</h2>
+    <h2 style="margin: 10px;">Break Time!</h2>
     <div class="timer-container">
         <h2 id="timer-text"></h2>            
         <svg class="timer-svg">
@@ -21,7 +22,10 @@
         </svg>
     </div>
     <div class="col">
-        <button class="ctrl-panel-btn" id="toggle-timer-btn">Start Break</button>
+        <button class="ctrl-panel-btn" id="toggle-timer-btn">
+            <p id="toggle-btn-text">Start Break</p>
+            <span class="material-icons" id="toggle-timer-icon">emoji_food_beverage</span>
+        </button>
     </div>
 
     <div class="divider"></div>

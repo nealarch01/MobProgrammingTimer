@@ -1,7 +1,6 @@
 .top-view {
     width: 100%;
     justify-content: space-between;
-    margin-top: 15px;
 }
 
 .info-panel {
@@ -45,6 +44,55 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#toggle-timer-btn {
+    width: 300px;
+    height: 60px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background-color: #2A6285;
+    color: #FAFAFA;
+    font-family: "Libre Franklin";
+    font-size: 1.2em;
+}
+
+#toggle-timer-btn > span {
+    margin-left: 6px;
+    font-size: 1.4em;
+}
+
+#toggle-timer-btn:hover {
+    opacity: 0.7;
+}
+
+#skip-break-btn {
+    width: 200px;
+    height: 60px;
+    margin: 10px;
+    font-weight: bold;
+    border-radius: 12px;
+    border: 2px solid #2A6285;
+    cursor: pointer;
+    background-color: transparent;
+    color: #FAFAFA;
+    font-family: "Libre Franklin";
+    font-size: 1.0em;
+}
+
+#skip-break-btn:hover {
+    opacity: 0.7;
+}
+
+#skip-break-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .break-turns {

@@ -1,4 +1,5 @@
 const toggleTimerBtn = document.getElementById("toggle-timer-btn");
+const toggleBtnText = document.getElementById("toggle-btn-text");
 const skipBreakBtn = document.getElementById("skip-break-btn");
 
 const decrementBtn = document.getElementById("decrement-btn");
@@ -8,16 +9,24 @@ const incrementBtn = document.getElementById("increment-btn");
 let postponeBy = 1;
 nextBreakInput.value = postponeBy;
 
+function toggleTimerText() {
+    if (toggleBtnText.innerHTML === "Start Break") {
+        toggleBtnText.innerHTML = "Pause Break";
+    } else {
+        toggleBtnText.innerHTML = "Start Break";
+    }
+}
+
 function activate() {
     skipBreakBtn.disabled = true;
-    toggleTimerBtn.innerText = "Stop";
+    toggleTimerText();
     const minimizeMainWindow = false;
     TimerControllerBridge.startTimer(minimizeMainWindow);
 }
 
 function deactivate() {
     skipBreakBtn.disabled = false;
-    toggleTimerBtn.innerText = "Start";
+    toggleTimerText();
     TimerControllerBridge.stopTimer();
 }
 
