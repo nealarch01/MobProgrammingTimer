@@ -32,8 +32,7 @@
             "timerConfig": {
                 "roundTime_SEC": 180,
                 "breakTime_SEC": 120,
-                "roundsUntilNextBreak": 1,
-                "selectedTeam": 0
+                "roundsUntilNextBreak": 1
             }
         },
         {
@@ -67,8 +66,7 @@
             "timerConfig": {
                 "roundTime_SEC": 20,
                 "breakTime_SEC": 20,
-                "roundsUntilNextBreak": 1,
-                "selectedTeam": 1
+                "roundsUntilNextBreak": 1
             }
         }
     ]
