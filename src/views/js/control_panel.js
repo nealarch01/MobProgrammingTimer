@@ -1,4 +1,5 @@
 const toggleTimerBtn = document.getElementById("start-stop-btn");
+const toggleTimerText = document.getElementById("start-stop-text");
 const optionsBtn = document.getElementById("options-btn");
 const statsBtn = document.getElementById("stats-btn");
 
@@ -44,10 +45,10 @@ function enableButtons() {
 }
 
 function toggleStartStopBtnText() {
-    if (toggleTimerBtn.innerText === "Start") {
-        toggleTimerBtn.innerText = "Stop";
+    if (toggleTimerText.innerText === "Start") {
+        toggleTimerText.innerText = "Stop";
     } else {
-        toggleTimerBtn.innerText = "Start";
+        toggleTimerText.innerText = "Start";
     }
 }
 
