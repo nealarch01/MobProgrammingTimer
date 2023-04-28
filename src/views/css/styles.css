@@ -9,6 +9,11 @@ HunterBlack: #232021
     src: url("../../assets/fonts/LibreFranklin-Bold.ttf") format("truetype");
 }
 
+@font-face {
+    font-family: "Source Sans Pro";
+    src: url("../../assets/fonts/SourceSansPro-Bold.ttf") format("truetype");
+}
+
 body {
     margin: 0px;
     padding: 0px;
