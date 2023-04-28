@@ -22,45 +22,64 @@
 #timer-circle {
     cx: 150px; /* timer-svg.width / 2 */
     cy: 150px; /* Valid in SVG2 */
-    stroke: black;
-    stroke-width: 4px;
+    stroke: #2A6285;
+    stroke-width: 10px;
+    stroke-linecap: round;
     fill: none;
     /* r = x - stroke_width */
-    r: 146px;
+    r: 140px;
     /* stroke_dasharray = (r * 2pi) + stroke_width  */
-    stroke-dasharray: 917px;
+    stroke-dasharray: 879px;
     transition: 0.35s ease-out;
+    z-index: 2;
+}
+
+#timer-inner-circle {
+    cx: 150px; /* timer-svg.width / 2 */
+    cy: 150px; /* Valid in SVG2 */
+    stroke: #132b3b;
+    stroke-width: 10px;
+    stroke-linecap: round;
+    fill: none;
+    r: 140;
+    z-index: 3;
 }
 
 .timer-svg.widget {
-    width: 75px;
-    height: 75px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: rotate(-90deg);
-    scale: -1 1 1;
+    width: 75px !important;
+    height: 75px !important;
 }
 
 #timer-circle.widget {
     cx: 37.5px;
     cy: 37.5px;
-    stroke: black;
+    stroke: #2A6285;
     stroke-width: 2px;  
     /* r = x - stroke_width */
     r: 31px;
     /* stroke_dasharray = (r * 2pi) + stroke_width  */
-    stroke-dasharray: 197px;
+    stroke-dasharray: 195px;
+    z-index: 2;
+}
+
+#timer-inner-circle.widget {
+    cx: 37.5px;
+    cy: 37.5px;
+    stroke: #132b3b;
+    stroke-width: 2px;
+    fill: none;
+    r: 31;
+    z-index: 3;
 }
 
 #timer-text {
     z-index: 1;
     position: absolute;
+    font-size: 2.5em;
 }
 
 #timer-text.widget {
     font-size: 0.75em;
-    color: black;
     margin: 0px;
     padding: 0px;
 }
@@ -87,7 +106,7 @@
     height: 0; 
     border-top: 40px solid transparent;
     border-bottom: 40px solid transparent;
-    border-left: 40px solid black;
+    border-left: 40px solid #2A6285;
     cursor: pointer;
 }
 

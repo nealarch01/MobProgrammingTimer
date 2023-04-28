@@ -6,8 +6,8 @@
 
 .info-panel {
     justify-content: flex-start;
-    padding-left: 15px;
     flex: 1;
+    padding-left: 15px;
 }
 
 .timer-container {
@@ -18,7 +18,7 @@
 }
 
 .stats-container {
-    padding-right: 5px;
+    padding-right: 15px;
     flex: 1;
     justify-content: flex-end;
 }
@@ -26,6 +26,9 @@
 #stats-btn {
     height: 40px;
     width: 80px;
+    font-family: "Proxima Nova";
+    border: none;
+    border-radius: 12px;
 }
 
 .ctrl-btns-container {
@@ -37,7 +40,21 @@
     height: 60px;
     margin-right: 10px;
     margin-left: 10px;
+    font-size: 1.2em;
     font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    color: #232021;
+}
+
+.ctrl-panel-btn:hover {
+    opacity: 0.7;
+}
+
+.ctrl-panel-btn:hover:disabled {
+    opacity: 1;
+    cursor: default;
 }
 
 

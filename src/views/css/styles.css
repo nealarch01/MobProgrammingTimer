@@ -1,5 +1,6 @@
 /*
 HunterBlue: #2A6285
+AnotherHunterBlue: #367FAC
 HunterBlack: #232021
 */
 body {
@@ -10,7 +11,9 @@ body {
     height: 100vh;
     width: 100%;
     flex-direction: column;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    font-family: "Proxima Nova";
+    background-color: #232021;
+    color: #ffffff;
 }
 
 .no-scroll {
@@ -93,7 +96,8 @@ h2, h3, h4 {
 .break-turns, .member-list {
     width: 100%;
     height: 50px;
-    border: 1px solid black;
+    border: 1px solid white;
+    border-radius: 12px;
     margin-bottom : 10px;
 }
 
