@@ -94,8 +94,8 @@
     height: 25px;
     border: none;
     border-radius: 5px;
-    background-color: #232021;
-    border: 1px solid #515151);
+    background-color: #2d2d2d;
+    /* border: 1px solid #515151; */
     margin-top: 2px;
     margin-bottom: 4px;
 }

@@ -9,6 +9,7 @@ HunterBlack: #232021
     src: url("../../assets/fonts/LibreFranklin-Bold.ttf") format("truetype");
 }
 
+/* Use if monospace font is necessary (timers) */
 @font-face {
     font-family: "Source Sans Pro";
     src: url("../../assets/fonts/SourceSansPro-Bold.ttf") format("truetype");
@@ -23,7 +24,7 @@ body {
     width: 100%;
     flex-direction: column;
     font-family: "Libre Franklin";
-    background-color:#121212;
+    background-color: #191919;
     color: #ffffff;
 }
 
