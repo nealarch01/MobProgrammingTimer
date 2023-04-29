@@ -7,10 +7,13 @@ const { TeamController } = require("./src/controllers/team_controller");
 
 const { Timer } = require("./src/models/timer_model");
 
-const { promisify } = require("util")
-const prompt = require("electron-prompt")
+const { promisify } = require("util");
+const prompt = require("electron-prompt");
 
-const promptAsync = promisify(prompt)
+const promptAsync = promisify(prompt);
+
+const quotes = require("./data/quotes.json");
+
 
 const isDev = true;
 
@@ -136,6 +139,10 @@ app.whenReady().then(() => {
     const { MainWindow, TimerWidgetWindow } = createWindows();
     initializeWindowEvents(MainWindow, TimerWidgetWindow, app);
     initializeTimerWidget(TimerWidgetWindow);
+    ipcMain.handle("randomQuote", async () => {
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        return quotes[randomIndex];
+    });
     const teamController = initializeTeamController();
     const timerController = initializeTimerController(MainWindow, TimerWidgetWindow, teamController);
 });

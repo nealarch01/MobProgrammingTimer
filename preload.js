@@ -26,3 +26,7 @@ contextBridge.exposeInMainWorld("TeamControllerBridge", {
     getCurrentTeam: async () => ipcRenderer.invoke("getCurrentTeam"),
     setCurrentTeam: async (selectedIndex) => ipcRenderer.invoke("setCurrentTeam", { selectedIndex }),
 });
+
+contextBridge.exposeInMainWorld("Quotes", {
+    random: () => ipcRenderer.invoke("randomQuote")
+});
