@@ -15,6 +15,12 @@ HunterBlack: #232021
     src: url("../../assets/fonts/SourceSansPro-Bold.ttf") format("truetype");
 }
 
+
+@font-face {
+    font-family: "Libre Franklin Regular";
+    src: url("../../assets/fonts/LibreFranklin-Regular.ttf") format("truetype");
+}
+
 body {
     margin: 0px;
     padding: 0px;
