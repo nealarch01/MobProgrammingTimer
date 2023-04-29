@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,18 +9,30 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/control_panel.css">
     <link rel="stylesheet" href="../css/next_role.css">
+    <link rel="stylesheet" href="../../../node_modules/material-icons/iconfont/material-icons.css">
 </head>
-<body>
-    <h1 class = "quote-container">
-        QUOTE HERE
-    </h1>
-    <h1>Driver: Neal</h1>
-    <h1>Navigator: Irvin</h1>
 
+<body>
+    <div class="quote-container">
+        <h2 id="quote-text"></h2>
+        <h3 id="author-text"></h3>
+    </div>
+    <div class="divider" style="background-color: #2A6285; width: 80%;"></div>
+    <div class="roles-container">
+        <div class="role-container">
+            <span class="material-icons" style="font-size: 2.5em; color: #2A6285;">keyboard</span>
+            <h2 id="driver-text">Driver: Neal</h2>
+        </div>
+        <div class="role-container">
+            <span class="material-icons" style="font-size: 2.5em; color: #2A6285;">explore</span>
+            <h2 id="navigator-text">Navigator: Irvin</h2>
+        </div>
+    </div>
     <div class="ctrl-btns-container row">
         <button class="ctrl-panel-btn" id="skip-btn">Skip</button>
         <button class="ctrl-panel-btn" id="start-btn">Start</button>
     </div>
     <script src="../js/next_role.js"></script>
 </body>
+
 </html>
