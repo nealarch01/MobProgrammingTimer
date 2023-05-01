@@ -76,16 +76,26 @@ function initializeTeamController() {
     });
     ipcMain.handle("teamNamePrompt", async (event, params) => {
         const { title, name } = params;
-        const input = await promptAsync({
-            title: title,
-            label: "Team Name: ",
-            value: name,
-            inputAttrs: {
-                type: "text"
-            },
-            type: "input"
+        return new Promise((resolve, reject) => {
+            prompt({
+                title: title,
+                label: "Team Name: ",
+                value: name,
+                inputAttrs: {
+                    type: "text"
+                },
+                type: "input",
+                buttons: ["Create", "Cancel"],
+                defaultId: 0,
+                resizable: false,
+            }).then((result) => {
+                if (result === null) {
+                    resolve(null);
+                } else {
+                    resolve(result);
+                }
+            });
         });
-        return input;
     })
     ipcMain.handle("createTeam", (event, params) => {
         const { teamName } = params;

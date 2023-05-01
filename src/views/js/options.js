@@ -202,20 +202,24 @@ saveBtn.addEventListener("click", async function() {
 });
 
 newTeamBtn.addEventListener("click", async function() {
-    const input = await TeamControllerBridge.teamNamePrompt("Enter team name", "");
-    if (input === null) {
-        prompt("An error occured.");
+    const teamName = await TeamControllerBridge.teamNamePrompt("Enter team name", "");
+    if (teamName === null) {
+        return;
+    }
+    if (teamName.length < 1) {
+        prompt("Team name cannot be empty.")
         return;
     }
     // Check if input exists in allTeams array
     for (let i = 0; i < allTeams.length; i++) {
-        if (allTeams[i].name === input) {
+        if (teamName === allTeams[i].name) {
             prompt("Team name already exists.");
             return;
         }
     }
     // No duplicate names found, create new team
-    const newTeam = await TeamControllerBridge.createNewTeam(input);
+    const newTeam = await TeamControllerBridge.createTeam(teamName);
+    // alert("New Team Created");
     // Refresh the entire page
     window.location.href = "./options.html";
 });
@@ -224,4 +228,5 @@ renameTeamBtn.addEventListener("click", async () => {
     // Get the current name of the team
     const currentTeam = allTeams[selectedTeam];
     const input = await TeamControllerBridge.teamNamePrompt("Rename team", currentTeam.name);
+    console.log(input);
 });
