@@ -7,10 +7,6 @@ const fs = require("fs");
 
 class TeamController {
     constructor() {
-        this.activeQueue = [];
-
-        this.inactiveQueue = [];
-
         this.filepath = path.join(__dirname, "../../configs");
 
         this.teamName = "";
@@ -25,11 +21,8 @@ class TeamController {
     async initTeams() {
         storage.setDataPath(this.filepath);
         const jsonData = storage.getSync('mock_teams'); //TODO: change to team configs
-        this.activeQueue = []
-        this.inactiveQueue = [];
         this.currentTeamIndex = jsonData.lastTeamIndex ?? -1;
         this.allTeams = jsonData.teams ?? [];
-        this.activeQueue = this.currentTeamIndex === -1 ? [] : this.allTeams[this.currentTeamIndex].members;
     }
 
     writeFile() {
@@ -86,7 +79,10 @@ class TeamController {
     }
 
     retrieveQueue() {
-        return this.activeQueue;
+        if (this.currentTeamIndex === -1) {
+            return []
+        }
+        return this.allTeams[this.currentTeamIndex].members;
     }
 }
 
