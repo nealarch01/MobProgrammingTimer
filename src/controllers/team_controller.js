@@ -25,12 +25,13 @@ class TeamController {
     async initTeams() {
         storage.setDataPath(this.filepath);
         const jsonData = storage.getSync('mock_teams'); //TODO: change to team configs
-        this.activeQueue = [];
+        this.activeQueue = []
         this.inactiveQueue = [];
         this.currentTeamIndex = jsonData.lastTeamIndex ?? -1;
         this.allTeams = jsonData.teams ?? [];
+        this.activeQueue = this.currentTeamIndex === -1 ? [] : this.allTeams[this.currentTeamIndex].members;
     }
-    
+
     writeFile() {
         let filepath = path.join(__dirname, "../../configs/mock_teams.json"); //TODO: Change to teams.json
         const jsonData = {
@@ -77,12 +78,13 @@ class TeamController {
     setCurrentTeam(teamIndex) {
         this.currentTeamIndex = teamIndex;
     }
+
     removeTeam(teamName) { //remove team by name, not index
         let index = this.allTeams.indexOf(teamName);
         this.allTeams.splice(index, 1);
         this.writeFile(this.allTeams);
-        console.log(this.allTeams);
     }
+
     retrieveQueue() {
         return this.activeQueue;
     }

@@ -27,7 +27,7 @@ contextBridge.exposeInMainWorld("TeamControllerBridge", {
     setCurrentTeam: async (selectedIndex) => ipcRenderer.invoke("setCurrentTeam", { selectedIndex }),
     addTeam: async (teamName) => ipcRenderer.invoke("addTeam", teamName),
     removeTeam: async (teamName) => ipcRenderer.invoke("removeTeam", teamName),
-    retrieveQueue: async () => ipcRenderer.invoke("retrieveQueue"), 
+    retrieveQueue: async () => ipcRenderer.invoke("retrieveQueue"),
 });
 
 contextBridge.exposeInMainWorld("Quotes", {

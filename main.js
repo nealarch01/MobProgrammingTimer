@@ -121,6 +121,9 @@ function initializeTeamController() {
         }
         teamController.setCurrentTeam(selectedIndex);
     });
+    ipcMain.handle("retrieveQueue", () => {
+        return teamController.retrieveQueue();
+    });
     return teamController;
 }
 
@@ -142,79 +145,6 @@ function initializeTimerWidget(TimerWidgetWindow) {
     ipcMain.handle("moveBottomLeft", () => {
         TimerWidgetWindow.setPosition(0, workAreaSize.height - timerWidgetWindowSize.height);
     });
-}
-
-function initializeTeamConfig(teamController) {
-    ipcMain.handle("saveTeamConfigs", (event, params) => {
-        teamController.saveTimerConfigs(params);
-    });
-    ipcMain.handle("confirmSave", async () => {
-        const options = {
-            type: 'question',
-            buttons: ['Yes', 'No'],
-            defaultId: 0,
-            title: 'Confirm Save',
-            message: 'Do you want to save your changes?'
-        }
-
-        const result = await dialog.showMessageBox(null, options);
-        console.log(result.response);
-        return result.response;
-
-    });
-    ipcMain.handle("addTeam", async () => {
-        try {
-            const result = await promptAsync({
-              title: 'Prompt example',
-              label: 'Team Name: ',
-              value: 'temp',
-              inputAttrs: {
-                type: 'text'
-              },
-              type: 'input'
-            })
-        
-            if (result === null) {
-              console.log('User cancelled')
-              return null
-            } else {
-              console.log('Result:', result)
-              return result
-            }
-          } catch (err) {
-            console.error('Error:', err)
-            return null
-          }
-        });
-
-    ipcMain.handle("removeTeam", async () => {
-        try {
-            const result = {
-              type: 'question',
-              buttons: ['Yes','No'],
-              title: 'Remove Team',
-              defaultId: 0,
-              message: "Are you sure you want to delete this team?"
-            }
-
-            const box = await dialog.showMessageBox(null, result);
-        
-            if (result === null) {
-              console.log('User cancelled')
-              return null
-            } else {
-              console.log('Result:', box)
-              return box
-            }
-          } catch (err) {
-            console.error('Error:', err)
-            return null
-          }
-    });
-    ipcMain.handle("retrieveQueue", () => {
-        return teamController.retrieveQueue();
-});
-
 }
 
 app.whenReady().then(() => {

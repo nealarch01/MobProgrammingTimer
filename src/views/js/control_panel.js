@@ -83,8 +83,9 @@ statsBtn.addEventListener("click", () => {
     window.location.href = "./statistics.html";
 });
 TeamControllerBridge.retrieveQueue().then ((res) => {
+    console.log(res);
     counter = 0;
-    res.members.forEach(element => {
+    res.forEach(element => {
 
         var temp = document.createElement("div");
         var xBtn = document.createElement("button"); //TODO: MAKE BUTTON LOOK NICER
