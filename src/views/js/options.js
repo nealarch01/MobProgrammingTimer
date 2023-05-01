@@ -21,6 +21,8 @@ const saveBtn = document.getElementById("save-btn");
 
 let allTeams = [];
 let selectedTeam = -1;
+const personInput = document.getElementById("team-members");
+const teamContainer = document.getElementById("member-list-ID");
 
 TeamControllerBridge.getCurrentTeam()
     .then((team) => {
@@ -98,6 +100,7 @@ let breakTime_MIN = 5;
 let roundsUntilNextBreak = 1;
 
 roundTimeInput.value = roundTime_MIN;
+let toAdd = [];
 
 breakTimeInput.value = breakTime_MIN;
 
@@ -229,4 +232,32 @@ renameTeamBtn.addEventListener("click", async () => {
     const currentTeam = allTeams[selectedTeam];
     const input = await TeamControllerBridge.teamNamePrompt("Rename team", currentTeam.name);
     console.log(input);
+});
+
+removeTeamBtn.addEventListener("click", async function() {
+    await TeamControllerBridge.removeTeam(tempName); //TODO: REMOVE CURRENTLY SELECTED TEAM
+});
+
+personInput.addEventListener("keypress", function(k) {
+
+    if(k.key === 'Enter') {
+
+        var temp = document.createElement("div");
+        var xBtn = document.createElement("button"); //TODO: MAKE BUTTON LOOK NICER
+        
+        xBtn.onclick = function() {
+            temp.remove();
+            xBtn.remove();
+            toAdd.splice(temp.innerHTML, 1);
+        }
+
+        temp.innerHTML = personInput.value;
+        temp.className = "member-field";
+        teamContainer.appendChild(temp);
+        teamContainer.appendChild(xBtn);
+        toAdd.push(temp.innerHTML);
+        personInput.value = " ";
+        console.log(toAdd);
+    }
+    
 });

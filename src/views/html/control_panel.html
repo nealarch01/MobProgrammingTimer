@@ -67,13 +67,19 @@
     </div>
 
     <div class="team-members-container col">
-        <h3>Queue</h3>
-        <div class="member-list" id="active-queue">
+        <h4>Queue</h4>
+        <div class="member-list row" id="active-queue" ondragover="onDragOver(event)" ondrop="onDrop(event)">
+            <div class="team-field" id="team-field-ID" draggable="true" ondragstart="onDragStart(event);">
+
+            </div>
 
         </div>
 
-        <h3>Inactive</h3>
-        <div class="member-list" id="inactive-list">
+        <h4>Inactive</h4>
+        <div class="member-list row" id="inactive-list" ondragover="onDragOver(event)" ondrop="inactiveOnDrop(event)">
+            <div class="team-field" id="team-field-ID" draggable="true" ondragstart="onDragStart(event);">
+
+            </div>
 
         </div>
     </div>

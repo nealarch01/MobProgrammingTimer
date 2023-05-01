@@ -9,18 +9,17 @@
     <link rel="stylesheet" href="../css/statistics.css">
 </head>
 <body>
+    <button class="exit" id="exit-button">exit</button>
 
     <div class = "teambox row">
         <h3>Teams:</h3>
-        <div class="textfield" id="teamname">Team 1</div>
 
         <div class="dropdown">
-        <button class="dropbtn" id="down-arrow">V</button>
-        <div class="dropdown-items">
-            <a href="#">Team 1</a>
-            <a href="#">Team 2</a>
-            <a href="#">Team 3</a>
-        </div>
+		<select name="team" id="team-selector">
+			<option value="team1">None</option>
+			<option value="team2">Web Dev 1</option>
+			<option value="team3">Mobile Dev 1</option>
+		</select>
     </div>
         <button class="export" id="export-button">export</button>
     </div>
@@ -29,5 +28,7 @@
         Test
     </div>
 
+
+    <script src="../js/statistics.js"></script>
 </body>
 </html>
