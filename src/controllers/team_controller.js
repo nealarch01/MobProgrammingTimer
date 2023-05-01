@@ -41,7 +41,6 @@ class TeamController {
 
     }
     writeFile(data) {
-        console.log("SAVE CLICKED");
         let filepath = path.join(__dirname, "../../configs/placeholder.json"); //TODO: MOVE TO mock_teams*********
         fs.writeFile(filepath, JSON.stringify(data, null, 4), "utf8", (err) => {
             console.log(err ?? "Successfully write to file");
@@ -60,6 +59,9 @@ class TeamController {
         this.allTeams.splice(index, 1);
         this.writeFile(this.allTeams);
         console.log(this.allTeams);
+    }
+    retrieveQueue() {
+        return this.activeQueue;
     }
 }
 

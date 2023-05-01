@@ -141,6 +141,9 @@ function initializeTeamConfig(teamController) {
             return null
           }
     });
+    ipcMain.handle("retrieveQueue", () => {
+        return teamController.retrieveQueue();
+});
 
 }
 

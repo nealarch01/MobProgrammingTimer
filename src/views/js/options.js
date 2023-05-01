@@ -28,6 +28,8 @@ let breakTime_MIN = 0;
 
 let RBBTime_MIN = 1;
 
+let toAdd = [];
+
 mobTimeInput.value = mobTime_MIN;
 
 breakTimeInput.value = breakTime_MIN;
@@ -82,7 +84,8 @@ saveBtn.addEventListener("click", async function() {
         tempName,                                   //TODO: THIS NEEDS TO BE SET TO THE CURRENTLY SELECTED TEAM
         mobTime_MIN,
         breakTime_MIN,
-        RBBTime_MIN
+        RBBTime_MIN,
+        toAdd
     }
     let saveInput = await TeamControllerBridge.confirmSave();
     if (saveInput === 0)
@@ -98,11 +101,25 @@ removeTeamBtn.addEventListener("click", async function() {
 });
 
 personInput.addEventListener("keypress", function(k) {
+
     if(k.key === 'Enter') {
-        console.log(personInput.value);
+
         var temp = document.createElement("div");
+        var xBtn = document.createElement("button"); //TODO: MAKE BUTTON LOOK NICER
+        
+        xBtn.onclick = function() {
+            temp.remove();
+            xBtn.remove();
+            toAdd.splice(temp.innerHTML, 1);
+        }
+
         temp.innerHTML = personInput.value;
         temp.className = "member-field";
         teamContainer.appendChild(temp);
+        teamContainer.appendChild(xBtn);
+        toAdd.push(temp.innerHTML);
+        personInput.value = " ";
+        console.log(toAdd);
     }
+    
 });

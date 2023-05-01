@@ -20,4 +20,5 @@ contextBridge.exposeInMainWorld("TeamControllerBridge", {
     confirmSave: async () => ipcRenderer.invoke("confirmSave"),
     addTeam: async (teamName) => ipcRenderer.invoke("addTeam", teamName),
     removeTeam: async (teamName) => ipcRenderer.invoke("removeTeam", teamName),
+    retrieveQueue: async () => ipcRenderer.invoke("retrieveQueue"), 
 });

@@ -1,6 +1,11 @@
 {
     "tempName": "",
-    "mobTime_MIN": 0,
-    "breakTime_MIN": 0,
-    "RBBTime_MIN": 1
+    "mobTime_MIN": 2,
+    "breakTime_MIN": 3,
+    "RBBTime_MIN": 1,
+    "toAdd": [
+        "temp",
+        " temp2",
+        " temp3"
+    ]
 }
