@@ -120,5 +120,12 @@
     cursor: not-allowed;
 }
 
+.role-container.ctrl-panel {
+    margin-top: 15px;
+}
 
+.role-container.ctrl-panel > #driver-text, .role-container.ctrl-panel > #navigator-text {
+    font-size: 1.4em;
+    margin-left: 6px;
+}
 
