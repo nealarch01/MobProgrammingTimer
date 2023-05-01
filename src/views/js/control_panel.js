@@ -146,13 +146,11 @@ function inactiveOnDrop(event) {
       .dataTransfer
       .getData('text');
 
-      if(landingNode.className === "exit-button") {
-        return
-    }
 
-    let inactiveQueue = event.target;
+    let landingNode = event.target;
 
-    inactiveQueue.appendChild(dragTarget);
+    if(landingNode.className === "member-list row")
+        landingNode.appendChild(dragTarget);
 
     event
     .dataTransfer
