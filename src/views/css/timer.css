@@ -81,6 +81,7 @@
     font-size: 3.0em;
     color: white;
     font-family: "Source Sans Pro";
+    cursor: default;
 }
 
 #timer-text.widget {

@@ -87,6 +87,11 @@
     justify-content: center;
 }
 
+.team-members-container > h4 {
+    font-size: 1.4em;
+    margin-top: 20px;
+}
+
 .ctrl-panel-btn {
     display: flex;
     align-items: center;
@@ -130,6 +135,39 @@
 }
 
 .team-field {
+    background-color: #2A6285;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.team-field:hover:not(.x-btn) {
+    cursor: move;
+}
+
+.name-text {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.x-btn {
+    margin-right: 2px;
+    height: 50%;
+    border-radius: 4px;
+    border: none;
     background-color: black;
     color: white;
+    font-family: "Libre Franklin";
+    display: flex;
+}
+
+.x-btn:hover {
+    opacity: 0.5;
+    cursor: pointer;
 }
