@@ -104,21 +104,23 @@ personInput.addEventListener("keypress", function(k) {
 
     if(k.key === 'Enter') {
 
-        var temp = document.createElement("div");
+        var person = document.createElement("div");
         var xBtn = document.createElement("button"); //TODO: MAKE BUTTON LOOK NICER
         
         xBtn.onclick = function() {
-            temp.remove();
+            person.remove();
             xBtn.remove();
-            toAdd.splice(temp.innerHTML, 1);
+            toAdd.splice(person, 1);
         }
 
-        temp.innerHTML = personInput.value;
-        temp.className = "member-field";
-        teamContainer.appendChild(temp);
-        teamContainer.appendChild(xBtn);
-        toAdd.push(temp.innerHTML);
-        personInput.value = " ";
+        person.value = personInput.value;
+        person.textContent = person.value;
+        person.className = "member-field";
+        xBtn.textContent = "x";
+        person.appendChild(xBtn);
+        teamContainer.appendChild(person);
+        toAdd.push(person.value);
+        personInput.value = "";
         console.log(toAdd);
     }
     

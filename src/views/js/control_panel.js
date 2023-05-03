@@ -64,24 +64,24 @@ TeamControllerBridge.retrieveQueue().then ((res) => {
     counter = 0;
     res.members.forEach(element => {
 
-        var temp = document.createElement("div");
+        var teamMember = document.createElement("div");
         var xBtn = document.createElement("button"); //TODO: MAKE BUTTON LOOK NICER
         
         xBtn.onclick = function() {
-            temp.remove();
+            teamMember.remove();
             xBtn.remove();
         }
 
-        temp.innerHTML = element.name;
-        temp.className = "team-field";
-        temp.id = "team-field-" + counter;
-        xBtn.className = "exit-button";
+        teamMember.innerHTML = element.name;
+        teamMember.className = "team-field";
+        teamMember.id = "team-field-" + counter;
+        xBtn.className = "del-button";
         xBtn.textContent = "x";
-        console.log(temp.id);
-        temp.draggable = true;
-        temp.ondragstart = onDragStart;
-        queueContainer.appendChild(temp);
-        temp.appendChild(xBtn);
+        console.log(teamMember.id);
+        teamMember.draggable = true;
+        teamMember.ondragstart = onDragStart;
+        queueContainer.appendChild(teamMember);
+        teamMember.appendChild(xBtn);
         counter += 1;
     });
 
@@ -120,7 +120,7 @@ function onDrop(event) {
     const afterTarget = landingNode.nextElementSibling;
     const parent = landingNode.parentNode;
 
-    if(landingNode.className === "exit-button") {
+    if(landingNode.className === "del-button") {
         return
     }
 
