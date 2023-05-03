@@ -82,29 +82,31 @@ optionsBtn.addEventListener("click", () => {
 statsBtn.addEventListener("click", () => {
     window.location.href = "./statistics.html";
 });
-TeamControllerBridge.retrieveQueue().then ((res) => {
-    console.log(res);
+TeamControllerBridge.retrieveQueue().then((members) => {
     counter = 0;
-    res.forEach(element => {
+    members.forEach(member => {
 
-        var temp = document.createElement("div");
+        var memberContainer = document.createElement("div");
+        var nameText = document.createElement("p");
+        nameText.classList.add("name-text");
+        nameText.innerText = member.name;
         var xBtn = document.createElement("button"); //TODO: MAKE BUTTON LOOK NICER
-        
-        xBtn.onclick = function() {
-            temp.remove();
+
+        xBtn.onclick = function () {
+            memberContainer.remove();
             xBtn.remove();
         }
 
-        temp.innerHTML = element.name;
-        temp.className = "team-field";
-        temp.id = "team-field-" + counter;
-        xBtn.className = "exit-button";
+        memberContainer.appendChild(nameText);
+        memberContainer.className = "team-field";
+        memberContainer.id = "team-field-" + counter;
+        xBtn.className = "x-btn";
         xBtn.textContent = "x";
-        console.log(temp.id);
-        temp.draggable = true;
-        temp.ondragstart = onDragStart;
-        queueContainer.appendChild(temp);
-        temp.appendChild(xBtn);
+        // console.log(memberContainer.id);
+        memberContainer.draggable = true;
+        memberContainer.ondragstart = onDragStart;
+        queueContainer.appendChild(memberContainer);
+        memberContainer.appendChild(xBtn);
         counter += 1;
     });
 
@@ -116,13 +118,8 @@ function onDragStart(event) {
         .dataTransfer
         .setData('text/plain', event.target.id);
 
-    event
-        .currentTarget
-        .style
-        .backgroundColor = 'red'
-
+    // event.currentTarget.style.backgroundColor = 'red'
     dragTarget = event.currentTarget;
-
 }
 
 function onDragOver(event) {
@@ -132,51 +129,47 @@ function onDragOver(event) {
 
 function onDrop(event) {
 
-    const id = event
-      .dataTransfer
-      .getData('text');
-    
-    console.log(event.target);
+    const id = event.dataTransfer.getData('text');
 
+    var landingNode = event.target;
+    var afterTarget = landingNode.nextElementSibling;
+    var parent = landingNode.parentNode;
 
-    const landingNode = event.target;
-    const afterTarget = landingNode.nextElementSibling;
-    const parent = landingNode.parentNode;
-
-    if(landingNode.className === "exit-button") {
-        return
+    if (landingNode.className === "x-btn" || landingNode.className === "name-text") {
+        landingNode = landingNode.parentNode;
+        afterTarget = landingNode.nextElementSibling;
+        parent = landingNode.parentNode;
     }
 
-    if(dragTarget === afterTarget) {
+    if (dragTarget === afterTarget) {
         parent.insertBefore(dragTarget, landingNode);
     }
-    else if(landingNode.className === "member-list row") {
-        console.log("HERE");
+    else if (landingNode.className === "member-list row") {
         landingNode.appendChild(dragTarget);
     }
     else {
-    dragTarget.replaceWith(landingNode);
-    parent.insertBefore(dragTarget, afterTarget);
-}
+        dragTarget.replaceWith(landingNode);
+        parent.insertBefore(dragTarget, afterTarget);
+    }
 
     event
         .dataTransfer
         .clearData();
-  }
+}
 
 function inactiveOnDrop(event) {
     const id = event
-      .dataTransfer
-      .getData('text');
+        .dataTransfer
+        .getData('text');
 
 
     let landingNode = event.target;
 
-    if(landingNode.className === "member-list row")
+    if (landingNode.className === "member-list row")
         landingNode.appendChild(dragTarget);
 
     event
-    .dataTransfer
-    .clearData();
+        .dataTransfer
+        .clearData();
 
 }
