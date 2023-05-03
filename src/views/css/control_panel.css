@@ -6,8 +6,17 @@
 
 .info-panel {
     justify-content: flex-start;
-    padding-left: 15px;
     flex: 1;
+    padding-left: 15px;
+    color: #FAFAFA;
+}
+
+.info-panel > h2 {
+    font-size: 2.0em;
+}
+
+.info-panel > h3 {
+    font-size: 1.4em;
 }
 
 .timer-container {
@@ -17,29 +26,108 @@
     display: flex;
 }
 
-.stats-container {
-    padding-right: 5px;
+.tools-container {
+    padding-right: 15px;
     flex: 1;
-    justify-content: flex-end;
+    align-items: flex-end;
 }
 
-#stats-btn {
+.tool-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
     height: 40px;
-    width: 80px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 1.0em;
+    border: 3px solid #FAFAFA;
+    background-color: transparent;
+    color: #FAFAFA;
+    font-family: "Libre Franklin";
+    /* color: white; */
+}
+
+.tool-btn > span {
+    margin-right: 3px;
+}
+
+.tool-btn:hover {
+    opacity: 0.7;
+}
+
+.tool-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#reset-btn {
+    background-color: transparent;
+    border: 3px solid #2A6285;
+}
+
+#start-stop-btn {
+    background-color: #2A6285;
+    width: 300px;
+}
+
+#skip-btn {
+    background-color: transparent;
+    border: 3px solid #2A6285;
 }
 
 .ctrl-btns-container {
+    display: flex;
     margin-top: 20px;
+    width: 85%;
+    justify-content: center;
 }
 
 .ctrl-panel-btn {
-    width: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    min-width: 180px;
+    text-align: center;
     height: 60px;
     margin-right: 10px;
     margin-left: 10px;
+    font-size: 1.5em;
     font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    color: white;
+    background-color: transparent;
+    font-family: "Libre Franklin";
 }
 
+.ctrl-panel-btn > span {
+    margin-left: 2px;
+}
+
+.ctrl-panel-btn:hover {
+    opacity: 0.7;
+}
+
+.ctrl-panel-btn:hover:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.role-container.ctrl-panel {
+    margin-top: 15px;
+}
+
+.role-container.ctrl-panel > #driver-text, .role-container.ctrl-panel > #navigator-text {
+    font-size: 1.4em;
+    margin-left: 6px;
+}
 
 .team-field {
     background-color: black;

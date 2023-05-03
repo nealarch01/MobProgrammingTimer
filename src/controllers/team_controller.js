@@ -7,61 +7,82 @@ const fs = require("fs");
 
 class TeamController {
     constructor() {
-        this.activeQueue = [];
-
-        this.inactiveQueue = [];
-
         this.filepath = path.join(__dirname, "../../configs");
 
         this.teamName = "";
         this.teamMembers = [];
 
-        this.currentTeamIndex = 0; //TODO: EQUAL TO LOADED IN TEAM
+        this.currentTeamIndex = -1;
 
-        this.allTeams = [new Team(this.teamName, this.teamMembers)];
+        this.allTeams = [];
+        this.noneTeam = new Team("None", []);
     }
 
     async initTeams() {
-
         storage.setDataPath(this.filepath);
-
-        let res = storage.getSync('mock_teams'); //TODO: change to team configs
-
-        if (res == undefined) {
-            this.activeQueue = [];
-            this.inactiveQueue = [];
-        }
-        else {
-            let keys = Object.keys(res);
-            this.activeQueue = res[keys[0]];
-            this.inactiveQueue = [];
-
-            this.allTeams = res;
-        }
-
+        const jsonData = storage.getSync('mock_teams'); //TODO: change to team configs
+        this.currentTeamIndex = jsonData.lastTeamIndex ?? -1;
+        this.allTeams = jsonData.teams ?? [];
     }
-    writeFile(data) {
-        let filepath = path.join(__dirname, "../../configs/placeholder.json"); //TODO: MOVE TO mock_teams*********
-        fs.writeFile(filepath, JSON.stringify(data, null, 4), "utf8", (err) => {
+
+    writeFile() {
+        let filepath = path.join(__dirname, "../../configs/mock_teams.json"); //TODO: Change to teams.json
+        const jsonData = {
+            "lastTeamIndex": this.currentTeamIndex,
+            "teams": this.allTeams
+        }
+        fs.writeFile(filepath, JSON.stringify(jsonData, null, 4), "utf8", (err) => {
             console.log(err ?? "Successfully write to file");
         });
     }
-    saveTimerConfigs(data) {
-        this.writeFile(data);
+
+    saveTimerConfigs(timerConfig) {
+        if (this.currentTeamIndex === -1) {
+            this.noneTeam.timerConfig = timerConfig;
+            return;
+        }
+        this.allTeams[this.currentTeamIndex].timerConfig = timerConfig;
+        this.writeFile();
     }
-    addTeam(teamName, members = []) {
+
+    createTeam(teamName, members = []) {
         this.allTeams.push(new Team(teamName, members));
         this.currentTeamIndex = this.allTeams.length - 1;
-        writeFile(this.allTeams);
+        this.writeFile();
     }
+
+    getAllTeams() {
+        return this.allTeams;
+    }
+
+    getCurrentTeam() {
+        if (this.currentTeamIndex === -1 || this.allTeams.length === 0) {
+            return {
+                data: this.noneTeam,
+                index: -1
+            }
+        }
+        return {
+            data: this.allTeams[this.currentTeamIndex],
+            index: this.currentTeamIndex
+        }
+    }
+
+    setCurrentTeam(teamIndex) {
+        this.currentTeamIndex = teamIndex;
+    }
+
     removeTeam(teamName) { //remove team by name, not index
         let index = this.allTeams.indexOf(teamName);
         this.allTeams.splice(index, 1);
         this.writeFile(this.allTeams);
-        console.log(this.allTeams);
     }
+
     retrieveQueue() {
-        return this.activeQueue;
+        if (this.currentTeamIndex === -1) {
+            return []
+        }
+        return this.allTeams[this.currentTeamIndex].members;
     }
 }
 

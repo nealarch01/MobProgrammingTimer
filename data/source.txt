@@ -1,0 +1,1 @@
+https://raw.githubusercontent.com/skolakoda/programming-quotes-api/master/Data/quotes.json

@@ -1,70 +1,73 @@
-[
-    {
-        "name": "Web Dev",
-        "members": [
-            {
-                "name": "Neal",
-                "stats": {
-                    "drivingTime_SEC": 0,
-                    "navigatingTime_SEC": 0,
-                    "observingTime_SEC": 0
+{
+    "lastTeamIndex": 0,
+    "teams": [
+        {
+            "name": "Web Dev",
+            "members": [
+                {
+                    "name": "Neal",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Irvin",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "John",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
                 }
-            },
-            {
-                "name": "Irvin",
-                "stats": {
-                    "drivingTime_SEC": 0,
-                    "navigatingTime_SEC": 0,
-                    "observingTime_SEC": 0
-                }
-            },
-            {
-                "name": "John",
-                "stats": {
-                    "drivingTime_SEC": 0,
-                    "navigatingTime_SEC": 0,
-                    "observingTime_SEC": 0
-                }
+            ],
+            "timerConfig": {
+                "roundTime_SEC": 180,
+                "roundsUntilNextBreak": 120,
+                "breakTime_SEC": 1
             }
-        ],
-        "timerConfig": {
-            "roundTime_SEC": 600,
-            "breakAfterRounds": 10,
-            "breakTime_SEC": 300
-        }
-    },
-    {
-        "name": "Mobile Dev",
-        "members": [
-            {
-                "name": "Joe",
-                "stats": {
-                    "drivingTime_SEC": 0,
-                    "navigatingTime_SEC": 0,
-                    "observingTime_SEC": 0
+        },
+        {
+            "name": "Mobile Dev",
+            "members": [
+                {
+                    "name": "Joe",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Chris",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Alex",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
                 }
-            },
-            {
-                "name": "Chris",
-                "stats": {
-                    "drivingTime_SEC": 0,
-                    "navigatingTime_SEC": 0,
-                    "observingTime_SEC": 0
-                }
-            },
-            {
-                "name": "Alex",
-                "stats": {
-                    "drivingTime_SEC": 0,
-                    "navigatingTime_SEC": 0,
-                    "observingTime_SEC": 0
-                }
+            ],
+            "timerConfig": {
+                "roundTime_SEC": 20,
+                "breakTime_SEC": 20,
+                "roundsUntilNextBreak": 1
             }
-        ],
-        "timerConfig": {
-            "roundTime_SEC": 600,
-            "breakAfterRounds": 10,
-            "breakTime_SEC": 300
         }
-    }
-]
+    ]
+}

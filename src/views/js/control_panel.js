@@ -1,7 +1,21 @@
 const toggleTimerBtn = document.getElementById("start-stop-btn");
+const toggleTimerText = document.getElementById("start-stop-text");
 const optionsBtn = document.getElementById("options-btn");
 const statsBtn = document.getElementById("stats-btn");
 
+const teamNameText = document.getElementById("team-name-text");
+const driverText = document.getElementById("driver-text");
+const navigatorText = document.getElementById("navigator-text");
+
+TeamControllerBridge.getCurrentTeam()
+    .then((team) => {
+        teamNameText.innerText = `Team: ${team.data.name}`;
+        if (team.data.members.length < 2) {
+            return;
+        }
+        driverText.innerText = `Driver: ${team.data.members[0].name}`;
+        navigatorText.innerText = `Navigator: ${team.data.members[1].name}`;
+    });
 const activeQueue = document.getElementById("team-field-ID");
 const queueContainer = document.getElementById("active-queue");
 
@@ -33,10 +47,10 @@ function enableButtons() {
 }
 
 function toggleStartStopBtnText() {
-    if (toggleTimerBtn.innerText === "Start") {
-        toggleTimerBtn.innerText = "Stop";
+    if (toggleTimerText.innerText === "Start") {
+        toggleTimerText.innerText = "Stop";
     } else {
-        toggleTimerBtn.innerText = "Start";
+        toggleTimerText.innerText = "Start";
     }
 }
 
@@ -60,9 +74,18 @@ toggleTimerBtn.addEventListener("click", async () => {
     }
     toggleStartStopBtnText();
 });
+
+optionsBtn.addEventListener("click", () => {
+    window.location.href = "./options.html";
+});
+
+statsBtn.addEventListener("click", () => {
+    window.location.href = "./statistics.html";
+});
 TeamControllerBridge.retrieveQueue().then ((res) => {
+    console.log(res);
     counter = 0;
-    res.members.forEach(element => {
+    res.forEach(element => {
 
         var teamMember = document.createElement("div");
         var xBtn = document.createElement("button"); //TODO: MAKE BUTTON LOOK NICER

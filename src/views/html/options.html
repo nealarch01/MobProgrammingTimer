@@ -9,18 +9,18 @@
 	<link rel="stylesheet" href="../css/options.css">
 </head>
 <body>
-	<div class="team-option-container">
-		<h2>Current Team</h2>
-		<!-- Drop Down Menu -->
+	<div class="team-options-container col">
+		<h2 id="current-team-header">Current Team</h2>
+		<div class="row">
+			<button class="team-edit-btn" id="new-team-btn">Add</button>
+			<button class="team-edit-btn" id="remove-team-btn">Remove</button>
+			<button class="team-edit-btn" id="edit-team-btn">Rename</button>
+		</div>
 		<select name="team" id="team-selector">
-			<option value="team1">None</option>
-			<option value="team2">Web Dev 1</option>
-			<option value="team2">Mobile Dev 1</option>
 		</select>
-		<button class="team-edit-btn" id="new-team-btn">+</button>
-		<button class="team-edit-btn" id="remove-team-btn">-</button>
-		<button class="team-edit-btn" id="edit-team-btn">Edit</button>
 	</div>
+
+	<div class="divider"></div>
 
 	<div class="mob-time-container row">
 		<h2>Mob Time</h2>
@@ -54,9 +54,7 @@
 	</div>
 
 	<div class="exit-save-container row">
-		<a href="./control_panel.html">
-			<button class="exit-save-btn" id="exit-btn">Exit</button>
-		</a>
+		<button class="exit-save-btn" id="exit-btn">Exit</button>
 		<button class="exit-save-btn" id="save-btn">Save</button>
 	</div>
 	<script src="../js/options.js"></script>

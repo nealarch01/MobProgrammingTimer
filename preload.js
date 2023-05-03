@@ -13,12 +13,23 @@ contextBridge.exposeInMainWorld("TimerControllerBridge", {
     skipBreak: (postponeBy) => ipcRenderer.invoke("skipBreak", { postponeBy }),
     isActive: () => ipcRenderer.invoke("isActive"),
     renderTimerText: () => ipcRenderer.invoke("renderTimerText"),
+    getAllMembers: () => ipcRenderer.invoke("getAllMembers"),
+    updateConfigs: (configs) => ipcRenderer.invoke("updateConfigs", { configs })
 });
 
 contextBridge.exposeInMainWorld("TeamControllerBridge", {
-    saveTeamConfigs: (params) => ipcRenderer.invoke("saveTeamConfigs", params),
+    saveTeamConfigs: (timerConfig) => ipcRenderer.invoke("saveTeamConfigs", timerConfig),
     confirmSave: async () => ipcRenderer.invoke("confirmSave"),
+    teamNamePrompt: async (title, name) => ipcRenderer.invoke("teamNamePrompt", { title, name }),
+    createTeam: async (teamName) => ipcRenderer.invoke("createTeam", { teamName }),
+    getAllTeams: async () => ipcRenderer.invoke("getAllTeams"),
+    getCurrentTeam: async () => ipcRenderer.invoke("getCurrentTeam"),
+    setCurrentTeam: async (selectedIndex) => ipcRenderer.invoke("setCurrentTeam", { selectedIndex }),
     addTeam: async (teamName) => ipcRenderer.invoke("addTeam", teamName),
     removeTeam: async (teamName) => ipcRenderer.invoke("removeTeam", teamName),
-    retrieveQueue: async () => ipcRenderer.invoke("retrieveQueue"), 
+    retrieveQueue: async () => ipcRenderer.invoke("retrieveQueue"),
+});
+
+contextBridge.exposeInMainWorld("Quotes", {
+    random: () => ipcRenderer.invoke("randomQuote")
 });

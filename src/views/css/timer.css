@@ -22,45 +22,69 @@
 #timer-circle {
     cx: 150px; /* timer-svg.width / 2 */
     cy: 150px; /* Valid in SVG2 */
-    stroke: black;
-    stroke-width: 4px;
+    stroke: #2A6285;
+    /* stroke: white; */
+    stroke-width: 10px;
+    stroke-linecap: round;
     fill: none;
     /* r = x - stroke_width */
-    r: 146px;
+    r: 140px;
     /* stroke_dasharray = (r * 2pi) + stroke_width  */
-    stroke-dasharray: 917px;
-    transition: 0.35s ease-out;
+    stroke-dasharray: 879px;
+    transition: 1s linear;
+    z-index: 2;
+}
+
+#timer-inner-circle {
+    cx: 150px; /* timer-svg.width / 2 */
+    cy: 150px; /* Valid in SVG2 */
+    /* stroke: #132b3b; */
+    stroke: #232021;
+    stroke-width: 10px;
+    stroke-linecap: round;
+    fill: none;
+    r: 140;
+    z-index: 3;
 }
 
 .timer-svg.widget {
-    width: 75px;
-    height: 75px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: rotate(-90deg);
-    scale: -1 1 1;
+    width: 75px !important;
+    height: 75px !important;
 }
 
 #timer-circle.widget {
     cx: 37.5px;
     cy: 37.5px;
-    stroke: black;
-    stroke-width: 2px;  
+    stroke: #2A6285;
+    stroke-width: 4px;  
     /* r = x - stroke_width */
-    r: 31px;
+    r: 33.5px;
     /* stroke_dasharray = (r * 2pi) + stroke_width  */
-    stroke-dasharray: 197px;
+    stroke-dasharray: 210px;
+    z-index: 2;
+}
+
+#timer-inner-circle.widget {
+    cx: 37.5px;
+    cy: 37.5px;
+    /* stroke: #132b3b; */
+    stroke: #232021;
+    stroke-width: 4px;
+    fill: none;
+    r: 33.5;
+    z-index: 3;
 }
 
 #timer-text {
     z-index: 1;
     position: absolute;
+    font-size: 3.0em;
+    color: white;
+    font-family: "Source Sans Pro";
 }
 
 #timer-text.widget {
-    font-size: 0.75em;
-    color: black;
+    font-size: 1.2em;
     margin: 0px;
     padding: 0px;
 }
@@ -68,12 +92,15 @@
 .widget-pos-btn {
     width: 40px;
     height: 25px;
-    border: 1px solid black;
+    border: none;
+    border-radius: 5px;
+    background-color: #2d2d2d;
+    /* border: 1px solid #515151; */
     margin-top: 2px;
     margin-bottom: 4px;
 }
 
-.widget-pos-btn:active {
+.widget-pos-btn:hover {
     opacity: 0.5;
 }
 
@@ -87,7 +114,7 @@
     height: 0; 
     border-top: 40px solid transparent;
     border-bottom: 40px solid transparent;
-    border-left: 40px solid black;
+    border-left: 40px solid #2A6285;
     cursor: pointer;
 }
 

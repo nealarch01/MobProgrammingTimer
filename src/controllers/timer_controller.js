@@ -161,6 +161,12 @@ class TimerController {
         return this.#timeRemaining;
     }
 
+    updateConfigs(configs) {
+        this.#timerConfig = configs;
+        this.setTimeRemainingToRoundTime();
+        this.resetRoundsLeft();
+    }
+
 }
 
 module.exports = {
