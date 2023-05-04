@@ -8,7 +8,7 @@ const createMainWindow = () => {
         minimizable: true,
         maximizable: false,
         resizable: false,
-        frame: false,
+        autoHideMenuBar: true,
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
             nodeIntegration: true
