@@ -166,7 +166,7 @@ class TimerController {
         this.#activeQueue[index1] = this.#activeQueue[index2];
         this.#activeQueue[index2] = tempMember;
         // console.log(`New order: ${this.#activeQueue.map(member => member.name)}`);
-    // 
+    }
 
 	timeRemainingMMSS() {
 		const minutes = Math.floor(this.#timeRemaining / 60);
