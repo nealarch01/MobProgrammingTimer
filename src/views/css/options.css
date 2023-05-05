@@ -3,6 +3,9 @@
 	align-items: center;
 }
 
+#current-team-header {
+	margin-top: 20px;
+}
 
 .member-field {
 	display: flex;
@@ -27,4 +30,56 @@
     background-color: #2A6285;
     border: none;
     cursor: pointer;
+}
+
+.team-edit-container {
+	width: 100%;
+	margin-top: 8px;
+	justify-content: space-evenly;
+} 
+
+.team-edit-btn {
+	width: 90px;
+	height: 40px;
+	border-radius: 6px;
+	border: none;
+	font-family: "Libre Franklin Regular";
+	font-size: 1.0em;
+	background-color: #4981CE;
+	color: white;
+}
+
+.team-edit-btn:hover {
+	opacity: 0.7;
+}
+
+#left-col {
+	flex: 1;
+	height: 100vh;
+	align-items: center;
+}
+
+#team-selector-wrapper {
+	margin-top: 40px;
+	height: 40px;
+}
+
+#team-selector {
+	display: none;
+}
+
+#team-menu {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 80%;
+	min-width: 80%;
+	background-color: gray;
+}
+
+#right-col {
+	justify-content: center;
+	align-items: center;
+	flex: 2;
 }
