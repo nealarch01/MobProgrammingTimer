@@ -19,12 +19,9 @@ class TimerController {
     #TimerWidgetWindow;
 
 
-    constructor(timerConfig = undefined, MainWindow, TimerWidgetWindow) {
+    constructor(MainWindow, TimerWidgetWindow, timerConfig, teamMembers = []) {
         if (TimerController.instance) {
             return TimerController.instance;
-        }
-        if (timerConfig === undefined) {
-            timerConfig = new Timer();
         }
         this.#timerConfig = timerConfig;
 		this.#timeRemaining = timerConfig.roundTime_SEC;
@@ -32,7 +29,7 @@ class TimerController {
         this.#roundsLeft = timerConfig.roundsUntilNextBreak;
         this.#timerInterval = null;
 
-        this.#activeQueue = [new Person("Neal"), new Person("Irvin"), new Person("Jesse"), new Person("Prof F")];
+        this.#activeQueue = teamMembers;
         this.#inactiveQueue = [new Person("John")];
 
         this.#MainWindow = MainWindow;
@@ -146,6 +143,27 @@ class TimerController {
 
     setRoundsLeft(roundsLeft) {
         this.#roundsLeft = roundsLeft;
+    }
+
+    setActiveQueue(members = []) {
+        this.#activeQueue = members;
+    }
+
+    setInactiveQueue(members = []) {
+        this.#inactiveQueue = members;
+    }
+
+    swapMembers(member1, member2) {
+        const index1 = this.#activeQueue.map(member => member.name).indexOf(member1);
+        const index2 = this.#activeQueue.map(member => member.name).indexOf(member2);
+        if (index1 === -1 || index2 === -1) {
+            console.log("Could not find member in active queue");
+            return;
+        }
+        console.log("Swapping members")
+        return;
+        this.#activeQueue[index1] = member2;
+        this.#activeQueue[index2] = member1;
     }
 
 	timeRemainingMMSS() {

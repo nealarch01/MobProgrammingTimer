@@ -14,13 +14,12 @@ const promptAsync = promisify(prompt);
 
 const quotes = require("./data/quotes.json");
 
-
 const isDev = true;
 
 function initializeTimerController(MainWindow, TimerWidgetWindow, teamController) {
     const currentTeam = teamController.getCurrentTeam();
     const currentTeamConfig = currentTeam.data.timerConfig;
-    const timerController = new TimerController(currentTeamConfig, MainWindow, TimerWidgetWindow); // TODO: pass in a team timer config
+    const timerController = new TimerController(MainWindow, TimerWidgetWindow, currentTeamConfig, currentTeam.data.members); // TODO: pass in a team timer config
     ipcMain.handle("startTimer", (event, params) => {
         const { minimize } = params;
         if (timerController.isActive()) {
@@ -50,6 +49,10 @@ function initializeTimerController(MainWindow, TimerWidgetWindow, teamController
     ipcMain.handle("updateConfigs", (event, params) => {
         const { configs } = params;
         timerController.updateConfigs(configs);
+    });
+    ipcMain.handle("swapMembers", (event, params) => {
+        const { member1, member2 } = params;
+        timerController.swapMembers(member1, member2);
     });
     return timerController;
 }
