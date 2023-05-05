@@ -98,25 +98,6 @@ h2, h3, h4 {
     flex: 2;
 }
 
-.team-members-container {
-    width: 85%;
-    align-items: center;
-}
-
-.team-members-container > h3 {
-    padding: 0px;
-    font-size: 1.2em;
-    align-self: flex-start;
-}
-
-.break-turns, .member-list {
-    width: 100%;
-    height: 50px;
-    border: 2px solid #FAFAFA;
-    border-radius: 12px;
-    margin-bottom : 10px;
-}
-
 .divider {
     /* To make sure the width always extends */
     width: 100vw;

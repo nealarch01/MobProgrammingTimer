@@ -1,6 +1,6 @@
 .top-view {
     width: 100%;
-    justify-content: space-between;
+    justify-content: space-around;
     margin-top: 15px;
 }
 
@@ -133,6 +133,31 @@
     font-size: 1.4em;
     margin-left: 6px;
 }
+.team-members-container {
+    width: 90%;
+}
+
+.team-members-container > h3 {
+    padding: 0px;
+    font-size: 1.2em;
+    align-self: flex-start;
+}
+
+.member-list {
+    width: 100%;
+    border: 2px solid #FAFAFA;
+    border-radius: 12px;
+    margin-bottom : 10px;
+    /* Grid */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
 
 .team-field {
     background-color: #2A6285;
@@ -140,11 +165,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 12px;
-    margin-left: 4px;
-    margin-right: 4px;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    border-radius: 6px;
+    height: 40px;
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
 
 .team-field:hover:not(.x-btn) {
@@ -154,10 +178,15 @@
 .name-text {
     margin-left: 16px;
     margin-right: 8px;
+    font-family: "Libre Franklin Regular";
+
 }
 
 .x-btn {
+    font-family: "Libre Franklin Regular";
+    font-size: 0.6em;
     margin-right: 2px;
+    padding-bottom: 2px;
     height: 50%;
     border-radius: 4px;
     border: none;
@@ -165,6 +194,8 @@
     color: white;
     font-family: "Libre Franklin";
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .x-btn:hover {
