@@ -105,6 +105,12 @@ h2, h3, h4 {
     background-color: gray;
 }
 
+.horizontal-divider {
+    width: 1px;
+    height: 100vh;
+    background-color: gray;
+}
+
 .roles-container {
     display: flex;
     flex-direction: column;
