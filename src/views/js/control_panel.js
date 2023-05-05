@@ -110,36 +110,37 @@ function renderActiveQueue(personData) {
     memberContainer.appendChild(xBtn);
 }
 
+function createActiveMemberContainer(member, index) {
+    var memberContainer = document.createElement("div");
+    memberContainer.draggable = true;
+    memberContainer.ondragstart = onDragStart;
+    memberContainer.className = "team-field";
+    memberContainer.id = "team-field-" + index;
+
+    var nameText = document.createElement("p");
+    nameText.classList.add("name-text");
+    nameText.innerText = member.name;
+    
+    var xBtn = document.createElement("button");
+    xBtn.className = "x-btn";
+    xBtn.textContent = "x";
+    xBtn.onclick = () => {
+    }
+
+    memberContainer.appendChild(nameText);
+    memberContainer.appendChild(xBtn);
+
+    // console.log(memberContainer.id);
+    queueContainer.appendChild(memberContainer);
+}
+
+function createInactiveMemberContainer(member) {
+}
+
 TeamControllerBridge.retrieveQueue().then((members) => {
-    counter = 0;
-    members.forEach(member => {
-
-        var memberContainer = document.createElement("div");
-        var nameText = document.createElement("p");
-        nameText.classList.add("name-text");
-        nameText.innerText = member.name;
-        var xBtn = document.createElement("button");
-
-        xBtn.onclick = function () {
-            memberContainer.remove();
-            xBtn.remove();
-        }
-
-        memberContainer.appendChild(nameText);
-        memberContainer.className = "team-field";
-        memberContainer.id = "team-field-" + counter;
-        xBtn.className = "x-btn";
-        xBtn.textContent = "x";
-        xBtn.addEventListener("click", () => {
-        });
-        // console.log(memberContainer.id);
-        memberContainer.draggable = true;
-        memberContainer.ondragstart = onDragStart;
-        queueContainer.appendChild(memberContainer);
-        memberContainer.appendChild(xBtn);
-        counter += 1;
+    members.forEach((member, index) => {
+        createActiveMemberContainer(member, index);
     });
-
 });
 
 var dragTarget;
