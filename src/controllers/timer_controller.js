@@ -30,7 +30,7 @@ class TimerController {
         this.#timerInterval = null;
 
         this.#activeQueue = teamMembers;
-        this.#inactiveQueue = [new Person("John")];
+        this.#inactiveQueue = [];
 
         this.#MainWindow = MainWindow;
         this.#TimerWidgetWindow = TimerWidgetWindow;
@@ -154,17 +154,19 @@ class TimerController {
     }
 
     swapMembers(member1, member2) {
+        console.log(`Swapping ${member1} and ${member2}`);
         const index1 = this.#activeQueue.map(member => member.name).indexOf(member1);
         const index2 = this.#activeQueue.map(member => member.name).indexOf(member2);
         if (index1 === -1 || index2 === -1) {
             console.log("Could not find member in active queue");
             return;
         }
-        console.log("Swapping members")
-        return;
-        this.#activeQueue[index1] = member2;
-        this.#activeQueue[index2] = member1;
-    }
+        // console.log(`Old order: ${this.#activeQueue.map(member => member.name)}`);
+        const tempMember = this.#activeQueue[index1];
+        this.#activeQueue[index1] = this.#activeQueue[index2];
+        this.#activeQueue[index2] = tempMember;
+        // console.log(`New order: ${this.#activeQueue.map(member => member.name)}`);
+    // 
 
 	timeRemainingMMSS() {
 		const minutes = Math.floor(this.#timeRemaining / 60);
