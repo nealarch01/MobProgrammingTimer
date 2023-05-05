@@ -164,21 +164,40 @@ function onDrop(event) {
         parent = landingNode.parentNode;
     }
 
-    if (dragTarget === afterTarget) { // If dropped on another member
+    // If dropped back on to active queue, do nothing
+    if (landingNode.id === "active-queue") {
+        return;
+    }
+
+    if (dragTarget === afterTarget) { // Moving from left to right
         console.log("Condition 1");
+        console.log(dragTarget);
+        console.log(afterTarget);
         parent.insertBefore(dragTarget, landingNode);  // Swap the two elements
-    } else if (landingNode.id === "active-queue") { // If entering the active queue, re-append
+    } else {
         console.log("Condition 2");
-        landingNode.appendChild(dragTarget);
-    } else { // If dropped on itself, do nothing
-        console.log("Condition 3");
-        dragTarget.replaceWith(landingNode); // 
+        console.log(dragTarget);
+        console.log(landingNode);
+        dragTarget.replaceWith(landingNode);
         parent.insertBefore(dragTarget, afterTarget);
     }
-    // Get the <p> inside drag target
+
     const dragTargetName = dragTarget.getElementsByTagName("p")[0].innerText;
     const landingNodeName = landingNode.getElementsByTagName("p")[0].innerText;
     TimerControllerBridge.swapMembers(dragTargetName, landingNodeName);
+
+    // if (dragTarget === afterTarget) { // If dropped on another member
+    //     console.log("Condition 1");
+    //     parent.insertBefore(dragTarget, landingNode);  // Swap the two elements
+    // } else if (landingNode.id === "active-queue") { // If entering the active queue, re-append
+    //     console.log("Condition 2");
+    //     landingNode.appendChild(dragTarget);
+    // } else { // If dropped on itself, do nothing
+    //     console.log("Condition 3");
+    //     dragTarget.replaceWith(landingNode); // 
+    //     parent.insertBefore(dragTarget, afterTarget);
+    // }
+
     event.dataTransfer.clearData();
 }
 
