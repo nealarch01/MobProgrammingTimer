@@ -154,7 +154,7 @@ class TimerController {
     }
 
     swapMembers(member1, member2) {
-        console.log(`Swapping ${member1} and ${member2}`);
+        // console.log(`Swapping ${member1} and ${member2}`);
         const index1 = this.#activeQueue.map(member => member.name).indexOf(member1);
         const index2 = this.#activeQueue.map(member => member.name).indexOf(member2);
         if (index1 === -1 || index2 === -1) {
