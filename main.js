@@ -120,18 +120,7 @@ function initializeTeamController() {
     ipcMain.handle("getCurrentTeam", async () => {
         return teamController.getCurrentTeam();
     });
-    ipcMain.handle("setCurrentTeam", async (event, params) => {
-        const { selectedIndex } = params;
-        if (typeof selectedIndex !== "number") {
-            console.log("Error");
-            return;
-        }
-        if (selectedIndex >= teamController.getAllTeams().length) {
-            console.log("Error");
-            return;
-        }
-        teamController.setCurrentTeam(selectedIndex);
-    });
+
     ipcMain.handle("retrieveQueue", () => {
         return teamController.retrieveQueue();
     });
@@ -185,6 +174,20 @@ app.whenReady()
     });
     const teamController = initializeTeamController();
     const timerController = initializeTimerController(MainWindow, TimerWidgetWindow, teamController);
+    ipcMain.handle("setCurrentTeam", async (event, params) => {
+        const { selectedIndex } = params;
+        if (typeof selectedIndex !== "number") {
+            console.log("Error");
+            return;
+        }
+        if (selectedIndex >= teamController.getAllTeams().length) {
+            console.log("Error");
+            return;
+        }
+        teamController.setCurrentTeam(selectedIndex);
+        const currentTeam = teamController.getCurrentTeam();
+        timerController.updateSelectedTeam(currentTeam.data.timerConfig, currentTeam.data.members);
+    });
     initializeUtilities();
 });
 
