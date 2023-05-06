@@ -210,7 +210,7 @@ backBtn.addEventListener("click", () => {
 });
 
 newTeamBtn.addEventListener("click", async function() {
-    const teamName = await TeamControllerBridge.teamNamePrompt("Enter team name", "");
+    const teamName = await TeamControllerBridge.teamNamePrompt("Create Team", "");
     if (teamName === null) {
         return;
     }
