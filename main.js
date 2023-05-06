@@ -111,6 +111,8 @@ function initializeTeamController() {
         teamController.createTeam(teamName);
     });
     ipcMain.handle("renameTeam", async (event, params) => {
+        const { teamName } = params;
+        teamController.renameTeam(teamName);
     });
     ipcMain.handle("getAllTeams", async () => {
         return teamController.getAllTeams();

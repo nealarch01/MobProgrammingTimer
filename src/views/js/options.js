@@ -236,7 +236,11 @@ renameTeamBtn.addEventListener("click", async () => {
     // Get the current name of the team
     const currentTeam = allTeams[selectedTeam];
     const input = await TeamControllerBridge.teamNamePrompt("Rename team", currentTeam.name);
-    console.log(input);
+    if (input === null) {
+        return;
+    }
+    TeamControllerBridge.renameTeam(input);
+    window.location.href = "./options.html";
 });
 
 removeTeamBtn.addEventListener("click", async function() {
