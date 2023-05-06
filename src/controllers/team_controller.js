@@ -4,6 +4,7 @@ const path = require('path');
 const { Team } = require('../models/team_model.js');
 
 const fs = require("fs");
+const { Person } = require('../models/person_model.js');
 
 class TeamController {
     constructor() {
@@ -91,6 +92,18 @@ class TeamController {
             return []
         }
         return this.allTeams[this.currentTeamIndex].members;
+    }
+
+    addMember(memberName) {
+        const newMember = new Person(memberName);
+        this.teamMembers.append(newMember);
+        this.writeFile();
+    }
+
+    removeMember(memberName) {
+        const index = this.teamMembers.indexOf(memberName);
+        this.teamMembers.splice(index, 1);
+        this.writeFile();
     }
 }
 
