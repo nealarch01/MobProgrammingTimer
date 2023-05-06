@@ -65,8 +65,9 @@ function initializeTeamController() {
     let teamController = new TeamController();
     teamController.initTeams()
     ipcMain.handle("saveTeamConfigs", async (event, params) => {
+        console.log(params);
         const { roundTime_SEC, breakTime_SEC, roundsUntilNextBreak, selectedTeam } = params;
-        const newTimerConfig = new Timer(roundTime_SEC, breakTime_SEC, roundsUntilNextBreak);
+        const newTimerConfig = new Timer(roundTime_SEC, roundsUntilNextBreak, breakTime_SEC);
         teamController.saveTimerConfigs(newTimerConfig);
         return newTimerConfig;
     });
