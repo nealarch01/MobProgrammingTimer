@@ -16,13 +16,14 @@ const rndsUntilNextBreakDec = document.getElementById("rounds-before-break-decre
 const rndsUntilNextBreakInput = document.getElementById("rounds-before-break-input");
 const rndsUntilNextBreakInc = document.getElementById("rounds-before-break-incrementer");
 
-const exitBtn = document.getElementById("exit-btn");
+const cancelBtn = document.getElementById("cancel-btn");
 const saveBtn = document.getElementById("save-btn");
+const backBtn = document.getElementById("back-btn");
 
 let allTeams = [];
 let selectedTeam = -1;
-const personInput = document.getElementById("team-members");
-const teamContainer = document.getElementById("member-list-ID");
+const personInput = document.getElementById("member-input");
+const teamContainer = document.getElementById("team-members-container");
 
 TeamControllerBridge.getCurrentTeam()
     .then((team) => {
@@ -181,9 +182,7 @@ rndsUntilNextBreakInput.addEventListener("change", (event) => {
     roundsUntilNextBreak = parseInt(event.target.value)
 });
 
-exitBtn.addEventListener("click", () => {
-    const selectedTeam = parseInt(teamSelector.value);
-    TeamControllerBridge.setCurrentTeam(selectedTeam);
+cancelBtn.addEventListener("click", () => {
     window.location.href = "./control_panel.html";
 });
 
@@ -201,6 +200,12 @@ saveBtn.addEventListener("click", async function() {
         selectedTeam: selectedTeam
     });
     TimerControllerBridge.updateConfigs(updatedConfigs);
+    window.location.href = "./control_panel.html";
+});
+
+backBtn.addEventListener("click", () => {
+    const selectedTeam = parseInt(teamSelector.value);
+    TeamControllerBridge.setCurrentTeam(selectedTeam);
     window.location.href = "./control_panel.html";
 });
 

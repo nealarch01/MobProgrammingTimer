@@ -1,35 +1,128 @@
-.members-options-container {
-	width: 85%;
+#left-col {
+	flex: 1;
+	height: 100vh;
 	align-items: center;
 }
 
-#current-team-header {
+#right-col {
+	flex: 2;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+}
+
+.configs-container {
+	display: flex;
+	flex-direction: column;
+	margin-left: 20px;
+	margin-right: 40px;
+	height: 100%;
+}
+
+.members-options-container {
+	align-items: center;
+}
+
+.col-header {
 	margin-top: 20px;
 }
 
-.member-field {
+.options-divider {
+	width: 100%;
+	height: 1px;
+	background-color: #8c8c8c;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.input-container {
 	display: flex;
-	margin-top: 1vw;
-	margin-left: 2px;
-    width: 10%;
-    height: 60%;
-	border-width: .1px;
-	background-color: #2A6285;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 70%;
+	margin-right: 40px;
+}
+
+.input-container > .row {
+	align-items: center;
+}
+
+.input-field {
+	height: 40px;
+	width: 60px;
+	text-align: center;
+	font-size: 1.25em;
+	border-radius: 6px;
+	border: none;
+	background-color: #8c8c8c;
 	color: white;
 }
 
-.team-members {
-	display: flex;
+.input-field:focus {
+	outline: none;
+}
+
+.step-btn {
+	height: 40px;
+	width: 40px;
+	font-size: 1.6em;
+	color: white;
+	background-color: #4981CE;
+	border: none;
+	border-radius: 4px;
+	margin-left: 4px;
+	margin-right: 4px;
+}
+
+.step-btn:hover { 
+	cursor: pointer;
+	opacity: 0.7;
+}
+
+.team-edit-btn:hover, .exit-save-btn:hover {
+	cursor: pointer;
+	opacity: 0.7;
+}
+
+#back-btn {
+	margin-top: 20px;
+	border: none;
+	background-color: #4981CE;
+}
+
+.member-options-container {
 	flex-direction: row;
-	margin: auto;
-    width: 350px;
-    height: 75px;
-    font-weight: bold;
-    font-size: 100px;
-	color: black;
-    background-color: #2A6285;
-    border: none;
-    cursor: pointer;
+}
+
+.add-member-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	margin-top: 6px;
+	margin-bottom: 12px;
+}
+
+#member-input {
+	width: 200px;
+	height: 30px;
+	background-color: #8c8c8c;
+	color: white;
+	border: none;
+	border-radius: 6px;
+}
+
+#add-member-btn {
+	height: 30px;
+	border-radius: 6px;
+	border: none;
+	width: 30px;
+	font-size: 1.6em;
+	background-color: #4981CE;
+	color: white;
+}
+#member-input:focus {
+	outline: none;
 }
 
 .team-edit-container {
@@ -38,26 +131,58 @@
 	justify-content: space-evenly;
 } 
 
-.team-edit-btn {
+.exit-save-container {
+	margin-top: 10px;
+	justify-self: flex-end;
+}
+
+.exit-save-btn {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#save-btn {
+	background-color: #4981CE;
+}
+
+#save-btn, #cancel-btn {
+	width: 120px;
+}
+
+.team-edit-btn, .exit-save-btn {
 	width: 90px;
 	height: 40px;
 	border-radius: 6px;
 	border: none;
 	font-family: "Libre Franklin Regular";
 	font-size: 1.0em;
-	background-color: #4981CE;
+	background-color: transparent;
+	border: 2px solid #4981CE;
 	color: white;
+}
+
+.member-list {
+    width: 100%;
+    min-height: 40px;
+    border: 2px solid #FAFAFA55;
+    border-radius: 12px;
+    margin-bottom : 10px;
+    /* Grid */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 2px;
+    padding-bottom: 2px;
 }
 
 .team-edit-btn:hover {
 	opacity: 0.7;
 }
 
-#left-col {
-	flex: 1;
-	height: 100vh;
-	align-items: center;
-}
+
 
 #team-selector-wrapper {
 	margin-top: 40px;
@@ -65,21 +190,18 @@
 }
 
 #team-selector {
-	display: none;
+	margin-top: 10px;
+	background-color: #3f3f3f;
+	width: 80%;
+	height: 70%;
+	color: white;
+	font-family: "Libre Franklin";
+	font-size: 1.2em;
+	text-align: center;
+	border: none;
+	border-radius: 6px;
 }
 
-#team-menu {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	min-height: 80%;
-	min-width: 80%;
-	background-color: gray;
-}
-
-#right-col {
-	justify-content: center;
-	align-items: center;
-	flex: 2;
+#team-selector:focus {
+	outline: none;
 }
