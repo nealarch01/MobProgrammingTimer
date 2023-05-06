@@ -67,17 +67,17 @@
 
 #reset-btn {
     background-color: transparent;
-    border: 3px solid #2A6285;
+    border: 3px solid #4981CE;
 }
 
 #start-stop-btn {
-    background-color: #2A6285;
+    background-color: #4981CE;
     width: 300px;
 }
 
 #skip-btn {
     background-color: transparent;
-    border: 3px solid #2A6285;
+    border: 3px solid #4981CE;
 }
 
 .ctrl-btns-container {
