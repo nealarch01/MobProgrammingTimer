@@ -10,8 +10,6 @@ const { Timer } = require("./src/models/timer_model");
 const { promisify } = require("util");
 const prompt = require("electron-prompt");
 
-const promptAsync = promisify(prompt);
-
 const quotes = require("./data/quotes.json");
 
 const isDev = true;
@@ -20,6 +18,65 @@ function initializeTimerController(MainWindow, TimerWidgetWindow, teamController
     const currentTeam = teamController.getCurrentTeam();
     const currentTeamConfig = currentTeam.data.timerConfig;
     const timerController = new TimerController(MainWindow, TimerWidgetWindow, currentTeamConfig, currentTeam.data.members); // TODO: pass in a team timer config
+
+    return timerController;
+}
+
+function initializeTeamController() {
+    let teamController = new TeamController();
+    teamController.initTeams()
+
+    return teamController;
+}
+
+function initializeTimerWidget(TimerWidgetWindow) {
+    const workAreaSize = screen.getPrimaryDisplay().workAreaSize;
+    const timerWidgetWindowSize = {
+        width: TimerWidgetWindow.getSize()[0],
+        height: TimerWidgetWindow.getSize()[1]
+    }
+    ipcMain.handle("moveTopLeft", () => {
+        TimerWidgetWindow.setPosition(0, 0);
+    });
+    ipcMain.handle("moveTopRight", () => {
+        TimerWidgetWindow.setPosition(workAreaSize.width - timerWidgetWindowSize.width, 0);
+    });
+    ipcMain.handle("moveBottomRight", () => {
+        TimerWidgetWindow.setPosition(workAreaSize.width - timerWidgetWindowSize.width, workAreaSize.height - timerWidgetWindowSize.height);
+    });
+    ipcMain.handle("moveBottomLeft", () => {
+        TimerWidgetWindow.setPosition(0, workAreaSize.height - timerWidgetWindowSize.height);
+    });
+}
+
+app.whenReady()
+    .then(() => {
+    console.log(`Node.js version: ${process.versions.node}`);
+    const { MainWindow, TimerWidgetWindow } = createWindows();
+
+    initializeWindowEvents(MainWindow, TimerWidgetWindow, app);
+    initializeTimerWidget(TimerWidgetWindow);
+
+    const teamController = initializeTeamController();
+    const timerController = initializeTimerController(MainWindow, TimerWidgetWindow, teamController);
+
+    // ipcMain Handlers
+    ipcMain.handle("setCurrentTeam", async (event, params) => {
+        const { selectedIndex } = params;
+        if (typeof selectedIndex !== "number") {
+            console.log("Error");
+            return;
+        }
+        if (selectedIndex >= teamController.getAllTeams().length) {
+            console.log("Error");
+            return;
+        }
+        teamController.setCurrentTeam(selectedIndex);
+        const currentTeam = teamController.getCurrentTeam();
+        timerController.updateSelectedTeam(currentTeam.data.timerConfig, currentTeam.data.members);
+    });
+
+    // Timer Controller Specific Handlers
     ipcMain.handle("startTimer", (event, params) => {
         const { minimize } = params;
         if (timerController.isActive()) {
@@ -58,12 +115,9 @@ function initializeTimerController(MainWindow, TimerWidgetWindow, teamController
         const { member1, member2 } = params;
         timerController.swapMembers(member1, member2);
     });
-    return timerController;
-}
 
-function initializeTeamController() {
-    let teamController = new TeamController();
-    teamController.initTeams()
+
+    // Team Controller Specific Handlers
     ipcMain.handle("saveTeamConfigs", async (event, params) => {
         const { roundTime_SEC, breakTime_SEC, roundsUntilNextBreak, selectedTeam } = params;
         const newTimerConfig = new Timer(roundTime_SEC, roundsUntilNextBreak, breakTime_SEC);
@@ -124,30 +178,8 @@ function initializeTeamController() {
     ipcMain.handle("retrieveQueue", () => {
         return teamController.retrieveQueue();
     });
-    return teamController;
-}
 
-function initializeTimerWidget(TimerWidgetWindow) {
-    const workAreaSize = screen.getPrimaryDisplay().workAreaSize;
-    const timerWidgetWindowSize = {
-        width: TimerWidgetWindow.getSize()[0],
-        height: TimerWidgetWindow.getSize()[1]
-    }
-    ipcMain.handle("moveTopLeft", () => {
-        TimerWidgetWindow.setPosition(0, 0);
-    });
-    ipcMain.handle("moveTopRight", () => {
-        TimerWidgetWindow.setPosition(workAreaSize.width - timerWidgetWindowSize.width, 0);
-    });
-    ipcMain.handle("moveBottomRight", () => {
-        TimerWidgetWindow.setPosition(workAreaSize.width - timerWidgetWindowSize.width, workAreaSize.height - timerWidgetWindowSize.height);
-    });
-    ipcMain.handle("moveBottomLeft", () => {
-        TimerWidgetWindow.setPosition(0, workAreaSize.height - timerWidgetWindowSize.height);
-    });
-}
-
-function initializeUtilities() {
+    // Utility Handlers
     ipcMain.handle("confirmPrompt", async (event, params) => {
 		const { message } = params;
         const options = {
@@ -160,35 +192,11 @@ function initializeUtilities() {
         const result = await dialog.showMessageBox(null, options);
         return result.response === 0 ? true : false;
     });
-}
 
-app.whenReady()
-    .then(() => {
-    console.log(`Node.js version: ${process.versions.node}`);
-    const { MainWindow, TimerWidgetWindow } = createWindows();
-    initializeWindowEvents(MainWindow, TimerWidgetWindow, app);
-    initializeTimerWidget(TimerWidgetWindow);
     ipcMain.handle("randomQuote", async () => {
         const randomIndex = Math.floor(Math.random() * quotes.length);
         return quotes[randomIndex];
     });
-    const teamController = initializeTeamController();
-    const timerController = initializeTimerController(MainWindow, TimerWidgetWindow, teamController);
-    ipcMain.handle("setCurrentTeam", async (event, params) => {
-        const { selectedIndex } = params;
-        if (typeof selectedIndex !== "number") {
-            console.log("Error");
-            return;
-        }
-        if (selectedIndex >= teamController.getAllTeams().length) {
-            console.log("Error");
-            return;
-        }
-        teamController.setCurrentTeam(selectedIndex);
-        const currentTeam = teamController.getCurrentTeam();
-        timerController.updateSelectedTeam(currentTeam.data.timerConfig, currentTeam.data.members);
-    });
-    initializeUtilities();
 });
 
 app.on("window-all-closed", () => {
