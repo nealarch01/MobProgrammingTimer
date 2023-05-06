@@ -1,5 +1,25 @@
 const toggleTimerBtn = document.getElementById("start-stop-btn");
 const toggleTimerText = document.getElementById("start-stop-text");
+toggleTimerBtn.addEventListener("click", async () => {
+    let isActive = await TimerControllerBridge.isActive();
+    if (isActive) {
+        deactivate();
+    } else {
+        activate();
+    }
+    toggleStartStopBtnText();
+});
+
+const skipBtn = document.getElementById("skip-btn");
+skipBtn.addEventListener("click", () => {
+    deactivate();
+});
+
+const resetBtn = document.getElementById("reset-btn");
+resetBtn.addEventListener("click", () => {
+    deactivate();
+});
+
 const optionsBtn = document.getElementById("options-btn");
 const statsBtn = document.getElementById("stats-btn");
 
@@ -66,15 +86,7 @@ function deactivate() {
     TimerControllerBridge.stopTimer();
 }
 
-toggleTimerBtn.addEventListener("click", async () => {
-    let isActive = await TimerControllerBridge.isActive();
-    if (isActive) {
-        deactivate();
-    } else {
-        activate();
-    }
-    toggleStartStopBtnText();
-});
+
 
 optionsBtn.addEventListener("click", () => {
     window.location.href = "./options.html";
