@@ -200,7 +200,7 @@ saveBtn.addEventListener("click", async function() {
         selectedTeam: selectedTeam
     });
     TimerControllerBridge.updateConfigs(updatedConfigs);
-    // window.location.href = "./control_panel.html";
+    window.location.href = "./control_panel.html";
 });
 
 backBtn.addEventListener("click", () => {
