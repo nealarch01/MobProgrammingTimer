@@ -12,9 +12,9 @@ const breakTimeDec = document.getElementById("break-time-decrementer");
 const breakTimeInput = document.getElementById("break-time-input");
 const breakTimeInc = document.getElementById("break-time-incrementer");
 
-const rndsUntilNextBreakDec = document.getElementById("rounds-before-break-decrementer");
-const rndsUntilNextBreakInput = document.getElementById("rounds-before-break-input");
-const rndsUntilNextBreakInc = document.getElementById("rounds-before-break-incrementer");
+const rndsUntilNextBreakDec = document.getElementById("rounds-until-break-decrementer");
+const rndsUntilNextBreakInput = document.getElementById("rounds-until-break-input");
+const rndsUntilNextBreakInc = document.getElementById("rounds-until-break-incrementer");
 
 const cancelBtn = document.getElementById("cancel-btn");
 const saveBtn = document.getElementById("save-btn");
@@ -200,7 +200,7 @@ saveBtn.addEventListener("click", async function() {
         selectedTeam: selectedTeam
     });
     TimerControllerBridge.updateConfigs(updatedConfigs);
-    window.location.href = "./control_panel.html";
+    // window.location.href = "./control_panel.html";
 });
 
 backBtn.addEventListener("click", () => {
