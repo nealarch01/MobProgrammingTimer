@@ -50,6 +50,10 @@ function initializeTimerController(MainWindow, TimerWidgetWindow, teamController
         const { configs } = params;
         timerController.updateConfigs(configs);
     });
+    ipcMain.handle("updateSelectedTeam", (event, params) => {
+        const { timerConfigs, teamMembers } = params;
+        timerController.updateSelectedTeam(timerConfigs, teamMembers);
+    });
     ipcMain.handle("swapMembers", (event, params) => {
         const { member1, member2 } = params;
         timerController.swapMembers(member1, member2);
@@ -150,7 +154,23 @@ function initializeTimerWidget(TimerWidgetWindow) {
     });
 }
 
-app.whenReady().then(() => {
+function initializeUtilities() {
+    ipcMain.handle("confirmPrompt", async (event, params) => {
+		const { message } = params;
+        const options = {
+            type: "question",
+            buttons: ["Yes", "No"],
+            defaultId: 0,
+            title: "Confirm Save",
+            message: message
+        }
+        const result = await dialog.showMessageBox(null, options);
+        return result.response === 0 ? true : false;
+    });
+}
+
+app.whenReady()
+    .then(() => {
     console.log(`Node.js version: ${process.versions.node}`);
     const { MainWindow, TimerWidgetWindow } = createWindows();
     initializeWindowEvents(MainWindow, TimerWidgetWindow, app);
@@ -161,6 +181,7 @@ app.whenReady().then(() => {
     });
     const teamController = initializeTeamController();
     const timerController = initializeTimerController(MainWindow, TimerWidgetWindow, teamController);
+    initializeUtilities();
 });
 
 app.on("window-all-closed", () => {

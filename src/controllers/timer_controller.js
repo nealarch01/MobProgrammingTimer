@@ -13,7 +13,7 @@ class TimerController {
     #timerInterval;
 
     #activeQueue;
-    #inactiveQueue;
+    #inactive;
 
     #MainWindow;
     #TimerWidgetWindow;
@@ -30,7 +30,7 @@ class TimerController {
         this.#timerInterval = null;
 
         this.#activeQueue = teamMembers;
-        this.#inactiveQueue = [];
+        this.#inactive = [];
 
         this.#MainWindow = MainWindow;
         this.#TimerWidgetWindow = TimerWidgetWindow;
@@ -103,7 +103,7 @@ class TimerController {
     getAllMembers() {
         return {
             active: this.#activeQueue,
-            inactive: this.#inactiveQueue
+            inactive: this.#inactive
         }
     }
 
@@ -149,8 +149,8 @@ class TimerController {
         this.#activeQueue = members;
     }
 
-    setInactiveQueue(members = []) {
-        this.#inactiveQueue = members;
+    setinactive(members = []) {
+        this.#inactive = members;
     }
 
     swapMembers(member1, member2) {
@@ -161,11 +161,11 @@ class TimerController {
             console.log("Could not find member in active queue");
             return;
         }
-        // console.log(`Old order: ${this.#activeQueue.map(member => member.name)}`);
+        console.log(`Old order: ${this.#activeQueue.map(member => member.name)}`);
         const tempMember = this.#activeQueue[index1];
         this.#activeQueue[index1] = this.#activeQueue[index2];
         this.#activeQueue[index2] = tempMember;
-        // console.log(`New order: ${this.#activeQueue.map(member => member.name)}`);
+        console.log(`New order: ${this.#activeQueue.map(member => member.name)}`);
     }
 
 	timeRemainingMMSS() {
@@ -181,10 +181,20 @@ class TimerController {
         return this.#timeRemaining;
     }
 
+    updateSelectedTeam(configs, teamMembers) {
+        this.updateConfigs(configs);
+        this.updateMembers(teamMembers);
+    }
+
     updateConfigs(configs) {
         this.#timerConfig = configs;
         this.setTimeRemainingToRoundTime();
         this.resetRoundsLeft();
+    }
+
+    updateMembers(members) {
+        this.#activeQueue = members;
+        this.#inactive = [];
     }
 
 }

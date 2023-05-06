@@ -15,6 +15,7 @@ contextBridge.exposeInMainWorld("TimerControllerBridge", {
     renderTimerText: () => ipcRenderer.invoke("renderTimerText"),
     getAllMembers: () => ipcRenderer.invoke("getAllMembers"),
     updateConfigs: (configs) => ipcRenderer.invoke("updateConfigs", { configs }),
+    updateSelectedTeam: (timerConfigs, teamMembers) => ipcRenderer.invoke("updateSelectedTeam", { timerConfigs, teamMembers }),
     swapMembers: (member1, member2) => ipcRenderer.invoke("swapMembers", { member1, member2 }),
 });
 
