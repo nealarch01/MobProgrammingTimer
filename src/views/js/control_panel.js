@@ -9,6 +9,7 @@ toggleTimerBtn.addEventListener("click", async () => {
     }
     toggleStartStopBtnText();
 });
+const toggleIcon = document.getElementById("toggle-icon")
 
 const skipBtn = document.getElementById("skip-btn");
 skipBtn.addEventListener("click", () => {
@@ -70,8 +71,10 @@ function enableButtons() {
 function toggleStartStopBtnText() {
     if (toggleTimerText.innerText === "Start") {
         toggleTimerText.innerText = "Stop";
+        toggleIcon.innerText = "pause";
     } else {
         toggleTimerText.innerText = "Start";
+        toggleIcon.innerText = "play_circle";
     }
 }
 

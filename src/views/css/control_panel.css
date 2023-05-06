@@ -125,12 +125,16 @@
     cursor: not-allowed;
 }
 
+#team-name-text {
+    font-size: 1.4em;
+}
+
 .role-container.ctrl-panel {
     margin-top: 15px;
 }
 
 .role-container.ctrl-panel > #driver-text, .role-container.ctrl-panel > #navigator-text {
-    font-size: 1.4em;
+    font-size: 1.35em;
     margin-left: 6px;
 }
 .team-members-container {
