@@ -30,7 +30,7 @@ const createWidgetWindow = () => {
         height: height,
         x: workAreaSize.width - width,
         y: workAreaSize.height - height,
-        opacity: 0.5,
+        opacity: 0.65,
         resizable: false,
         minimizable: false,
         maximizable: false,
