@@ -133,6 +133,10 @@ p {
 	width: 120px;
 }
 
+#remove-team-btn {
+	border: 2px solid red;
+}
+
 .team-edit-btn, .exit-save-btn {
 	width: 90px;
 	height: 40px;
