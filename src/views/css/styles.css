@@ -176,6 +176,8 @@ h2, h3, h4 {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 4px;
+    margin-right: 3px;
 }
 
 .x-btn:hover {
