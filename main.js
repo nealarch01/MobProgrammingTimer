@@ -124,17 +124,6 @@ app.whenReady()
         teamController.saveTimerConfigs(newTimerConfig);
         return newTimerConfig;
     });
-    ipcMain.handle("confirmSave", async () => {
-        const options = {
-            type: "question",
-            buttons: ["Yes", "No"],
-            defaultId: 0,
-            title: "Confirm Save",
-            message: "Do you want to save your changes?"
-        }
-        const result = await dialog.showMessageBox(null, options);
-        return result.response === 0 ? true : false;
-    });
     ipcMain.handle("teamNamePrompt", async (event, params) => {
         const { title, name } = params;
         return new Promise((resolve, reject) => {
