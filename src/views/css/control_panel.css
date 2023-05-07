@@ -165,7 +165,7 @@
     padding-bottom: 2px;
 }
 
-.team-field {
+.member-field {
     background-color: #3f3f3f;
     color: white;
     display: flex;
@@ -179,7 +179,7 @@
     margin-left: 6px;
 }
 
-.team-field:hover:not(.x-btn) {
+.member-field:hover:not(.x-btn) {
     cursor: move;
 }
 

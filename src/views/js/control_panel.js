@@ -112,7 +112,7 @@ function renderActiveQueue(personData) {
     }
 
     memberContainer.appendChild(nameText);
-    memberContainer.className = "team-field";
+    memberContainer.className = "member-field";
     memberContainer.id = `${personData.name}`;
     xBtn.className = "x-btn";
     xBtn.textContent = "x";
@@ -129,8 +129,8 @@ function createActiveMemberContainer(member, index) {
     var memberContainer = document.createElement("div");
     memberContainer.draggable = true;
     memberContainer.ondragstart = onDragStart;
-    memberContainer.className = "team-field";
-    memberContainer.id = "team-field-" + index;
+    memberContainer.className = "member-field";
+    memberContainer.id = "member-field-" + index;
 
     var nameText = document.createElement("p");
     nameText.classList.add("name-text");
