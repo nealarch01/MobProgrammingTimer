@@ -23,7 +23,8 @@ const backBtn = document.getElementById("back-btn");
 const addMemberBtn = document.getElementById("add-member-btn");
 
 let allTeams = [];
-var toAdd = [];
+let toAdd = [];
+let toRemove = [];
 let selectedTeam = -1;
 const personInput = document.getElementById("member-input");
 const teamContainer = document.getElementById("team-members-container");
@@ -256,16 +257,38 @@ function addMember() {
     }
     toAdd.push(memberName);
     var memberItem = document.createElement("div");
-    memberItem.innerHTML = personInput.value;
     memberItem.className = "member-field";
 
+    var memberNameText = document.createElement("p");
+    memberNameText.className = "name-text";
+    memberNameText.innerText = memberName;
+
     var xBtn = document.createElement("button"); //TODO: MAKE BUTTON LOOK NICER
-    xBtn.innerHTML = "X";
+    xBtn.className = "x-btn";
+    xBtn.innerHTML = "x";
+    xBtn.addEventListener("click", () => {
+        removeMember(memberItem);
+    });
 
     teamContainer.appendChild(memberItem);
+    memberItem.appendChild(memberNameText);
     memberItem.appendChild(xBtn);
 
     personInput.value = "";
+    console.log(toAdd);
+}
+
+function removeMember(memberItem) {
+    const memberName = memberItem.innerText;
+    console.log(memberName);
+    const index = toAdd.indexOf(memberName); 
+    // Check if member is in toAdd array
+    if (index > -1) {
+        toAdd.splice(index, 1); // Remove from toAdd
+    } else {
+        toRemove.push(memberName);  // Add to toRemove
+    }
+    memberItem.remove(); // Remove from DOM
 }
 
 addMemberBtn.addEventListener("click", addMember);
