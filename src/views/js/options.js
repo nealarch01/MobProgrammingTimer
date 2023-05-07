@@ -197,14 +197,7 @@ cancelBtn.addEventListener("click", async () => {
 
 saveBtn.addEventListener("click", async function() {
     const selectedTeam = parseInt(teamSelector.value);
-    TeamControllerBridge.setCurrentTeam(selectedTeam);
-    const updatedConfigs = await TeamControllerBridge.saveTeamConfigs({
-        roundTime_SEC: convertMinutesToSeconds(roundTime_MIN),
-        breakTime_SEC: convertMinutesToSeconds(breakTime_MIN),
-        roundsUntilNextBreak: roundsUntilNextBreak,
-        selectedTeam: selectedTeam
-    });
-    TimerControllerBridge.updateConfigs(updatedConfigs);
+    TeamControllerBridge.setCurrentTeam(selectedTeam, membersToAdd, membersToRemove);
     window.location.href = "./control_panel.html";
 });
 
@@ -286,8 +279,7 @@ function addMember() {
 }
 
 function removeMember(memberField) {
-    const memberName = memberField.innerText;
-    console.log(memberName);
+    const memberName = memberField.firstChild.innerText;
     const index = membersToAdd.indexOf(memberName); 
     // Check if member is in membersToAdd array
     if (index > -1) {

@@ -62,7 +62,7 @@ app.whenReady()
 
     // ipcMain Handlers
     ipcMain.handle("setCurrentTeam", async (event, params) => {
-        const { selectedIndex } = params;
+        const { selectedIndex, membersToAdd, membersToRemove } = params;
         if (typeof selectedIndex !== "number") {
             console.log("Error");
             return;
@@ -71,7 +71,13 @@ app.whenReady()
             console.log("Error");
             return;
         }
-        teamController.setCurrentTeam(selectedIndex);
+        membersToAdd.forEach((memberName) => {
+            teamController.addMember(memberName);
+        });
+        membersToRemove.forEach((memberName) => {
+            teamController.removeMember(memberName);
+        });
+        teamController.writeFile();
         const currentTeam = teamController.getCurrentTeam();
         timerController.updateSelectedTeam(currentTeam.data.timerConfig, currentTeam.data.members);
     });
@@ -176,7 +182,7 @@ app.whenReady()
     });
 
 
-    // Utility Handlers
+    // Utility/Misc Handlers
     ipcMain.handle("confirmPrompt", async (event, params) => {
 		const { message } = params;
         const options = {
@@ -189,7 +195,6 @@ app.whenReady()
         const result = await dialog.showMessageBox(null, options);
         return result.response === 0 ? true : false;
     });
-
     ipcMain.handle("randomQuote", async () => {
         const randomIndex = Math.floor(Math.random() * quotes.length);
         return quotes[randomIndex];

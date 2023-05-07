@@ -95,19 +95,20 @@ class TeamController {
     }
 
     addMember(memberName) {
+        if (this.currentTeamIndex === -1) {
+            return;
+        }
         const newMember = new Person(memberName);
-        this.teamMembers.append(newMember);
-        this.writeFile();
+        this.allTeams[this.currentTeamIndex].members.push(newMember);
     }
 
     removeMember(memberName) {
-        for (let i = 0; i < this.teamMembers.length; i++) {
-            if (this.teamMembers[i].name === memberName) {
-                this.teamMembers.splice(i, 1);
+        for (let i = 0; i < this.allTeams[this.currentTeamIndex].members.length; i++) {
+            if (this.allTeams[this.currentTeamIndex].members[i].name === memberName) {
+                this.allTeams[this.currentTeamIndex].members.splice(i, 1);
                 break;
             }
         }
-        this.writeFile();
     }
 }
 

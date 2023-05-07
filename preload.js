@@ -25,7 +25,7 @@ contextBridge.exposeInMainWorld("TeamControllerBridge", {
     createTeam: async (teamName) => ipcRenderer.invoke("createTeam", { teamName }),
     getAllTeams: async () => ipcRenderer.invoke("getAllTeams"),
     getCurrentTeam: async () => ipcRenderer.invoke("getCurrentTeam"),
-    setCurrentTeam: async (selectedIndex) => ipcRenderer.invoke("setCurrentTeam", { selectedIndex }),
+    setCurrentTeam: async (selectedIndex, membersToAdd, membersToRemove) => ipcRenderer.invoke("setCurrentTeam", { selectedIndex, membersToAdd, membersToRemove }),
     addTeam: async (teamName) => ipcRenderer.invoke("addTeam", { teamName }),
     renameTeam: async (teamName) => ipcRenderer.invoke("renameTeam", { teamName }),
     removeTeam: async (teamName) => ipcRenderer.invoke("removeTeam", teamName), // TODO: Change parameter to index
