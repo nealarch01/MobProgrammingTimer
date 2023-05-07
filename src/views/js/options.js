@@ -22,8 +22,8 @@ const saveBtn = document.getElementById("save-btn");
 const addMemberBtn = document.getElementById("add-member-btn");
 
 let allTeams = [];
-let toAdd = [];
-let toRemove = [];
+let membersToAdd = [];
+let membersToRemove = [];
 let selectedTeam = -1;
 const personInput = document.getElementById("member-input");
 const teamContainer = document.getElementById("team-members-container");
@@ -51,6 +51,10 @@ function setInputValues() {
         roundTime_MIN = convertSecondsToMinutes(timerConfig.roundTime_SEC);
         breakTime_MIN = convertSecondsToMinutes(timerConfig.breakTime_SEC);
         roundsUntilNextBreak = timerConfig.roundsUntilNextBreak;
+        teamContainer.innerHTML = "";
+        allTeams[selectedTeam].members.forEach((member) => {
+            createMemberField(member.name);
+        });
     }
     roundTimeInput.value = roundTime_MIN;
     breakTimeInput.value = breakTime_MIN;
@@ -230,17 +234,43 @@ newTeamBtn.addEventListener("click", async function() {
 renameTeamBtn.addEventListener("click", async () => {
     // Get the current name of the team
     const currentTeam = allTeams[selectedTeam];
-    const input = await TeamControllerBridge.teamNamePrompt("Rename team", currentTeam.name);
-    if (input === null) {
+    const newTeamName = await TeamControllerBridge.teamNamePrompt("Rename team", currentTeam.name);
+    if (newTeamName === null) {
         return;
     }
-    TeamControllerBridge.renameTeam(input);
+    TeamControllerBridge.renameTeam(newTeamName);
     window.location.href = "./options.html";
 });
 
 removeTeamBtn.addEventListener("click", async function() {
-    await TeamControllerBridge.removeTeam(tempName); //TODO: REMOVE CURRENTLY SELECTED TEAM
+    if (selectedIndex === -1) {
+        return;
+    }
+    const confirmDelete = await Utilities.confirmPrompt("Are you sure you want to delete this team?");
+    // TeamControllerBridge.removeTeam(selectedIndex); // TODO: Call Bridge
+    window.location.href = "./options.html";
 });
+
+function createMemberField(memberName) {
+    var memberField = document.createElement("div");
+    memberField.className = "member-field";
+
+    var memberNameText = document.createElement("p");
+    memberNameText.className = "name-text";
+    memberNameText.innerText = memberName;
+
+    var xBtn = document.createElement("button");
+    xBtn.className = "x-btn";
+    xBtn.innerHTML = "x";
+    xBtn.addEventListener("click", () => {
+        removeMember(memberField);
+    });
+
+    teamContainer.appendChild(memberField);
+    memberField.appendChild(memberNameText);
+    memberField.appendChild(xBtn);
+    return memberField;
+}
 
 function addMember() {
     const memberName = personInput.value;
@@ -248,40 +278,24 @@ function addMember() {
         alert("Error: Field cannot be empty.");
         return;
     }
-    toAdd.push(memberName);
-    var memberItem = document.createElement("div");
-    memberItem.className = "member-field";
+    membersToAdd.push(memberName);
 
-    var memberNameText = document.createElement("p");
-    memberNameText.className = "name-text";
-    memberNameText.innerText = memberName;
-
-    var xBtn = document.createElement("button"); //TODO: MAKE BUTTON LOOK NICER
-    xBtn.className = "x-btn";
-    xBtn.innerHTML = "x";
-    xBtn.addEventListener("click", () => {
-        removeMember(memberItem);
-    });
-
-    teamContainer.appendChild(memberItem);
-    memberItem.appendChild(memberNameText);
-    memberItem.appendChild(xBtn);
+    teamContainer.appendChild(createMemberField(memberName));
 
     personInput.value = "";
-    console.log(toAdd);
 }
 
-function removeMember(memberItem) {
-    const memberName = memberItem.innerText;
+function removeMember(memberField) {
+    const memberName = memberField.innerText;
     console.log(memberName);
-    const index = toAdd.indexOf(memberName); 
-    // Check if member is in toAdd array
+    const index = membersToAdd.indexOf(memberName); 
+    // Check if member is in membersToAdd array
     if (index > -1) {
-        toAdd.splice(index, 1); // Remove from toAdd
+        membersToAdd.splice(index, 1); // Remove from membersToAdd
     } else {
-        toRemove.push(memberName);  // Add to toRemove
+        membersToRemove.push(memberName);  // Add to membersToRemove
     }
-    memberItem.remove(); // Remove from DOM
+    memberField.remove(); // Remove from DOM
 }
 
 addMemberBtn.addEventListener("click", addMember);
