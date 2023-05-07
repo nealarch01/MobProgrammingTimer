@@ -29,10 +29,16 @@ contextBridge.exposeInMainWorld("TeamControllerBridge", {
     setCurrentTeam: async (selectedIndex) => ipcRenderer.invoke("setCurrentTeam", { selectedIndex }),
     addTeam: async (teamName) => ipcRenderer.invoke("addTeam", { teamName }),
     renameTeam: async (teamName) => ipcRenderer.invoke("renameTeam", { teamName }),
-    removeTeam: async (teamName) => ipcRenderer.invoke("removeTeam", teamName), // TODO: Change this to index
+    removeTeam: async (teamName) => ipcRenderer.invoke("removeTeam", teamName), // TODO: Change parameter to index
     retrieveQueue: async () => ipcRenderer.invoke("retrieveQueue"),
+    addMember: (memberName) => ipcRenderer.invoke("addMember", { memberName }),
+    removeMember: (memberName) => ipcRenderer.invoke("removeMember", { memberName }),
 });
 
 contextBridge.exposeInMainWorld("Quotes", {
-    random: () => ipcRenderer.invoke("randomQuote")
+    random: () => ipcRenderer.invoke("randomQuote"),
+});
+
+contextBridge.exposeInMainWorld("Utilities", {
+    confirmPrompt: async (message) => ipcRenderer.invoke("confirmPrompt", { message }),
 });
