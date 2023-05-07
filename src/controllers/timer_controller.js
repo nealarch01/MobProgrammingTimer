@@ -149,7 +149,7 @@ class TimerController {
         this.#activeQueue = members;
     }
 
-    setinactive(members = []) {
+    setInactive(members = []) {
         this.#inactive = members;
     }
 
@@ -160,11 +160,11 @@ class TimerController {
             console.log("Could not find member in active queue");
             return;
         }
-        console.log(`Old order: ${this.#activeQueue.map(member => member.name)}`);
+        // console.log(`Old order: ${this.#activeQueue.map(member => member.name)}`);
         const tempMember = this.#activeQueue[index1];
         this.#activeQueue[index1] = this.#activeQueue[index2];
         this.#activeQueue[index2] = tempMember;
-        console.log(`New order: ${this.#activeQueue.map(member => member.name)}`);
+        // console.log(`New order: ${this.#activeQueue.map(member => member.name)}`);
     }
 
 	timeRemainingMMSS() {
