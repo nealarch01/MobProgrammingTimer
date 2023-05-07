@@ -174,10 +174,18 @@ app.whenReady()
     ipcMain.handle("getCurrentTeam", async () => {
         return teamController.getCurrentTeam();
     });
-
     ipcMain.handle("retrieveQueue", () => {
         return teamController.retrieveQueue();
     });
+    ipcMain.handle("addMember", async (event, params) => {
+        const { memberName } = params;
+        teamController.addMember(memberName);
+    });
+    ipcMain.handle("removeMember", async (event, params) => {
+        const { memberName } = params;
+        teamController.removeMember(memberName);
+    });
+
 
     // Utility Handlers
     ipcMain.handle("confirmPrompt", async (event, params) => {
@@ -186,7 +194,7 @@ app.whenReady()
             type: "question",
             buttons: ["Yes", "No"],
             defaultId: 0,
-            title: "Confirm Save",
+            title: "Confirm",
             message: message
         }
         const result = await dialog.showMessageBox(null, options);
