@@ -101,8 +101,12 @@ class TeamController {
     }
 
     removeMember(memberName) {
-        const index = this.teamMembers.indexOf(memberName);
-        this.teamMembers.splice(index, 1);
+        for (let i = 0; i < this.teamMembers.length; i++) {
+            if (this.teamMembers[i].name === memberName) {
+                this.teamMembers.splice(i, 1);
+                break;
+            }
+        }
         this.writeFile();
     }
 }
