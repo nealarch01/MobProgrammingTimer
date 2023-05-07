@@ -135,6 +135,7 @@ p {
 	color: white;
 	margin-left: 4px;
 }
+
 #member-input:focus {
 	outline: none;
 }
@@ -173,23 +174,6 @@ p {
 	background-color: transparent;
 	border: 2px solid #4981CE;
 	color: white;
-}
-
-.member-list {
-    width: 100%;
-    min-height: 40px;
-    border: 2px solid #FAFAFA55;
-    border-radius: 12px;
-    margin-bottom : 10px;
-    /* Grid */
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    padding-left: 4px;
-    padding-right: 4px;
-    padding-top: 2px;
-    padding-bottom: 2px;
 }
 
 .team-edit-btn:hover {

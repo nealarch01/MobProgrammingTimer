@@ -130,3 +130,60 @@ h2, h3, h4 {
     flex-direction: row;
     align-items: center;
 }
+
+.member-list {
+    width: 100%;
+    min-height: 50px;
+    border: 2px solid #FAFAFA55;
+    border-radius: 12px;
+    margin-bottom : 10px;
+    /* Grid */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.member-field {
+    background-color: #3f3f3f;
+    color: white;
+    display: flex;
+    border-radius: 6px;
+	align-items: center;
+	justify-content: space-between;
+    height: 40px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.x-btn {
+    font-family: "Libre Franklin Regular";
+    font-size: 1.0em;
+    padding-bottom: 2px;
+    height: 50%;
+    background-color: green;
+    border-radius: 4px;
+    border: none;
+    background-color: transparent;
+    color: white;
+    font-family: "Libre Franklin";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.x-btn:hover {
+    color: red;
+    cursor: pointer;
+}
+
+.name-text {
+    font-family: "Libre Franklin Regular";
+	margin-left: 12px;
+}
