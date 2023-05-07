@@ -18,7 +18,6 @@ const rndsUntilNextBreakInc = document.getElementById("rounds-until-break-increm
 
 const cancelBtn = document.getElementById("cancel-btn");
 const saveBtn = document.getElementById("save-btn");
-const backBtn = document.getElementById("back-btn");
 
 const addMemberBtn = document.getElementById("add-member-btn");
 
@@ -202,12 +201,6 @@ saveBtn.addEventListener("click", async function() {
         selectedTeam: selectedTeam
     });
     TimerControllerBridge.updateConfigs(updatedConfigs);
-    window.location.href = "./control_panel.html";
-});
-
-backBtn.addEventListener("click", () => {
-    const selectedTeam = parseInt(teamSelector.value);
-    TeamControllerBridge.setCurrentTeam(selectedTeam);
     window.location.href = "./control_panel.html";
 });
 
