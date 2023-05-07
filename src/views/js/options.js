@@ -20,7 +20,10 @@ const cancelBtn = document.getElementById("cancel-btn");
 const saveBtn = document.getElementById("save-btn");
 const backBtn = document.getElementById("back-btn");
 
+const addMemberBtn = document.getElementById("add-member-btn");
+
 let allTeams = [];
+var toAdd = [];
 let selectedTeam = -1;
 const personInput = document.getElementById("member-input");
 const teamContainer = document.getElementById("team-members-container");
@@ -101,7 +104,6 @@ let breakTime_MIN = 5;
 let roundsUntilNextBreak = 1;
 
 roundTimeInput.value = roundTime_MIN;
-let toAdd = [];
 
 breakTimeInput.value = breakTime_MIN;
 
@@ -182,15 +184,14 @@ rndsUntilNextBreakInput.addEventListener("change", (event) => {
     roundsUntilNextBreak = parseInt(event.target.value)
 });
 
-cancelBtn.addEventListener("click", () => {
-    window.location.href = "./control_panel.html";
+cancelBtn.addEventListener("click", async () => {
+    const confirmCancel = await Utilities.confirmPrompt("Are you sure you want to cancel?");
+    if (confirmCancel) {
+        window.location.href = "./control_panel.html";
+    }
 });
 
 saveBtn.addEventListener("click", async function() {
-    let saveInput = await TeamControllerBridge.confirmSave();
-    if (!saveInput) {
-        return;
-    }
     const selectedTeam = parseInt(teamSelector.value);
     TeamControllerBridge.setCurrentTeam(selectedTeam);
     const updatedConfigs = await TeamControllerBridge.saveTeamConfigs({
@@ -247,26 +248,30 @@ removeTeamBtn.addEventListener("click", async function() {
     await TeamControllerBridge.removeTeam(tempName); //TODO: REMOVE CURRENTLY SELECTED TEAM
 });
 
-personInput.addEventListener("keypress", function(k) {
-
-    if(k.key === 'Enter') {
-
-        var temp = document.createElement("div");
-        var xBtn = document.createElement("button"); //TODO: MAKE BUTTON LOOK NICER
-        
-        xBtn.onclick = function() {
-            temp.remove();
-            xBtn.remove();
-            toAdd.splice(temp.innerHTML, 1);
-        }
-
-        temp.innerHTML = personInput.value;
-        temp.className = "member-field";
-        teamContainer.appendChild(temp);
-        teamContainer.appendChild(xBtn);
-        toAdd.push(temp.innerHTML);
-        personInput.value = " ";
-        console.log(toAdd);
+function addMember() {
+    const memberName = personInput.value;
+    if (memberName.length < 1) {
+        alert("Error: Field cannot be empty.");
+        return;
     }
-    
+    toAdd.push(memberName);
+    var memberItem = document.createElement("div");
+    memberItem.innerHTML = personInput.value;
+    memberItem.className = "member-field";
+
+    var xBtn = document.createElement("button"); //TODO: MAKE BUTTON LOOK NICER
+    xBtn.innerHTML = "X";
+
+    teamContainer.appendChild(memberItem);
+    memberItem.appendChild(xBtn);
+
+    personInput.value = "";
+}
+
+addMemberBtn.addEventListener("click", addMember);
+
+personInput.addEventListener("keypress", function(event) {
+    if(event.key === 'Enter') {
+        addMember();
+    }
 });
