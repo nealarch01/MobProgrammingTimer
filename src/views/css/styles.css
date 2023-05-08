@@ -163,7 +163,23 @@ h2, h3, h4 {
 }
 
 .x-btn {
-    font-family: "Libre Franklin Regular";
+    font-size: 1.0em;
+    padding-bottom: 2px;
+    height: 50%;
+    background-color: green;
+    border-radius: 4px;
+    border: none;
+    background-color: transparent;
+    color: white;
+    font-family: "Libre Franklin";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 4px;
+    margin-right: 3px;
+}
+
+.redo-btn {
     font-size: 1.0em;
     padding-bottom: 2px;
     height: 50%;
