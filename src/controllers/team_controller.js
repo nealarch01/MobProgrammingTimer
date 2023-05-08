@@ -48,7 +48,6 @@ class TeamController {
 
     createTeam(teamName, members = []) {
         this.allTeams.push(new Team(teamName, members));
-        this.currentTeamIndex = this.allTeams.length - 1;
         this.writeFile();
     }
 

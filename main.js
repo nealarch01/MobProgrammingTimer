@@ -62,7 +62,9 @@ app.whenReady()
 
     // ipcMain Handlers
     ipcMain.handle("setCurrentTeam", async (event, params) => {
-        const { selectedIndex, membersToAdd, membersToRemove } = params;
+        const { selectedIndex, membersToAdd, membersToRemove, timerConfig } = params;
+        const { roundTime_SEC, breakTime_SEC, roundsUntilNextBreak } = timerConfig;
+        const newTimerConfig = new Timer(roundTime_SEC, roundsUntilNextBreak, breakTime_SEC);
         if (typeof selectedIndex !== "number") {
             console.log("Error");
             return;
@@ -71,14 +73,18 @@ app.whenReady()
             console.log("Error");
             return;
         }
+
+        teamController.setCurrentTeam(selectedIndex);
+
         membersToAdd.forEach((memberName) => {
             teamController.addMember(memberName);
         });
         membersToRemove.forEach((memberName) => {
             teamController.removeMember(memberName);
         });
-        teamController.setCurrentTeam(selectedIndex);
+
         const currentTeam = teamController.getCurrentTeam();
+        teamController.saveTimerConfigs(newTimerConfig);
         timerController.updateSelectedTeam(currentTeam.data.timerConfig, currentTeam.data.members);
     });
 
@@ -189,11 +195,11 @@ app.whenReady()
     ipcMain.handle("retrieveQueue", () => {
         return teamController.retrieveQueue();
     });
-    ipcMain.handle("addMember", async (event, params) => {
+    ipcMain.handle("addMember", async (event, params) => { // TODO: this function is not used
         const { memberName } = params;
         teamController.addMember(memberName);
     });
-    ipcMain.handle("removeMember", async (event, params) => {
+    ipcMain.handle("removeMember", async (event, params) => { // TODO: this function is not used
         const { memberName } = params;
         teamController.removeMember(memberName);
     });

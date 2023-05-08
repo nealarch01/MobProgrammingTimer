@@ -198,12 +198,17 @@ cancelBtn.addEventListener("click", async () => {
 
 saveBtn.addEventListener("click", async function() {
     const selectedTeam = parseInt(teamSelector.value);
-    TeamControllerBridge.saveTeamConfigs({
+    const timerConfig = {
         roundTime_SEC: convertMinutesToSeconds(roundTime_MIN),
         breakTime_SEC: convertMinutesToSeconds(breakTime_MIN),
         roundsUntilNextBreak: roundsUntilNextBreak
-    });
-    TeamControllerBridge.setCurrentTeam(selectedTeam, membersToAdd, membersToRemove);
+    }
+    TeamControllerBridge.setCurrentTeam(selectedTeam, membersToAdd, membersToRemove, timerConfig);
+    // TeamControllerBridge.saveTeamConfigs({
+    //     roundTime_SEC: convertMinutesToSeconds(roundTime_MIN),
+    //     breakTime_SEC: convertMinutesToSeconds(breakTime_MIN),
+    //     roundsUntilNextBreak: roundsUntilNextBreak
+    // });
     window.location.href = "./control_panel.html";
 });
 
