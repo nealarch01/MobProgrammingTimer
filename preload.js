@@ -12,9 +12,11 @@ contextBridge.exposeInMainWorld("TimerWidgetBridge", {
 contextBridge.exposeInMainWorld("TimerControllerBridge", {
     startTimer: (minimize) => ipcRenderer.invoke("startTimer", { minimize }),
     stopTimer: () => ipcRenderer.invoke("stopTimer"),
+    resetTimer: () => ipcRenderer.invoke("resetTimer"),
     skipBreak: (postponeBy) => ipcRenderer.invoke("skipBreak", { postponeBy }),
     isActive: () => ipcRenderer.invoke("isActive"),
     renderTimerText: () => ipcRenderer.invoke("renderTimerText"),
+    renderCircleTimer: () => ipcRenderer.invoke("renderCircleTimer"),
     getAllMembers: () => ipcRenderer.invoke("getAllMembers"),
     updateConfigs: (configs) => ipcRenderer.invoke("updateConfigs", { configs }),
     updateSelectedTeam: (timerConfigs, teamMembers) => ipcRenderer.invoke("updateSelectedTeam", { timerConfigs, teamMembers }),

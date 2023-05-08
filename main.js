@@ -97,6 +97,9 @@ app.whenReady()
         if (!timerController.isActive()) { return; }
         timerController.stopTimer();
     });
+    ipcMain.handle("resetTimer", () => {
+        timerController.resetTimer();
+    });
     ipcMain.handle("skipBreak", (event, params) => {
         timerController.skipBreak(params.postponeBy);
     });
@@ -105,6 +108,9 @@ app.whenReady()
     });
     ipcMain.handle("renderTimerText", () => {
         timerController.renderTimerText();
+    });
+    ipcMain.handle("renderCircleTimer", () => {
+        timerController.renderCircleTimer();
     });
     ipcMain.handle("getAllMembers", async () => {
         return timerController.getAllMembers();

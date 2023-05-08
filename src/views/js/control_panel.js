@@ -18,6 +18,7 @@ const activeQueue = document.getElementById("active-queue");
 const inactiveList = document.getElementById("inactive-list");
 
 TimerControllerBridge.renderTimerText();
+TimerControllerBridge.renderCircleTimer();
 
 TimerControllerBridge.isActive()
     .then((isActive) => {
@@ -40,18 +41,50 @@ toggleTimerBtn.addEventListener("click", async () => {
     toggleStartStopBtnText();
 });
 
-skipBtn.addEventListener("click", () => {
+skipBtn.addEventListener("click", async () => {
     deactivate();
+    const confirm = await Utilities.confirmPrompt("Are you sure you want to skip the current roles?");
+    if (!confirm) {
+        activate();
+        return;
+    }
+    TimerControllerBridge.resetTimer();
+    TimerControllerBridge.updateRoles();
+    if (activeQueue.childElementCount < 1) {
+        return;
+    }
+    const topMemberField = activeQueue.firstElementChild;
+    const memberName = topMemberField.firstChild.innerText;
+    const originalID = topMemberField.id.split("-")[2];
+    activeQueue.removeChild(topMemberField);
+    createActiveMemberField(memberName, originalID);
+    renderRolesText();
 });
 
-resetBtn.addEventListener("click", () => {
+resetBtn.addEventListener("click", async () => {
     deactivate();
+    const confirm = await Utilities.confirmPrompt("Are you sure you want to reset the timer?");
+    if (!confirm) {
+        activate();
+        return;
+    }
+    TimerControllerBridge.resetTimer();
 });
 
 TeamControllerBridge.getCurrentTeam()
     .then((team) => {
         teamNameText.innerText = `Team: ${team.data.name}`;
     });
+
+function renderRolesText() {
+    TimerControllerBridge.getAllMembers()
+        .then((members) => {
+            if (members.active.length > 1) {
+                driverText.innerText = `Driver: ${members.active[0].name}`;
+                navigatorText.innerText = `Navigator: ${members.active[1].name}`;
+            }
+        });
+}
 
 TimerControllerBridge.getAllMembers()
     .then((members) => {

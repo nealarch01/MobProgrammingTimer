@@ -83,6 +83,12 @@ class TimerController {
         this.#activeQueue.push(topPerson);
     }
 
+    resetTimer() {
+        this.#timeRemaining = this.#totalTime;
+        this.renderTimerText();
+        this.renderCircleTimer();
+    }
+
     skipBreak(postponeBy = undefined) {
         if (postponeBy === undefined) {
             this.resetRoundsLeft();
