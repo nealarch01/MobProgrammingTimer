@@ -1,5 +1,6 @@
 const { contextBridge, ipcRenderer } = require("electron");
 
+// TimerWidgetBridge
 contextBridge.exposeInMainWorld("TimerWidgetBridge", {
     moveTopLeft: () => ipcRenderer.invoke("moveTopLeft"),
     moveBottomRight: () => ipcRenderer.invoke("moveBottomRight"),
@@ -7,6 +8,7 @@ contextBridge.exposeInMainWorld("TimerWidgetBridge", {
     moveBottomLeft: () => ipcRenderer.invoke("moveBottomLeft")
 });
 
+// TimerControllerBridge
 contextBridge.exposeInMainWorld("TimerControllerBridge", {
     startTimer: (minimize) => ipcRenderer.invoke("startTimer", { minimize }),
     stopTimer: () => ipcRenderer.invoke("stopTimer"),
@@ -19,8 +21,10 @@ contextBridge.exposeInMainWorld("TimerControllerBridge", {
     swapMembers: (member1, member2) => ipcRenderer.invoke("swapMembers", { member1, member2 }),
     setMemberActive: (memberName) => ipcRenderer.invoke("setMemberActive", { memberName }),
     setMemberInactive: (memberName) => ipcRenderer.invoke("setMemberInactive", { memberName }),
+    updateRoles: () => ipcRenderer.invoke("updateRoles"),
 });
 
+// TeamControllerBridge
 contextBridge.exposeInMainWorld("TeamControllerBridge", {
     saveTeamConfigs: (timerConfig) => ipcRenderer.invoke("saveTeamConfigs", timerConfig),
     teamNamePrompt: async (title, name) => ipcRenderer.invoke("teamNamePrompt", { title, name }),
@@ -36,10 +40,12 @@ contextBridge.exposeInMainWorld("TeamControllerBridge", {
     removeMember: (memberName) => ipcRenderer.invoke("removeMember", { memberName }),
 });
 
+// Quotes
 contextBridge.exposeInMainWorld("Quotes", {
     random: () => ipcRenderer.invoke("randomQuote"),
 });
 
+// Utilities
 contextBridge.exposeInMainWorld("Utilities", {
     confirmPrompt: async (message) => ipcRenderer.invoke("confirmPrompt", { message }),
 });

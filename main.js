@@ -129,6 +129,9 @@ app.whenReady()
         const { memberName } = params;
         timerController.addToInactive(memberName);
     });
+    ipcMain.handle("updateRoles", () => {
+        timerController.updateRoles();
+    });
 
 
     // Team Controller Specific Handlers

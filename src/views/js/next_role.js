@@ -3,14 +3,27 @@ const authorText = document.getElementById("author-text");
 const skipBtn = document.getElementById("skip-btn");
 const startBtn = document.getElementById("start-btn");
 
+const driverText = document.getElementById("driver-text");
+const navigatorText = document.getElementById("navigator-text");
+
+function renderRolesText() {
+    TimerControllerBridge.getAllMembers()
+        .then((members) => {
+            if (members.active.length > 1) {
+                driverText.innerText = `Driver: ${members.active[0].name}`;
+                navigatorText.innerText = `Navigator: ${members.active[1].name}`;
+            }
+        });
+}
+
 Quotes.random().then((data) => {
-console.log(data);
     quoteText.innerText = data.en;
     authorText.innerText = `- ${data.author}`;
 });
 
 skipBtn.addEventListener("click", () => {
-    // TODO: Implement later
+    TimerControllerBridge.updateRoles();
+    renderRolesText();
 });
 
 startBtn.addEventListener("click", () => {
@@ -18,4 +31,6 @@ startBtn.addEventListener("click", () => {
     const minimizeMainWindow = true;
     TimerControllerBridge.startTimer(minimizeMainWindow);
 });
+
+renderRolesText();
 

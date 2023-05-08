@@ -59,6 +59,7 @@ class TimerController {
     }
 
     #roundComplete() {
+        this.updateRoles();
         if (this.#MainWindow.isMinimized()) { 
             this.#MainWindow.restore();
         }
@@ -71,6 +72,15 @@ class TimerController {
         this.resetRoundsLeft();
         this.setTimeRemainingToRoundTime();
         this.redirectToNextRolePage();
+    }
+
+    updateRoles() {
+        // Move the top person to the back of the queue
+        if (this.#activeQueue.length === 0 || this.#activeQueue.length === 1) {
+            return;
+        }
+        const topPerson = this.#activeQueue.shift();
+        this.#activeQueue.push(topPerson);
     }
 
     skipBreak(postponeBy = undefined) {
