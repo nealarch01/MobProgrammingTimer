@@ -198,6 +198,11 @@ cancelBtn.addEventListener("click", async () => {
 
 saveBtn.addEventListener("click", async function() {
     const selectedTeam = parseInt(teamSelector.value);
+    TeamControllerBridge.saveTeamConfigs({
+        roundTime_SEC: convertMinutesToSeconds(roundTime_MIN),
+        breakTime_SEC: convertMinutesToSeconds(breakTime_MIN),
+        roundsUntilNextBreak: roundsUntilNextBreak
+    });
     TeamControllerBridge.setCurrentTeam(selectedTeam, membersToAdd, membersToRemove);
     window.location.href = "./control_panel.html";
 });

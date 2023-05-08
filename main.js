@@ -77,7 +77,7 @@ app.whenReady()
         membersToRemove.forEach((memberName) => {
             teamController.removeMember(memberName);
         });
-        teamController.writeFile();
+        teamController.setCurrentTeam(selectedIndex);
         const currentTeam = teamController.getCurrentTeam();
         timerController.updateSelectedTeam(currentTeam.data.timerConfig, currentTeam.data.members);
     });
