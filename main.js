@@ -121,6 +121,14 @@ app.whenReady()
         const { member1, member2 } = params;
         timerController.swapMembers(member1, member2);
     });
+    ipcMain.handle("setMemberActive", (event, params) => {
+        const { memberName } = params;
+        timerController.removeFromInactive(memberName);
+    });
+    ipcMain.handle("setMemberInactive", (event, params) => {
+        const { memberName } = params;
+        timerController.addToInactive(memberName);
+    });
 
 
     // Team Controller Specific Handlers

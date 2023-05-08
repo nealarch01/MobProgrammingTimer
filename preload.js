@@ -17,6 +17,8 @@ contextBridge.exposeInMainWorld("TimerControllerBridge", {
     updateConfigs: (configs) => ipcRenderer.invoke("updateConfigs", { configs }),
     updateSelectedTeam: (timerConfigs, teamMembers) => ipcRenderer.invoke("updateSelectedTeam", { timerConfigs, teamMembers }),
     swapMembers: (member1, member2) => ipcRenderer.invoke("swapMembers", { member1, member2 }),
+    setMemberActive: (memberName) => ipcRenderer.invoke("setMemberActive", { memberName }),
+    setMemberInactive: (memberName) => ipcRenderer.invoke("setMemberInactive", { memberName }),
 });
 
 contextBridge.exposeInMainWorld("TeamControllerBridge", {

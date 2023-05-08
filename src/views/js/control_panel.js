@@ -1,6 +1,22 @@
 const toggleTimerBtn = document.getElementById("start-stop-btn");
 const toggleTimerText = document.getElementById("start-stop-text");
 
+const toggleIcon = document.getElementById("toggle-icon")
+
+const skipBtn = document.getElementById("skip-btn");
+
+const resetBtn = document.getElementById("reset-btn");
+
+const optionsBtn = document.getElementById("options-btn");
+const statsBtn = document.getElementById("stats-btn");
+
+const teamNameText = document.getElementById("team-name-text");
+const driverText = document.getElementById("driver-text");
+const navigatorText = document.getElementById("navigator-text");
+
+const activeQueue = document.getElementById("active-queue");
+const inactiveList = document.getElementById("inactive-list");
+
 TimerControllerBridge.renderTimerText();
 
 TimerControllerBridge.isActive()
@@ -23,37 +39,34 @@ toggleTimerBtn.addEventListener("click", async () => {
     }
     toggleStartStopBtnText();
 });
-const toggleIcon = document.getElementById("toggle-icon")
 
-const skipBtn = document.getElementById("skip-btn");
 skipBtn.addEventListener("click", () => {
     deactivate();
 });
 
-const resetBtn = document.getElementById("reset-btn");
 resetBtn.addEventListener("click", () => {
     deactivate();
 });
 
-const optionsBtn = document.getElementById("options-btn");
-const statsBtn = document.getElementById("stats-btn");
-
-const teamNameText = document.getElementById("team-name-text");
-const driverText = document.getElementById("driver-text");
-const navigatorText = document.getElementById("navigator-text");
-
 TeamControllerBridge.getCurrentTeam()
     .then((team) => {
-        teamNameText.innerText = `Team: ${team.data.name}`;
-        if (team.data.members.length < 2) {
-            return;
-        }
-        driverText.innerText = `Driver: ${team.data.members[0].name}`;
-        navigatorText.innerText = `Navigator: ${team.data.members[1].name}`;
+        teamNameText.innerText = `Team: team.data.name`;
     });
 
-const queueContainer = document.getElementById("active-queue");
-const inactiveContainer = document.getElementById("inactive-list");
+TimerControllerBridge.getAllMembers()
+    .then((members) => {
+        if (members.active.length > 1) {
+            driverText.innerText = `Driver: ${members.active[0].name}`;
+            navigatorText.innerText = `Navigator: ${members.active[1].name}`;
+        }
+        members.active.forEach((member, index) => {
+            createActiveMemberField(member.name, index);
+        });
+        members.inactive.forEach((member, index) => {
+            createInactiveMemberField(member.name, index);
+        });
+    });
+
 
 document.addEventListener("keydown", (event) => {
     if (event.key === "Tab") {
@@ -61,17 +74,21 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-
-
-
 function disableButtons() {
     optionsBtn.disabled = true;
     statsBtn.disabled = true;
+    for (let i = 0; i < memberFieldxBtns.length; i++) {
+        memberFieldxBtns[i].disabled = true;
+    }
 }
 
 function enableButtons() {
     optionsBtn.disabled = false;
     statsBtn.disabled = false;
+    const memberFieldxBtns = document.getElementsByClassName("x-btn");
+    for (let i = 0; i < memberFieldxBtns.length; i++) {
+        memberFieldxBtns[i].disabled = false;
+    }
 }
 
 function disableDragAndDrop() {
@@ -119,64 +136,81 @@ statsBtn.addEventListener("click", () => {
     window.location.href = "./statistics.html";
 });
 
-function renderActiveQueue(personData) {
-    var memberContainer = document.createElement("div");
-    var nameText = document.createElement("p");
-    nameText.classList.add("name-text");
-    nameText.innerText = personData.name;
-    var xBtn = document.createElement("button");
-
-    xBtn.onclick = function () {
-        memberContainer.remove();
-        xBtn.remove();
+function getNameAndID(memberField) {
+    return {
+        memberName: memberField.firstChild.innerText,
+        originalID: memberField.id.split("-")[2]
     }
-
-    memberContainer.appendChild(nameText);
-    memberContainer.className = "member-field";
-    memberContainer.id = `${personData.name}`;
-    xBtn.className = "x-btn";
-    xBtn.textContent = "x";
-    xBtn.addEventListener("click", () => {
-    });
-    // console.log(memberContainer.id);
-    memberContainer.draggable = true;
-    memberContainer.ondragstart = onDragStart;
-    queueContainer.appendChild(memberContainer);
-    memberContainer.appendChild(xBtn);
 }
 
-function createActiveMemberContainer(member, index) {
-    var memberContainer = document.createElement("div");
-    memberContainer.draggable = true;
-    memberContainer.ondragstart = onDragStart;
-    memberContainer.className = "member-field";
-    memberContainer.id = "member-field-" + index;
+function setMemberActive(memberField) {
+    const { memberName, originalID } = getNameAndID(memberField);
+    TimerControllerBridge.setMemberActive(memberName);
+    memberField.remove();
+    createActiveMemberField(memberName, originalID);
+}
+
+function setMemberInactive(memberField) {
+    const { memberName, originalID } = getNameAndID(memberField);
+    TimerControllerBridge.setMemberInactive(memberName);
+    memberField.remove();
+    createInactiveMemberField(memberName, originalID);
+}
+
+function createInactiveMemberField(memberName, memberID) {
+    var memberField = document.createElement("div");
+    memberField.className = "member-field";
+    memberField.id = memberID;
+    memberField.draggable = false;
+    memberField.style = "cursor: default;";
 
     var nameText = document.createElement("p");
     nameText.classList.add("name-text");
-    nameText.innerText = member.name;
+    nameText.innerText = memberName;
+
+    var xBtn = document.createElement("button");
+    xBtn.className = "x-btn";
+    xBtn.innerText = "x";
+    xBtn.onclick = () => {
+        setMemberActive(memberField);
+    }
+
+    memberField.appendChild(nameText);
+    memberField.appendChild(xBtn);
+
+    inactiveList.appendChild(memberField);
+}
+
+function createActiveMemberField(memberName, index) {
+    var memberField = document.createElement("div");
+    memberField.draggable = true;
+    memberField.ondragstart = onDragStart;
+    memberField.className = "member-field";
+    memberField.id = "member-field-" + index;
+
+    var nameText = document.createElement("p");
+    nameText.classList.add("name-text");
+    nameText.innerText = memberName;
     
     var xBtn = document.createElement("button");
     xBtn.className = "x-btn";
-    xBtn.textContent = "x";
+    xBtn.innerText = "x";
     xBtn.onclick = () => {
+        setMemberInactive(memberField);
     }
 
-    memberContainer.appendChild(nameText);
-    memberContainer.appendChild(xBtn);
+    memberField.appendChild(nameText);
+    memberField.appendChild(xBtn);
 
-    // console.log(memberContainer.id);
-    queueContainer.appendChild(memberContainer);
+    activeQueue.appendChild(memberField);
 }
 
-function createInactiveMemberContainer(member) {
-}
-
-TeamControllerBridge.retrieveQueue().then((members) => {
-    members.forEach((member, index) => {
-        createActiveMemberContainer(member, index);
-    });
-});
+// TeamControllerBridge.retrieveQueue()
+//     .then((members) => {
+//         members.forEach((member, index) => {
+//             createActiveMemberField(member, index);
+//         });
+//     });
 
 var dragTarget;
 function onDragStart(event) {

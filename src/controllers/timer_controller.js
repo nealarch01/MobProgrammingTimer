@@ -149,8 +149,26 @@ class TimerController {
         this.#activeQueue = members;
     }
 
-    setInactive(members = []) {
-        this.#inactive = members;
+    addToInactive(memberName) {
+        const index1 = this.#activeQueue.map(member => member.name).indexOf(memberName);
+        if (index1 === -1) {
+            console.log("Could not find member in active queue");
+            return;
+        }
+        const member = this.#activeQueue[index1];
+        this.#inactive.push(member);
+        this.#activeQueue.splice(index1, 1);
+    }
+
+    removeFromInactive(memberName) {
+        const index1 = this.#inactive.map(member => member.name).indexOf(memberName);
+        if (index1 === -1) {
+            console.log("Could not find member in inactive queue");
+            return;
+        }
+        const member = this.#inactive[index1];
+        this.#activeQueue.push(member);
+        this.#inactive.splice(index1, 1);
     }
 
     swapMembers(member1, member2) {
