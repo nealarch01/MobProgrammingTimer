@@ -77,6 +77,7 @@ document.addEventListener("keydown", (event) => {
 function disableButtons() {
     optionsBtn.disabled = true;
     statsBtn.disabled = true;
+    const memberFieldxBtns = document.getElementsByClassName("x-btn");
     for (let i = 0; i < memberFieldxBtns.length; i++) {
         memberFieldxBtns[i].disabled = true;
     }
