@@ -289,6 +289,7 @@ function onDrop(event) {
     const dragTargetName = dragTarget.getElementsByTagName("p")[0].innerText;
     const landingNodeName = landingNode.getElementsByTagName("p")[0].innerText;
     TimerControllerBridge.swapMembers(dragTargetName, landingNodeName);
+    renderRolesText();
 
     // if (dragTarget === afterTarget) { // If dropped on another member
     //     console.log("Condition 1");
