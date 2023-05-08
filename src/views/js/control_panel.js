@@ -50,7 +50,7 @@ resetBtn.addEventListener("click", () => {
 
 TeamControllerBridge.getCurrentTeam()
     .then((team) => {
-        teamNameText.innerText = `Team: team.data.name`;
+        teamNameText.innerText = `Team: ${team.data.name}`;
     });
 
 TimerControllerBridge.getAllMembers()
