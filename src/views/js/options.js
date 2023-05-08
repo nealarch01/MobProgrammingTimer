@@ -46,6 +46,7 @@ function setInputValues() {
         roundTime_MIN = 10;
         breakTime_MIN = 5;
         roundsUntilNextBreak = 3;
+        teamContainer.innerHTML = "";
     } else {
         const timerConfig = allTeams[selectedTeam].timerConfig;
         roundTime_MIN = convertSecondsToMinutes(timerConfig.roundTime_SEC);
@@ -266,7 +267,12 @@ function createMemberField(memberName) {
 }
 
 function addMember() {
+    if (selectedTeam === -1) {
+        alert("Please select/create a team.");
+        return;
+    }
     const memberName = personInput.value;
+    // TODO: add if statement, check if there is a name duplicate
     if (memberName.length < 1) {
         alert("Error: Field cannot be empty.");
         return;
