@@ -87,6 +87,9 @@ class TeamController {
             return;
         }
         this.allTeams.splice(teamIndex, 1);
+        if (this.allTeams.length === 0) {
+            this.currentTeamIndex = -1;
+        }
         this.writeFile();
     }
 
