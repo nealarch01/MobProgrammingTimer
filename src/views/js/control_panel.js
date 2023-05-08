@@ -1,10 +1,24 @@
 const toggleTimerBtn = document.getElementById("start-stop-btn");
 const toggleTimerText = document.getElementById("start-stop-text");
+
+TimerControllerBridge.renderTimerText();
+
+TimerControllerBridge.isActive()
+    .then((isActive) => {
+        if (isActive) {
+            disableButtons();
+            disableDragAndDrop();
+            toggleStartStopBtnText();
+        }
+    });
+
 toggleTimerBtn.addEventListener("click", async () => {
     let isActive = await TimerControllerBridge.isActive();
     if (isActive) {
+        enableDragAndDrop();
         deactivate();
     } else {
+        disableDragAndDrop();
         activate();
     }
     toggleStartStopBtnText();
@@ -47,15 +61,7 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-TimerControllerBridge.renderTimerText();
 
-TimerControllerBridge.isActive()
-    .then((isActive) => {
-        if (isActive) {
-            disableButtons();
-            toggleStartStopBtnText();
-        }
-    });
 
 
 function disableButtons() {
@@ -66,6 +72,20 @@ function disableButtons() {
 function enableButtons() {
     optionsBtn.disabled = false;
     statsBtn.disabled = false;
+}
+
+function disableDragAndDrop() {
+    let allMemberFields = document.getElementsByClassName("member-field");
+    for (let i = 0; i < allMemberFields.length; i++) {
+        allMemberFields[i].draggable = false;
+    }
+}
+
+function enableDragAndDrop() {
+    let allMemberFields = document.getElementsByClassName("member-field");
+    for (let i = 0; i < allMemberFields.length; i++) {
+        allMemberFields[i].draggable = true;
+    }
 }
 
 function toggleStartStopBtnText() {
@@ -79,17 +99,17 @@ function toggleStartStopBtnText() {
 }
 
 function activate() {
+    disableDragAndDrop();
     disableButtons();
     const shouldMinimizeMainWindow = true;
     TimerControllerBridge.startTimer(shouldMinimizeMainWindow);
 }
 
 function deactivate() {
+    enableDragAndDrop();
     enableButtons();
     TimerControllerBridge.stopTimer();
 }
-
-
 
 optionsBtn.addEventListener("click", () => {
     window.location.href = "./options.html";
