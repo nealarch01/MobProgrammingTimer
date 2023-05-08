@@ -81,10 +81,13 @@ class TeamController {
         this.writeFile();
     }
 
-    removeTeam(teamName) { //remove team by name, not index
-        let index = this.allTeams.indexOf(teamName);
-        this.allTeams.splice(index, 1);
-        this.writeFile(this.allTeams);
+    removeTeam(teamIndex) { //remove team by name, not index
+        console.log(teamIndex);
+        if (this.allTeams.count === 0 || this.currentTeamIndex === -1) {
+            return;
+        }
+        this.allTeams.splice(teamIndex, 1);
+        this.writeFile();
     }
 
     retrieveQueue() {

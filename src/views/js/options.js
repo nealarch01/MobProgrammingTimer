@@ -237,11 +237,11 @@ renameTeamBtn.addEventListener("click", async () => {
 });
 
 removeTeamBtn.addEventListener("click", async function() {
-    if (selectedIndex === -1) {
+    if (selectedTeam === -1) {
         return;
     }
     const confirmDelete = await Utilities.confirmPrompt("Are you sure you want to delete this team?");
-    // TeamControllerBridge.removeTeam(selectedIndex); // TODO: Call Bridge
+    TeamControllerBridge.removeTeam(selectedTeam); // TODO: Call Bridge
     window.location.href = "./options.html";
 });
 

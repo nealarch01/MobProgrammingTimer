@@ -197,6 +197,10 @@ app.whenReady()
         const { memberName } = params;
         teamController.removeMember(memberName);
     });
+    ipcMain.handle("removeTeam", (event, params) => {
+        const { selectedIndex } = params;
+        teamController.removeTeam(selectedIndex); 
+    });
 
 
     // Utility/Misc Handlers
