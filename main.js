@@ -195,14 +195,6 @@ app.whenReady()
     ipcMain.handle("retrieveQueue", () => {
         return teamController.retrieveQueue();
     });
-    ipcMain.handle("addMember", async (event, params) => { // TODO: this function is not used
-        const { memberName } = params;
-        teamController.addMember(memberName);
-    });
-    ipcMain.handle("removeMember", async (event, params) => { // TODO: this function is not used
-        const { memberName } = params;
-        teamController.removeMember(memberName);
-    });
     ipcMain.handle("removeTeam", (event, params) => {
         const { selectedIndex } = params;
         teamController.removeTeam(selectedIndex); 

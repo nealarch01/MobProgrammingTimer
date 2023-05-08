@@ -37,8 +37,6 @@ contextBridge.exposeInMainWorld("TeamControllerBridge", {
     renameTeam: async (teamName) => ipcRenderer.invoke("renameTeam", { teamName }),
     removeTeam: async (selectedIndex) => ipcRenderer.invoke("removeTeam", { selectedIndex }), // TODO: Change parameter to index
     retrieveQueue: async () => ipcRenderer.invoke("retrieveQueue"),
-    addMember: (memberName) => ipcRenderer.invoke("addMember", { memberName }),
-    removeMember: (memberName) => ipcRenderer.invoke("removeMember", { memberName }),
 });
 
 // Quotes
