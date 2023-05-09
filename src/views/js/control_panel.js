@@ -228,6 +228,7 @@ function createActiveMemberField(memberName, index) {
     xBtn.innerText = "x";
     xBtn.onclick = () => {
         setMemberInactive(memberField);
+        renderRolesText();
     }
 
     memberField.appendChild(nameText);
