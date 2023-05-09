@@ -1,5 +1,6 @@
 /*
 HunterBlue: #2A6285
+4981CE
 AnotherHunterBlue: #367FAC
 HunterBlack: #232021
 */
@@ -65,6 +66,12 @@ h2, h3, h4 {
     flex-direction: column;
 }
 
+.centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .home-btn {
     width: 350px;
     height: 75px;
@@ -98,29 +105,16 @@ h2, h3, h4 {
     flex: 2;
 }
 
-.team-members-container {
-    width: 85%;
-    align-items: center;
-}
-
-.team-members-container > h3 {
-    padding: 0px;
-    font-size: 1.2em;
-    align-self: flex-start;
-}
-
-.break-turns, .member-list {
-    width: 100%;
-    height: 50px;
-    border: 2px solid #FAFAFA;
-    border-radius: 12px;
-    margin-bottom : 10px;
-}
-
 .divider {
     /* To make sure the width always extends */
     width: 100vw;
     height: 1px;
+    background-color: gray;
+}
+
+.horizontal-divider {
+    width: 1px;
+    height: 100vh;
     background-color: gray;
 }
 
@@ -135,4 +129,112 @@ h2, h3, h4 {
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.member-list {
+    width: 100%;
+    min-height: 50px;
+    border: 2px solid #FAFAFA55;
+    border-radius: 12px;
+    margin-bottom : 10px;
+    /* Grid */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.member-field {
+    background-color: #3f3f3f;
+    color: white;
+    display: flex;
+    border-radius: 6px;
+	align-items: center;
+	justify-content: space-between;
+    height: 40px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.x-btn {
+    font-size: 1.0em;
+    padding-bottom: 2px;
+    height: 50%;
+    background-color: green;
+    border-radius: 4px;
+    border: none;
+    background-color: transparent;
+    color: white;
+    font-family: "Libre Franklin";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 4px;
+    margin-right: 3px;
+}
+
+.redo-btn {
+    font-size: 1.0em;
+    padding-bottom: 2px;
+    height: 50%;
+    background-color: green;
+    border-radius: 4px;
+    border: none;
+    background-color: transparent;
+    color: white;
+    font-family: "Libre Franklin";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 4px;
+    margin-right: 3px;
+}
+
+.x-btn:hover {
+    color: red;
+    cursor: pointer;
+}
+
+.name-text {
+    font-family: "Libre Franklin Regular";
+	margin-left: 12px;
+}
+
+.step-btn {
+	height: 40px;
+	width: 40px;
+	font-size: 1.6em;
+	color: white;
+	background-color: #4981CE;
+	border: none;
+	border-radius: 4px;
+	margin-left: 4px;
+	margin-right: 4px;
+}
+
+.step-btn:hover { 
+	cursor: pointer;
+	opacity: 0.7;
+}
+
+.input-field {
+	height: 40px;
+	width: 60px;
+	text-align: center;
+	font-size: 1.25em;
+	border-radius: 6px;
+	border: none;
+	background-color: #3f3f3f;
+	color: white;
+	font-family: "Libre Franklin";
+}
+
+.input-field:focus {
+	outline: none;
 }

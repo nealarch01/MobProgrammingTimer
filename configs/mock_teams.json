@@ -1,5 +1,5 @@
 {
-    "lastTeamIndex": 0,
+    "lastTeamIndex": 3,
     "teams": [
         {
             "name": "Web Dev",
@@ -22,6 +22,70 @@
                 },
                 {
                     "name": "John",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Derek",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Drew",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Sam",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Charlie",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Logan",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Katie",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Kyle",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "James",
                     "stats": {
                         "drivingTime_SEC": 0,
                         "navigatingTime_SEC": 0,
@@ -67,6 +131,74 @@
                 "roundTime_SEC": 20,
                 "breakTime_SEC": 20,
                 "roundsUntilNextBreak": 1
+            }
+        },
+        {
+            "name": "Web 1",
+            "members": [
+                {
+                    "name": "Neal",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Eduardo",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                }
+            ],
+            "timerConfig": {
+                "roundTime_SEC": 420,
+                "roundsUntilNextBreak": 2,
+                "breakTime_SEC": 300
+            }
+        },
+        {
+            "name": "Mobile 2",
+            "members": [
+                {
+                    "name": "Neal",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Irvin",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Eduardo",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Tim",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                }
+            ],
+            "timerConfig": {
+                "roundTime_SEC": 300,
+                "roundsUntilNextBreak": 2,
+                "breakTime_SEC": 240
             }
         }
     ]

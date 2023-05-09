@@ -4,7 +4,7 @@ const path = require('path');
 const { Team } = require('../models/team_model.js');
 
 const fs = require("fs");
-const { all } = require('express/lib/application.js');
+const { Person } = require('../models/person_model.js');
 
 class TeamController {
     constructor() {
@@ -48,7 +48,6 @@ class TeamController {
 
     createTeam(teamName, members = []) {
         this.allTeams.push(new Team(teamName, members));
-        this.currentTeamIndex = this.allTeams.length - 1;
         this.writeFile();
     }
 
@@ -73,14 +72,24 @@ class TeamController {
         this.currentTeamIndex = teamIndex;
     }
 
-    removeTeam(teamName) { //remove team by name, not index
-        console.log("This is the team being removed " + teamName);
-        let temp = this.allTeams.keys(temp);
-        console.log(temp);
-        let index = this.allTeams.keys.indexOf(teamName);
-        console.log("This is the index of the team being removed " + index);
-        this.allTeams.splice(index, 1);
-        this.writeFile(this.allTeams);
+    renameTeam(teamName) {
+        if (this.currentTeamIndex === -1) {
+            return;
+        }
+        this.allTeams[this.currentTeamIndex].name = teamName;
+        this.writeFile();
+    }
+
+    removeTeam(teamIndex) { //remove team by name, not index
+        console.log(teamIndex);
+        if (this.allTeams.count === 0 || this.currentTeamIndex === -1) {
+            return;
+        }
+        this.allTeams.splice(teamIndex, 1);
+        if (this.allTeams.length === 0) {
+            this.currentTeamIndex = -1;
+        }
+        this.writeFile();
     }
 
     retrieveQueue() {
@@ -88,6 +97,23 @@ class TeamController {
             return []
         }
         return this.allTeams[this.currentTeamIndex].members;
+    }
+
+    addMember(memberName) {
+        if (this.currentTeamIndex === -1) {
+            return;
+        }
+        const newMember = new Person(memberName);
+        this.allTeams[this.currentTeamIndex].members.push(newMember);
+    }
+
+    removeMember(memberName) {
+        for (let i = 0; i < this.allTeams[this.currentTeamIndex].members.length; i++) {
+            if (this.allTeams[this.currentTeamIndex].members[i].name === memberName) {
+                this.allTeams[this.currentTeamIndex].members.splice(i, 1);
+                break;
+            }
+        }
     }
 }
 

@@ -1,40 +1,176 @@
-.members-options-container {
-	width: 85%;
+p {
+	margin: 0px;
+	padding: 0px;
+	font-family: "Libre Franklin Regular";
+}
+
+#left-col {
+	flex: 1;
+	height: 100vh;
 	align-items: center;
 }
 
-.member-input{
+#right-col {
+	flex: 2;
 	display: flex;
-	margin-top: 1vw;
-	margin-left: 2px;
-    width: 10%;
-    height: 60%;
-	border-width: .1px;
-	background-color: #2A6285;
-	color: white;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
 }
 
-.member-field {
+.configs-container {
 	display: flex;
-	margin-top: 1vw;
-	margin-left: 2px;
-    width: 10%;
-    height: 60%;
-	border-width: .1px;
-	background-color: #2A6285;
-	color: white;
+	flex-direction: column;
+	margin-left: 20px;
+	margin-right: 40px;
+	height: 100%;
 }
 
-.team-members {
+.members-options-container {
+	align-items: center;
+}
+
+.col-header {
+	margin-top: 20px;
+}
+
+.options-divider {
+	width: 100%;
+	height: 1px;
+	background-color: #3f3f3f;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.input-container {
 	display: flex;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 70%;
+	margin-right: 40px;
+}
+
+.input-container > .row {
+	align-items: center;
+}
+
+.input-container > h2 {
+	font-size: 1.4em;
+}
+
+
+
+.team-edit-btn:hover, .exit-save-btn:hover {
+	cursor: pointer;
+	opacity: 0.7;
+}
+
+#back-btn {
+	margin-top: 20px;
+	border: none;
+	background-color: #4981CE;
+	width: 140px;
+}
+
+.member-options-container {
 	flex-direction: row;
-	margin: auto;
-    width: 350px;
-    height: 75px;
-    font-weight: bold;
-    font-size: 100px;
-	color: black;
-    background-color: #2A6285;
-    border: none;
-    cursor: pointer;
+}
+
+.add-member-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	margin-top: 6px;
+	margin-bottom: 12px;
+}
+
+#member-input {
+	width: 200px;
+	height: 30px;
+	background-color: #3f3f3f;
+	color: white;
+	border: none;
+	border-radius: 6px;
+	font-family: "Libre Franklin";
+}
+
+#add-member-btn {
+	height: 30px;
+	border-radius: 6px;
+	border: none;
+	width: 30px;
+	font-size: 1.6em;
+	background-color: #4981CE;
+	color: white;
+	margin-left: 4px;
+}
+
+#member-input:focus {
+	outline: none;
+}
+
+.team-edit-container {
+	width: 100%;
+	margin-top: 8px;
+	justify-content: space-evenly;
+} 
+
+.exit-save-container {
+	margin-top: 10px;
+	justify-self: flex-end;
+}
+
+.exit-save-btn {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#save-btn {
+	background-color: #4981CE;
+}
+
+#save-btn, #cancel-btn {
+	width: 120px;
+}
+
+#remove-team-btn {
+	border: 2px solid red;
+}
+
+.team-edit-btn, .exit-save-btn {
+	width: 90px;
+	height: 40px;
+	border-radius: 6px;
+	border: none;
+	font-family: "Libre Franklin Regular";
+	font-size: 1.0em;
+	background-color: transparent;
+	border: 2px solid #4981CE;
+	color: white;
+}
+
+.team-edit-btn:hover {
+	opacity: 0.7;
+}
+
+#team-selector-wrapper {
+	margin-top: 40px;
+	height: 40px;
+}
+
+#team-selector {
+	margin-top: 10px;
+	background-color: #3f3f3f;
+	width: 80%;
+	height: 70%;
+	color: white;
+	font-family: "Libre Franklin";
+	font-size: 1.2em;
+	text-align: center;
+	border: none;
+	border-radius: 6px;
+}
+
+#team-selector:focus {
+	outline: none;
 }

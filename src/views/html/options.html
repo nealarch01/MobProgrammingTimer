@@ -1,62 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Options Page</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Options</title>
 	<link rel="stylesheet" href="../css/styles.css">
 	<link rel="stylesheet" href="../css/options.css">
+	<link rel="stylesheet" href="../../../node_modules/material-icons/iconfont/material-icons.css">
 </head>
-<body>
-	<div class="team-options-container col">
-		<h2 id="current-team-header">Current Team</h2>
-		<div class="row">
-			<button class="team-edit-btn" id="new-team-btn">Add</button>
+
+<body class="row">
+	<div class="no-scroll col" id="left-col">
+		<h2 class="col-header">Current Team</h2>
+		<select name="team" id="team-selector" size="100">
+		</select>
+		<div class="row team-edit-container">
 			<button class="team-edit-btn" id="remove-team-btn">Remove</button>
 			<button class="team-edit-btn" id="edit-team-btn">Rename</button>
+			<button class="team-edit-btn" id="new-team-btn">Add</button>
 		</div>
-		<select name="team" id="team-selector">
-		</select>
 	</div>
 
-	<div class="divider"></div>
+	<div class="horizontal-divider"></div>
 
-	<div class="mob-time-container row">
-		<h2>Mob Time</h2>
-		<button class="step-btn" id="mob-time-decrementer">-</button>
-		<input type="text" id="mob-time-input" value="">
-		<button class="step-btn" id="mob-time-incrementer">+</button>
-	</div>
+	<div id="right-col">
+		<div class="configs-container">
+			<div class="centered">
+				<h2 class="col-header">Timer Configurations</h2>
+			</div>
+			<div class="input-container col">
+				<h2>Mob Time</h2>
+				<div class="row">
+					<button class="step-btn" id="mob-time-decrementer">-</button>
+					<input type="text" id="mob-time-input" value="" class="input-field" disabled>
+					<button class="step-btn" id="mob-time-incrementer">+</button>
+					<h3>Minutes</h3>
+				</div>
+			</div>
 
-	<div class="break-time-container row">
-		<h2>Break Time</h2>
-		<button class="step-btn" id="break-time-decrementer">-</button>
-		<input type="text" id="break-time-input" value="">
-		<button class="step-btn" id="break-time-incrementer">+</button>
-	</div>
-
-	<div class="rounds-before-break-container row">
-		<h2>Rounds Before Break</h2>
-		<button class="step-btn" id="rounds-before-break-decrementer">-</button>
-		<input type="text" id="rounds-before-break-input" value="">
-		<button class="step-btn" id="rounds-before-break-incrementer">+</button>
-	</div>
+			<div class="input-container col">
+				<h2>Break Time</h2>
+				<div class="row">
+					<button class="step-btn" id="break-time-decrementer">-</button>
+					<input type="text" id="break-time-input" value="" class="input-field" disabled>
+					<button class="step-btn" id="break-time-incrementer">+</button>
+					<h3>Minutes</h3>
+				</div>
+			</div>
 
 
-	<div class="members-options-container col">
-		<div class="team-members-container col">
-			<h2>Team Members</h2>
-			<div class="member-list row" id="member-list-ID">
-				<input type="text" class = "member-input" id="team-members" value="">
+			<div class="input-container col">
+				<h2>Next Break After</h2>
+				<div class="row">
+					<button class="step-btn" id="rounds-until-break-decrementer">-</button>
+					<input type="text" id="rounds-until-break-input" value="" class="input-field" disabled>
+					<button class="step-btn" id="rounds-until-break-incrementer">+</button>
+					<h3>Turns</h3>
+				</div>
+			</div>
+
+			<div class="options-divider"></div>
+
+			<div class="member-options-container">
+				<h2>Team Members</h2>
+				<div class="add-member-container">
+					<p>Add Member</p>
+					<div class="row" style="align-items: center">
+						<input type="text" id="member-input" value="">
+						<button id="add-member-btn">+</button>
+					</div>
+				</div>
+				<div class="member-list row" id="team-members-container"></div>
+			</div>
+
+			<div class="exit-save-container centered row">
+				<button class="exit-save-btn" id="cancel-btn">Cancel</button>
+				<button class="exit-save-btn" id="save-btn">Save</button>
 			</div>
 		</div>
+
 	</div>
 
-	<div class="exit-save-container row">
-		<button class="exit-save-btn" id="exit-btn">Exit</button>
-		<button class="exit-save-btn" id="save-btn">Save</button>
-	</div>
 	<script src="../js/options.js"></script>
 </body>
+
 </html>

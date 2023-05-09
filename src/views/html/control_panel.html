@@ -19,11 +19,11 @@
         <div class="info-panel col">
             <h2 id="team-name-text">Team:</h2>
             <div class="role-container ctrl-panel">
-                <span class="material-icons" style="font-size: 2.0em; color: #2A6285;">keyboard</span>
+                <span class="material-icons role-icon" style="font-size: 2.0em; color: #4981CE;">keyboard</span>
                 <h3 id="driver-text"></h3>
             </div>
             <div class="role-container ctrl-panel">
-                <span class="material-icons" style="font-size: 2.0em; color: #2A6285;">explore</span>
+                <span class="material-icons role-icon" style="font-size: 2.0em; color: #4981CE;">explore</span>
                 <h3 id="navigator-text"></h3>
             </div>
         </div>
@@ -58,7 +58,7 @@
         </button>
         <button class="ctrl-panel-btn" id="start-stop-btn">
             <p id="start-stop-text">Start</p>
-            <span class="material-icons" style="font-size: 1.2em;">play_circle</span>
+            <span class="material-icons" id="toggle-icon" style="font-size: 1.2em;">play_circle</span>
         </button>
         <button class="ctrl-panel-btn" id="skip-btn">
             Skip
@@ -67,20 +67,14 @@
     </div>
 
     <div class="team-members-container col">
-        <h4>Queue</h4>
+        <h3>Queue</h3>
         <div class="member-list row" id="active-queue" ondragover="onDragOver(event)" ondrop="onDrop(event)">
-            <div class="team-field" id="team-field-ID" draggable="true" ondragstart="onDragStart(event);">
-
-            </div>
-
         </div>
 
-        <h4>Inactive</h4>
-        <div class="member-list row" id="inactive-list" ondragover="onDragOver(event)" ondrop="inactiveOnDrop(event)">
-            <div class="team-field" id="team-field-ID" draggable="true" ondragstart="onDragStart(event);">
-
-            </div>
-
+        <h3>Inactive</h3>
+        <!-- <div class="member-list row" id="inactive-list" ondragover="ondragover(event)" ondrop="inactiveondrop(event)">
+        </div> -->
+        <div class="member-list row" id="inactive-list">
         </div>
     </div>
     <script src="../js/timer.js"></script>

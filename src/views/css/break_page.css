@@ -26,7 +26,6 @@
     width: 180px;
     height: 60px;
     margin: 10px;
-    font-weight: bold;
 }
 
 .step-btn {
@@ -44,6 +43,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 10px;
 }
 
 #toggle-timer-btn {
@@ -53,14 +53,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
     border-radius: 12px;
     border: none;
     cursor: pointer;
-    background-color: #2A6285;
+    background-color: #4981CE;
     color: #FAFAFA;
     font-family: "Libre Franklin";
     font-size: 1.2em;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 #toggle-timer-btn > span {
@@ -76,14 +77,16 @@
     width: 200px;
     height: 60px;
     margin: 10px;
-    font-weight: bold;
+    font-weight: "Libre Franklin Regular";
     border-radius: 12px;
-    border: 2px solid #2A6285;
+    border: 2px solid #4981CE;
     cursor: pointer;
     background-color: transparent;
     color: #FAFAFA;
-    font-family: "Libre Franklin";
+    font-family: "Libre Franklin Regular";
     font-size: 1.0em;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 #skip-break-btn:hover {

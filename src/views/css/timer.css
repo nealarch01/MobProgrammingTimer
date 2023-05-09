@@ -22,7 +22,7 @@
 #timer-circle {
     cx: 150px; /* timer-svg.width / 2 */
     cy: 150px; /* Valid in SVG2 */
-    stroke: #2A6285;
+    stroke: #4981CE;
     /* stroke: white; */
     stroke-width: 10px;
     stroke-linecap: round;
@@ -55,7 +55,7 @@
 #timer-circle.widget {
     cx: 37.5px;
     cy: 37.5px;
-    stroke: #2A6285;
+    stroke: #4981CE;
     stroke-width: 4px;  
     /* r = x - stroke_width */
     r: 33.5px;
@@ -81,6 +81,7 @@
     font-size: 3.0em;
     color: white;
     font-family: "Source Sans Pro";
+    cursor: default;
 }
 
 #timer-text.widget {
@@ -114,7 +115,7 @@
     height: 0; 
     border-top: 40px solid transparent;
     border-bottom: 40px solid transparent;
-    border-left: 40px solid #2A6285;
+    border-left: 40px solid #4981CE;
     cursor: pointer;
 }
 

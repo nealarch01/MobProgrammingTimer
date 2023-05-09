@@ -4,11 +4,11 @@ const path = require('path');
 const createMainWindow = () => {
     const win = new BrowserWindow({
         width: 1000,
-        height: 675,
+        height: 700,
         minimizable: true,
         maximizable: false,
-        resizable: false,
-        frame: false,
+        // resizable: false,
+        autoHideMenuBar: true,
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
             nodeIntegration: true
@@ -30,7 +30,7 @@ const createWidgetWindow = () => {
         height: height,
         x: workAreaSize.width - width,
         y: workAreaSize.height - height,
-        opacity: 0.5,
+        opacity: 0.65,
         resizable: false,
         minimizable: false,
         maximizable: false,

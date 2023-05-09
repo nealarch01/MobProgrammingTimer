@@ -13,18 +13,15 @@ class TimerController {
     #timerInterval;
 
     #activeQueue;
-    #inactiveQueue;
+    #inactive;
 
     #MainWindow;
     #TimerWidgetWindow;
 
 
-    constructor(timerConfig = undefined, MainWindow, TimerWidgetWindow) {
+    constructor(MainWindow, TimerWidgetWindow, timerConfig, teamMembers = []) {
         if (TimerController.instance) {
             return TimerController.instance;
-        }
-        if (timerConfig === undefined) {
-            timerConfig = new Timer();
         }
         this.#timerConfig = timerConfig;
 		this.#timeRemaining = timerConfig.roundTime_SEC;
@@ -32,8 +29,8 @@ class TimerController {
         this.#roundsLeft = timerConfig.roundsUntilNextBreak;
         this.#timerInterval = null;
 
-        this.#activeQueue = [new Person("Neal"), new Person("Irvin"), new Person("Jesse"), new Person("Prof F")];
-        this.#inactiveQueue = [new Person("John")];
+        this.#activeQueue = teamMembers;
+        this.#inactive = [];
 
         this.#MainWindow = MainWindow;
         this.#TimerWidgetWindow = TimerWidgetWindow;
@@ -62,6 +59,7 @@ class TimerController {
     }
 
     #roundComplete() {
+        this.updateRoles();
         if (this.#MainWindow.isMinimized()) { 
             this.#MainWindow.restore();
         }
@@ -74,6 +72,21 @@ class TimerController {
         this.resetRoundsLeft();
         this.setTimeRemainingToRoundTime();
         this.redirectToNextRolePage();
+    }
+
+    updateRoles() {
+        // Move the top person to the back of the queue
+        if (this.#activeQueue.length === 0 || this.#activeQueue.length === 1) {
+            return;
+        }
+        const topPerson = this.#activeQueue.shift();
+        this.#activeQueue.push(topPerson);
+    }
+
+    resetTimer() {
+        this.#timeRemaining = this.#totalTime;
+        this.renderTimerText();
+        this.renderCircleTimer();
     }
 
     skipBreak(postponeBy = undefined) {
@@ -106,7 +119,7 @@ class TimerController {
     getAllMembers() {
         return {
             active: this.#activeQueue,
-            inactive: this.#inactiveQueue
+            inactive: this.#inactive
         }
     }
 
@@ -148,6 +161,46 @@ class TimerController {
         this.#roundsLeft = roundsLeft;
     }
 
+    setActiveQueue(members = []) {
+        this.#activeQueue = members;
+    }
+
+    addToInactive(memberName) {
+        const index1 = this.#activeQueue.map(member => member.name).indexOf(memberName);
+        if (index1 === -1) {
+            console.log("Could not find member in active queue");
+            return;
+        }
+        const member = this.#activeQueue[index1];
+        this.#inactive.push(member);
+        this.#activeQueue.splice(index1, 1);
+    }
+
+    removeFromInactive(memberName) {
+        const index1 = this.#inactive.map(member => member.name).indexOf(memberName);
+        if (index1 === -1) {
+            console.log("Could not find member in inactive queue");
+            return;
+        }
+        const member = this.#inactive[index1];
+        this.#activeQueue.push(member);
+        this.#inactive.splice(index1, 1);
+    }
+
+    swapMembers(member1, member2) {
+        const index1 = this.#activeQueue.map(member => member.name).indexOf(member1);
+        const index2 = this.#activeQueue.map(member => member.name).indexOf(member2);
+        if (index1 === -1 || index2 === -1) {
+            console.log("Could not find member in active queue");
+            return;
+        }
+        // console.log(`Old order: ${this.#activeQueue.map(member => member.name)}`);
+        const tempMember = this.#activeQueue[index1];
+        this.#activeQueue[index1] = this.#activeQueue[index2];
+        this.#activeQueue[index2] = tempMember;
+        // console.log(`New order: ${this.#activeQueue.map(member => member.name)}`);
+    }
+
 	timeRemainingMMSS() {
 		const minutes = Math.floor(this.#timeRemaining / 60);
 		const seconds = this.#timeRemaining % 60;
@@ -161,14 +214,20 @@ class TimerController {
         return this.#timeRemaining;
     }
 
-    updateConfigs(configs) {
-        this.#timerConfig = configs;
+    updateSelectedTeam(timerConfig, teamMembers) {
+        this.updateConfigs(timerConfig);
+        this.updateMembers(teamMembers);
+    }
+
+    updateConfigs(timerConfig) {
+        this.#timerConfig = timerConfig;
         this.setTimeRemainingToRoundTime();
         this.resetRoundsLeft();
     }
 
-    retrieveActiveQueue() {
-        return this.#activeQueue;
+    updateMembers(members) {
+        this.#activeQueue = members;
+        this.#inactive = [];
     }
 
 }

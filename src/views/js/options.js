@@ -12,17 +12,21 @@ const breakTimeDec = document.getElementById("break-time-decrementer");
 const breakTimeInput = document.getElementById("break-time-input");
 const breakTimeInc = document.getElementById("break-time-incrementer");
 
-const rndsUntilNextBreakDec = document.getElementById("rounds-before-break-decrementer");
-const rndsUntilNextBreakInput = document.getElementById("rounds-before-break-input");
-const rndsUntilNextBreakInc = document.getElementById("rounds-before-break-incrementer");
+const rndsUntilNextBreakDec = document.getElementById("rounds-until-break-decrementer");
+const rndsUntilNextBreakInput = document.getElementById("rounds-until-break-input");
+const rndsUntilNextBreakInc = document.getElementById("rounds-until-break-incrementer");
 
-const exitBtn = document.getElementById("exit-btn");
+const cancelBtn = document.getElementById("cancel-btn");
 const saveBtn = document.getElementById("save-btn");
 
+const addMemberBtn = document.getElementById("add-member-btn");
+
 let allTeams = [];
+let membersToAdd = [];
+let membersToRemove = [];
 let selectedTeam = -1;
-const personInput = document.getElementById("team-members");
-const teamContainer = document.getElementById("member-list-ID");
+const personInput = document.getElementById("member-input");
+const teamContainer = document.getElementById("team-members-container");
 
 TeamControllerBridge.getCurrentTeam()
     .then((team) => {
@@ -42,11 +46,16 @@ function setInputValues() {
         roundTime_MIN = 10;
         breakTime_MIN = 5;
         roundsUntilNextBreak = 3;
+        teamContainer.innerHTML = "";
     } else {
         const timerConfig = allTeams[selectedTeam].timerConfig;
         roundTime_MIN = convertSecondsToMinutes(timerConfig.roundTime_SEC);
         breakTime_MIN = convertSecondsToMinutes(timerConfig.breakTime_SEC);
         roundsUntilNextBreak = timerConfig.roundsUntilNextBreak;
+        teamContainer.innerHTML = "";
+        allTeams[selectedTeam].members.forEach((member) => {
+            createMemberField(member.name);
+        });
     }
     roundTimeInput.value = roundTime_MIN;
     breakTimeInput.value = breakTime_MIN;
@@ -125,7 +134,6 @@ let breakTime_MIN = 5;
 let roundsUntilNextBreak = 1;
 
 roundTimeInput.value = roundTime_MIN;
-let toAdd = [];
 
 breakTimeInput.value = breakTime_MIN;
 
@@ -206,31 +214,31 @@ rndsUntilNextBreakInput.addEventListener("change", (event) => {
     roundsUntilNextBreak = parseInt(event.target.value)
 });
 
-exitBtn.addEventListener("click", () => {
-    const selectedTeam = parseInt(teamSelector.value);
-    TeamControllerBridge.setCurrentTeam(selectedTeam);
-    window.location.href = "./control_panel.html";
+cancelBtn.addEventListener("click", async () => {
+    const confirmCancel = await Utilities.confirmPrompt("Are you sure you want to cancel?");
+    if (confirmCancel) {
+        window.location.href = "./control_panel.html";
+    }
 });
 
 saveBtn.addEventListener("click", async function() {
-    let saveInput = await TeamControllerBridge.confirmSave();
-    if (!saveInput) {
-        return;
-    }
     const selectedTeam = parseInt(teamSelector.value);
-    TeamControllerBridge.setCurrentTeam(selectedTeam);
-    const updatedConfigs = await TeamControllerBridge.saveTeamConfigs({
+    const timerConfig = {
         roundTime_SEC: convertMinutesToSeconds(roundTime_MIN),
         breakTime_SEC: convertMinutesToSeconds(breakTime_MIN),
-        roundsUntilNextBreak: roundsUntilNextBreak,
-        selectedTeam: selectedTeam
-    });
-    TimerControllerBridge.updateConfigs(updatedConfigs);
+        roundsUntilNextBreak: roundsUntilNextBreak
+    }
+    TeamControllerBridge.setCurrentTeam(selectedTeam, membersToAdd, membersToRemove, timerConfig);
+    // TeamControllerBridge.saveTeamConfigs({
+    //     roundTime_SEC: convertMinutesToSeconds(roundTime_MIN),
+    //     breakTime_SEC: convertMinutesToSeconds(breakTime_MIN),
+    //     roundsUntilNextBreak: roundsUntilNextBreak
+    // });
     window.location.href = "./control_panel.html";
 });
 
 newTeamBtn.addEventListener("click", async function() {
-    const teamName = await TeamControllerBridge.teamNamePrompt("Enter team name", "");
+    const teamName = await TeamControllerBridge.teamNamePrompt("Create Team", "");
     if (teamName === null) {
         return;
     }
@@ -255,38 +263,78 @@ newTeamBtn.addEventListener("click", async function() {
 renameTeamBtn.addEventListener("click", async () => {
     // Get the current name of the team
     const currentTeam = allTeams[selectedTeam];
-    const input = await TeamControllerBridge.teamNamePrompt("Rename team", currentTeam.name);
-    console.log(input);
+    const newTeamName = await TeamControllerBridge.teamNamePrompt("Rename team", currentTeam.name);
+    if (newTeamName === null) {
+        return;
+    }
+    TeamControllerBridge.renameTeam(newTeamName);
+    window.location.href = "./options.html";
 });
 
 removeTeamBtn.addEventListener("click", async function() {
-    let removedTeam = allTeams[selectedTeam].name;
-    console.log(removedTeam);
-    await TeamControllerBridge.removeTeam(removedTeam); //TODO: REMOVE CURRENTLY SELECTED TEAM
+    if (selectedTeam === -1) {
+        return;
+    }
+    const confirmDelete = await Utilities.confirmPrompt("Are you sure you want to delete this team?");
+    TeamControllerBridge.removeTeam(selectedTeam); // TODO: Call Bridge
+    window.location.href = "./options.html";
 });
 
-personInput.addEventListener("keypress", function(k) {
+function createMemberField(memberName) {
+    var memberField = document.createElement("div");
+    memberField.className = "member-field";
 
-    if(k.key === 'Enter') {
+    var memberNameText = document.createElement("p");
+    memberNameText.className = "name-text";
+    memberNameText.innerText = memberName;
 
-        var person = document.createElement("div");
-        var xBtn = document.createElement("button"); //TODO: MAKE BUTTON LOOK NICER
-        
-        xBtn.onclick = function() {
-            person.remove();
-            xBtn.remove();
-            toAdd.splice(person, 1);
-        }
+    var xBtn = document.createElement("button");
+    xBtn.className = "x-btn";
+    xBtn.innerHTML = "x";
+    xBtn.addEventListener("click", () => {
+        removeMember(memberField);
+    });
 
-        person.value = personInput.value;
-        person.textContent = person.value;
-        person.className = "member-field";
-        xBtn.textContent = "x";
-        person.appendChild(xBtn);
-        teamContainer.appendChild(person);
-        toAdd.push(person.value);
-        personInput.value = "";
-        console.log(toAdd);
+    teamContainer.appendChild(memberField);
+    memberField.appendChild(memberNameText);
+    memberField.appendChild(xBtn);
+    return memberField;
+}
+
+function addMember() {
+    if (selectedTeam === -1) {
+        alert("Please select/create a team.");
+        return;
     }
+    const memberName = personInput.value;
+    // TODO: add if statement, check if there is a name duplicate
+    if (memberName.length < 1) {
+        alert("Error: Field cannot be empty.");
+        return;
+    }
+    membersToAdd.push(memberName);
 
+    teamContainer.appendChild(createMemberField(memberName));
+
+    personInput.value = "";
+}
+
+function removeMember(memberField) {
+    const memberName = memberField.firstChild.innerText;
+    const index = membersToAdd.indexOf(memberName); 
+    // Check if member is in membersToAdd array
+    if (index > -1) {
+        membersToAdd.splice(index, 1); // Remove from membersToAdd
+    } else {
+        membersToRemove.push(memberName);  // Add to membersToRemove
+    }
+    memberField.remove(); // Remove from DOM
+}
+
+addMemberBtn.addEventListener("click", addMember);
+
+personInput.addEventListener("keypress", function(event) {
+    if(event.key === 'Enter') {
+        addMember();
+    }
 });
