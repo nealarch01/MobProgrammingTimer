@@ -1,4 +1,5 @@
 TimerControllerBridge.renderTimerText();
+TimerControllerBridge.renderCircleTimer();
 
 const timerText = document.getElementById("timer-text");
 const circleTimer = document.getElementById("timer-circle");

@@ -17,9 +17,6 @@ const navigatorText = document.getElementById("navigator-text");
 const activeQueue = document.getElementById("active-queue");
 const inactiveList = document.getElementById("inactive-list");
 
-TimerControllerBridge.renderTimerText();
-TimerControllerBridge.renderCircleTimer();
-
 TimerControllerBridge.isActive()
     .then((isActive) => {
         if (isActive) {
