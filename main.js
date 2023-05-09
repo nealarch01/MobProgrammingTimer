@@ -51,6 +51,9 @@ function initializeTimerController(MainWindow, TimerWidgetWindow, teamController
         const { configs } = params;
         timerController.updateConfigs(configs);
     });
+    ipcMain.handle("retrieveQueue", () => {
+        return timerController.retrieveActiveQueue();
+    });
     return timerController;
 }
 
@@ -101,7 +104,22 @@ function initializeTeamController() {
         const { teamName } = params;
         teamController.createTeam(teamName);
     });
+    ipcMain.handle("removeTeam", async (event, params) => {
+        const options = {
+            type: "question",
+            buttons: ["Yes", "No"],
+            defaultId: 0,
+            title: "Remove Team",
+            message: "Do you want to remove this team?"
+        }
+        const result = await dialog.showMessageBox(null, options);
+        if(result.response === 0) {
+            teamController.removeTeam(params);
+        }
+    });
     ipcMain.handle("renameTeam", async (event, params) => {
+        console.log(params);
+        
     });
     ipcMain.handle("getAllTeams", async () => {
         return teamController.getAllTeams();
@@ -120,9 +138,6 @@ function initializeTeamController() {
             return;
         }
         teamController.setCurrentTeam(selectedIndex);
-    });
-    ipcMain.handle("retrieveQueue", () => {
-        return teamController.retrieveQueue();
     });
     return teamController;
 }

@@ -52,9 +52,34 @@ function setInputValues() {
     breakTimeInput.value = breakTime_MIN;
     rndsUntilNextBreakInput.value = roundsUntilNextBreak;
     teamSelector.value = `${selectedTeam}`;
+    
+    allTeams[selectedTeam].members.forEach(element => {
+        var person = document.createElement("div");
+        var xBtn = document.createElement("button"); //TODO: MAKE BUTTON LOOK NICER
+        
+        xBtn.onclick = function() {
+            person.remove();
+            xBtn.remove();
+            toAdd.splice(person, 1);
+        }
+
+        person.value = element.name;
+        person.textContent = person.value;
+        person.className = "member-field";
+        xBtn.textContent = "x";
+        person.appendChild(xBtn);
+        teamContainer.appendChild(person);
+    });
+
+    //console.log(allTeams[selectedTeam].members[0].name);
+    //teamContainer.append(allTeams[selectedTeam]);
 }
 
 teamSelector.addEventListener("change", (event) => {
+    console.log(teamContainer.childNodes);
+    teamContainer.childNodes.forEach(element => {
+            element.remove();
+    });
     selectedTeam = parseInt(event.target.value);
     setInputValues();
 });
@@ -235,7 +260,9 @@ renameTeamBtn.addEventListener("click", async () => {
 });
 
 removeTeamBtn.addEventListener("click", async function() {
-    await TeamControllerBridge.removeTeam(tempName); //TODO: REMOVE CURRENTLY SELECTED TEAM
+    let removedTeam = allTeams[selectedTeam].name;
+    console.log(removedTeam);
+    await TeamControllerBridge.removeTeam(removedTeam); //TODO: REMOVE CURRENTLY SELECTED TEAM
 });
 
 personInput.addEventListener("keypress", function(k) {
@@ -261,5 +288,5 @@ personInput.addEventListener("keypress", function(k) {
         personInput.value = "";
         console.log(toAdd);
     }
-    
+
 });

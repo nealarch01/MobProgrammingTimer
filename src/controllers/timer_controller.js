@@ -167,6 +167,10 @@ class TimerController {
         this.resetRoundsLeft();
     }
 
+    retrieveActiveQueue() {
+        return this.#activeQueue;
+    }
+
 }
 
 module.exports = {

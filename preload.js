@@ -14,7 +14,8 @@ contextBridge.exposeInMainWorld("TimerControllerBridge", {
     isActive: () => ipcRenderer.invoke("isActive"),
     renderTimerText: () => ipcRenderer.invoke("renderTimerText"),
     getAllMembers: () => ipcRenderer.invoke("getAllMembers"),
-    updateConfigs: (configs) => ipcRenderer.invoke("updateConfigs", { configs })
+    updateConfigs: (configs) => ipcRenderer.invoke("updateConfigs", { configs }),
+    retrieveActiveQueue: async () => ipcRenderer.invoke(retrieveActiveQueue)
 });
 
 contextBridge.exposeInMainWorld("TeamControllerBridge", {

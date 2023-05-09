@@ -4,6 +4,7 @@ const path = require('path');
 const { Team } = require('../models/team_model.js');
 
 const fs = require("fs");
+const { all } = require('express/lib/application.js');
 
 class TeamController {
     constructor() {
@@ -73,7 +74,11 @@ class TeamController {
     }
 
     removeTeam(teamName) { //remove team by name, not index
-        let index = this.allTeams.indexOf(teamName);
+        console.log("This is the team being removed " + teamName);
+        let temp = this.allTeams.keys(temp);
+        console.log(temp);
+        let index = this.allTeams.keys.indexOf(teamName);
+        console.log("This is the index of the team being removed " + index);
         this.allTeams.splice(index, 1);
         this.writeFile(this.allTeams);
     }

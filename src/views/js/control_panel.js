@@ -83,7 +83,6 @@ statsBtn.addEventListener("click", () => {
     window.location.href = "./statistics.html";
 });
 TeamControllerBridge.retrieveQueue().then ((res) => {
-    console.log(res);
     counter = 0;
     res.forEach(element => {
 
@@ -100,7 +99,6 @@ TeamControllerBridge.retrieveQueue().then ((res) => {
         teamMember.id = "team-field-" + counter;
         xBtn.className = "del-button";
         xBtn.textContent = "x";
-        console.log(teamMember.id);
         teamMember.draggable = true;
         teamMember.ondragstart = onDragStart;
         queueContainer.appendChild(teamMember);
@@ -135,8 +133,6 @@ function onDrop(event) {
     const id = event
       .dataTransfer
       .getData('text');
-    
-    console.log(event.target);
 
 
     const landingNode = event.target;
@@ -151,7 +147,6 @@ function onDrop(event) {
         parent.insertBefore(dragTarget, landingNode);
     }
     else if(landingNode.className === "member-list row") {
-        console.log("HERE");
         landingNode.appendChild(dragTarget);
     }
     else {
