@@ -9,6 +9,13 @@ const incrementBtn = document.getElementById("increment-btn");
 let postponeBy = 1;
 nextBreakInput.value = postponeBy;
 
+TeamControllerBridge.getCurrentTeam()
+    .then((team) => {
+        const nextBreakDefault = team.data.timerConfig.roundsUntilNextBreak;
+        postponeBy = nextBreakDefault;
+        nextBreakInput.value = postponeBy;
+    });
+
 function toggleTimerText() {
     if (toggleBtnText.innerHTML === "Start Break") {
         toggleBtnText.innerHTML = "Pause Break";
