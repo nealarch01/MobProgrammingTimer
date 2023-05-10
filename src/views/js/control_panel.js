@@ -40,8 +40,10 @@ toggleTimerBtn.addEventListener("click", async () => {
 });
 
 skipBtn.addEventListener("click", async () => {
-    deactivate();
-    toggleStartStopBtnText();
+    if (await TimerControllerBridge.isActive()) {
+        deactivate();
+        toggleStartStopBtnText();
+    }
     const confirm = await Utilities.confirmPrompt("Are you sure you want to skip the current roles?");
     if (!confirm) {
         return;
@@ -60,8 +62,10 @@ skipBtn.addEventListener("click", async () => {
 });
 
 resetBtn.addEventListener("click", async () => {
-    deactivate();
-    toggleStartStopBtnText();
+    if (await TimerControllerBridge.isActive()) {
+        deactivate();
+        toggleStartStopBtnText();
+    }
     const confirm = await Utilities.confirmPrompt("Are you sure you want to reset the timer?");
     if (!confirm) {
         return;
