@@ -276,7 +276,10 @@ removeTeamBtn.addEventListener("click", async () => {
         return;
     }
     console.log(selectedTeam);
-    const confirmDelete = await Utilities.confirmPrompt("Are you sure you want to delete this team?");
+    const confirmDelete = await Utilities.confirmPrompt("Are you sure you want to delete this team?") ?? false;
+    if (!confirmDelete) {
+        return;
+    }
     await TeamControllerBridge.removeTeam(selectedTeam); // TODO: Call Bridge
     window.location.href = "./options.html";
 });
