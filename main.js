@@ -10,7 +10,7 @@ const { Timer } = require("./src/models/timer_model");
 const { promisify } = require("util");
 const prompt = require("electron-prompt");
 
-const quotes = require("./data/quotes.json");
+const quotes = require("./src/assets/quotes.json");
 
 const isDev = true;
 
