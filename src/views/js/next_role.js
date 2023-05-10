@@ -32,5 +32,15 @@ startBtn.addEventListener("click", () => {
     TimerControllerBridge.startTimer(minimizeMainWindow);
 });
 
-renderRolesText();
+//renderRolesText();
 
+TimerControllerBridge.getAllMembers()
+    .then((members) => {
+        if (members.active.length > 1) {
+            driverText.innerText = `Driver: ${members.active[0].name}`;
+            navigatorText.innerText = `Navigator: ${members.active[1].name}`;
+        }
+        else if (members.active.length === 1){
+            driverText.innerText = `Driver: ${members.active[0].name}`;
+        }
+});

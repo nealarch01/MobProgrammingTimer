@@ -61,9 +61,34 @@ function setInputValues() {
     breakTimeInput.value = breakTime_MIN;
     rndsUntilNextBreakInput.value = roundsUntilNextBreak;
     teamSelector.value = `${selectedTeam}`;
+    
+    allTeams[selectedTeam].members.forEach(element => {
+        var person = document.createElement("div");
+        var xBtn = document.createElement("button"); //TODO: MAKE BUTTON LOOK NICER
+        
+        xBtn.onclick = function() {
+            person.remove();
+            xBtn.remove();
+            toAdd.splice(person, 1);
+        }
+
+        person.value = element.name;
+        person.textContent = person.value;
+        person.className = "member-field";
+        xBtn.textContent = "x";
+        person.appendChild(xBtn);
+        //teamContainer.appendChild(person);
+    });
+
+    //console.log(allTeams[selectedTeam].members[0].name);
+    //teamContainer.append(allTeams[selectedTeam]);
 }
 
 teamSelector.addEventListener("change", (event) => {
+    console.log(teamContainer.childNodes);
+    teamContainer.childNodes.forEach(element => {
+            element.remove();
+    });
     selectedTeam = parseInt(event.target.value);
     setInputValues();
 });

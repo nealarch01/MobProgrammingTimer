@@ -182,6 +182,19 @@ app.whenReady()
         const { teamName } = params;
         teamController.createTeam(teamName);
     });
+    ipcMain.handle("removeTeam", async (event, params) => {
+        const options = {
+            type: "question",
+            buttons: ["Yes", "No"],
+            defaultId: 0,
+            title: "Remove Team",
+            message: "Do you want to remove this team?"
+        }
+        const result = await dialog.showMessageBox(null, options);
+        if(result.response === 0) {
+            teamController.removeTeam(params);
+        }
+    });
     ipcMain.handle("renameTeam", async (event, params) => {
         const { teamName } = params;
         teamController.renameTeam(teamName);
@@ -195,10 +208,11 @@ app.whenReady()
     ipcMain.handle("retrieveQueue", () => {
         return teamController.retrieveQueue();
     });
-    ipcMain.handle("removeTeam", (event, params) => {
+    /*ipcMain.handle("removeTeam", (event, params) => {
         const { selectedIndex } = params;
         teamController.removeTeam(selectedIndex); 
     });
+    */
 
 
     // Utility/Misc Handlers

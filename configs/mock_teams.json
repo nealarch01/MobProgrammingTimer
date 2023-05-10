@@ -196,9 +196,27 @@
                 }
             ],
             "timerConfig": {
-                "roundTime_SEC": 300,
+                "roundTime_SEC": 3,
                 "roundsUntilNextBreak": 2,
-                "breakTime_SEC": 240
+                "breakTime_SEC": 3
+            }
+        },
+        {
+            "name": "Single",
+            "members": [
+                {
+                    "name": "Neal",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                }
+            ],
+            "timerConfig": {
+                "roundTime_SEC": 5,
+                "roundsUntilNextBreak": 2,
+                "breakTime_SEC": 5
             }
         }
     ]
