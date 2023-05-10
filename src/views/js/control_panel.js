@@ -14,6 +14,7 @@ const teamNameText = document.getElementById("team-name-text");
 const driverText = document.getElementById("driver-text");
 const navigatorText = document.getElementById("navigator-text");
 
+const randomize = document.getElementById("randomize-btn-ID")
 const activeQueue = document.getElementById("active-queue");
 const inactiveList = document.getElementById("inactive-list");
 
@@ -74,6 +75,14 @@ TeamControllerBridge.getCurrentTeam()
     });
 
 function renderRolesText() {
+    if (activeQueue.childNodes.length > 1) {
+        driverText.innerText = `Driver: ${activeQueue.children[0].getElementsByTagName('p')[0].innerHTML}`;
+        navigatorText.innerText = `Navigator: ${activeQueue.children[1].getElementsByTagName('p')[0].innerHTML}`;
+    }
+    else if (activeQueue.childNodes.length === 1){
+        driverText.innerText = `Driver: ${activeQueue.children[0].getElementsByTagName('p')[0].innerHTML}`;
+    }
+    /*
     TimerControllerBridge.getAllMembers()
         .then((members) => {
             if (members.active.length > 1) {
@@ -81,6 +90,7 @@ function renderRolesText() {
                 navigatorText.innerText = `Navigator: ${members.active[1].name}`;
             }
         });
+        */
 }
 
 TimerControllerBridge.getAllMembers()
@@ -88,6 +98,9 @@ TimerControllerBridge.getAllMembers()
         if (members.active.length > 1) {
             driverText.innerText = `Driver: ${members.active[0].name}`;
             navigatorText.innerText = `Navigator: ${members.active[1].name}`;
+        }
+        else if (members.active.length === 1){
+            driverText.innerText = `Driver: ${members.active[0].name}`;
         }
         members.active.forEach((member, index) => {
             createActiveMemberField(member.name, index);
@@ -314,3 +327,13 @@ function inactiveOnDrop(event) {
     }
     event.dataTransfer.clearData();
 }
+
+randomize.addEventListener("click", async () => {
+    for (var i = activeQueue.children.length; i >= 0; i--) {
+        activeQueue.appendChild(activeQueue.children[Math.floor(Math.random() * i | 0)]);
+    }
+    //driverText.innerText = `Driver: ${activeQueue.children[0].getElementsByTagName('p')[0].innerHTML}`;
+    //navigatorText.innerText = `Navigator: ${activeQueue.children[1].getElementsByTagName('p')[0].innerHTML}`;
+    console.log(activeQueue.childNodes);
+    renderRolesText();
+});

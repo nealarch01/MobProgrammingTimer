@@ -77,7 +77,7 @@ function setInputValues() {
         person.className = "member-field";
         xBtn.textContent = "x";
         person.appendChild(xBtn);
-        teamContainer.appendChild(person);
+        //teamContainer.appendChild(person);
     });
 
     //console.log(allTeams[selectedTeam].members[0].name);

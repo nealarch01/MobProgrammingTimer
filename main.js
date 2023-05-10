@@ -208,10 +208,11 @@ app.whenReady()
     ipcMain.handle("retrieveQueue", () => {
         return teamController.retrieveQueue();
     });
-    ipcMain.handle("removeTeam", (event, params) => {
+    /*ipcMain.handle("removeTeam", (event, params) => {
         const { selectedIndex } = params;
         teamController.removeTeam(selectedIndex); 
     });
+    */
 
 
     // Utility/Misc Handlers
