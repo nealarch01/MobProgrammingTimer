@@ -82,15 +82,6 @@ function renderRolesText() {
     else if (activeQueue.childNodes.length === 1){
         driverText.innerText = `Driver: ${activeQueue.children[0].getElementsByTagName('p')[0].innerHTML}`;
     }
-    /*
-    TimerControllerBridge.getAllMembers()
-        .then((members) => {
-            if (members.active.length > 1) {
-                driverText.innerText = `Driver: ${members.active[0].name}`;
-                navigatorText.innerText = `Navigator: ${members.active[1].name}`;
-            }
-        });
-        */
 }
 
 TimerControllerBridge.getAllMembers()
@@ -250,13 +241,6 @@ function createActiveMemberField(memberName, index) {
     activeQueue.appendChild(memberField);
 }
 
-// TeamControllerBridge.retrieveQueue()
-//     .then((members) => {
-//         members.forEach((member, index) => {
-//             createActiveMemberField(member, index);
-//         });
-//     });
-
 var dragTarget;
 function onDragStart(event) {
     event.dataTransfer.setData('text/plain', event.target.id);
@@ -285,14 +269,8 @@ function onDrop(event) {
     }
 
     if (dragTarget === afterTarget) { // Moving from left to right
-        console.log("Condition 1");
-        console.log(dragTarget);
-        console.log(afterTarget);
         parent.insertBefore(dragTarget, landingNode);  // Swap the two elements
-    } else {
-        console.log("Condition 2");
-        console.log(dragTarget);
-        console.log(landingNode);
+    } else { // Moving right to left
         dragTarget.replaceWith(landingNode);
         parent.insertBefore(dragTarget, afterTarget);
     }
@@ -301,18 +279,6 @@ function onDrop(event) {
     const landingNodeName = landingNode.getElementsByTagName("p")[0].innerText;
     TimerControllerBridge.swapMembers(dragTargetName, landingNodeName);
     renderRolesText();
-
-    // if (dragTarget === afterTarget) { // If dropped on another member
-    //     console.log("Condition 1");
-    //     parent.insertBefore(dragTarget, landingNode);  // Swap the two elements
-    // } else if (landingNode.id === "active-queue") { // If entering the active queue, re-append
-    //     console.log("Condition 2");
-    //     landingNode.appendChild(dragTarget);
-    // } else { // If dropped on itself, do nothing
-    //     console.log("Condition 3");
-    //     dragTarget.replaceWith(landingNode); // 
-    //     parent.insertBefore(dragTarget, afterTarget);
-    // }
 
     event.dataTransfer.clearData();
 }
