@@ -21,19 +21,19 @@ class TeamController {
 
     async initTeams() {
         storage.setDataPath(this.filepath);
-        const jsonData = storage.getSync('mock_teams'); //TODO: change to team configs
+        const jsonData = storage.getSync('teams'); //TODO: change to team configs
         this.currentTeamIndex = jsonData.lastTeamIndex ?? -1;
         this.allTeams = jsonData.teams ?? [];
     }
 
     writeFile() {
-        let filepath = path.join(__dirname, "../../configs/mock_teams.json"); //TODO: Change to teams.json
+        let filepath = path.join(__dirname, "../../configs/teams.json"); //TODO: Change to teams.json
         const jsonData = {
             "lastTeamIndex": this.currentTeamIndex,
             "teams": this.allTeams
         }
         fs.writeFile(filepath, JSON.stringify(jsonData, null, 4), "utf8", (err) => {
-            console.log(err ?? "Successfully write to file");
+            // console.log(err ?? "Successfully write to file");
         });
     }
 
