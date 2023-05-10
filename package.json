@@ -16,5 +16,8 @@
     "electron-json-storage": "^4.6.0",
     "electron-prompt": "^1.7.0",
     "material-icons": "^1.13.6"
+  },
+  "devDependencies": {
+    "electron-packager": "^17.1.1"
   }
 }
