@@ -41,9 +41,9 @@ toggleTimerBtn.addEventListener("click", async () => {
 
 skipBtn.addEventListener("click", async () => {
     deactivate();
+    toggleStartStopBtnText();
     const confirm = await Utilities.confirmPrompt("Are you sure you want to skip the current roles?");
     if (!confirm) {
-        activate();
         return;
     }
     TimerControllerBridge.resetTimer();
@@ -61,9 +61,9 @@ skipBtn.addEventListener("click", async () => {
 
 resetBtn.addEventListener("click", async () => {
     deactivate();
+    toggleStartStopBtnText();
     const confirm = await Utilities.confirmPrompt("Are you sure you want to reset the timer?");
     if (!confirm) {
-        activate();
         return;
     }
     TimerControllerBridge.resetTimer();
@@ -75,11 +75,11 @@ TeamControllerBridge.getCurrentTeam()
     });
 
 function renderRolesText() {
-    if (activeQueue.childNodes.length > 1) {
+    if (activeQueue.children.length > 1) {
         driverText.innerText = `Driver: ${activeQueue.children[0].getElementsByTagName('p')[0].innerHTML}`;
         navigatorText.innerText = `Navigator: ${activeQueue.children[1].getElementsByTagName('p')[0].innerHTML}`;
     }
-    else if (activeQueue.childNodes.length === 1){
+    else if (activeQueue.children.length === 1) {
         driverText.innerText = `Driver: ${activeQueue.children[0].getElementsByTagName('p')[0].innerHTML}`;
     }
 }
@@ -270,7 +270,7 @@ function onDrop(event) {
 
     if (dragTarget === afterTarget) { // Moving from left to right
         parent.insertBefore(dragTarget, landingNode);  // Swap the two elements
-    } else { // Moving right to left
+    } else {
         dragTarget.replaceWith(landingNode);
         parent.insertBefore(dragTarget, afterTarget);
     }
