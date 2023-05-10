@@ -20,7 +20,18 @@ class TeamController {
     }
 
     async initTeams() {
-        const jsonData = require("./teams.json");
+        const teamsFilepath = path.join(__dirname, "./teams.json");
+        if (!fs.existsSync(teamsFilepath)) {
+            const defaultData = {
+                "lastTeamIndex": -1,
+                "teams": []
+            }
+            fs.writeFileSync(teamsFilepath, JSON.stringify(defaultData, null, 4), "utf8", (err) => {
+                console.log(err ?? "Created new file");
+            });
+        }
+        const contents = fs.readFileSync(teamsFilepath);
+        const jsonData = JSON.parse(contents);
         this.currentTeamIndex = jsonData.lastTeamIndex ?? -1;
         this.allTeams = jsonData.teams ?? [];
     }
