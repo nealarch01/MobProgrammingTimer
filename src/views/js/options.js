@@ -271,12 +271,13 @@ renameTeamBtn.addEventListener("click", async () => {
     window.location.href = "./options.html";
 });
 
-removeTeamBtn.addEventListener("click", async function() {
+removeTeamBtn.addEventListener("click", async () => {
     if (selectedTeam === -1) {
         return;
     }
+    console.log(selectedTeam);
     const confirmDelete = await Utilities.confirmPrompt("Are you sure you want to delete this team?");
-    TeamControllerBridge.removeTeam(selectedTeam); // TODO: Call Bridge
+    await TeamControllerBridge.removeTeam(selectedTeam); // TODO: Call Bridge
     window.location.href = "./options.html";
 });
 

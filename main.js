@@ -183,17 +183,8 @@ app.whenReady()
         teamController.createTeam(teamName);
     });
     ipcMain.handle("removeTeam", async (event, params) => {
-        const options = {
-            type: "question",
-            buttons: ["Yes", "No"],
-            defaultId: 0,
-            title: "Remove Team",
-            message: "Do you want to remove this team?"
-        }
-        const result = await dialog.showMessageBox(null, options);
-        if(result.response === 0) {
-            teamController.removeTeam(params);
-        }
+        const { selectedIndex } = params;
+        teamController.removeTeam(selectedIndex);
     });
     ipcMain.handle("renameTeam", async (event, params) => {
         const { teamName } = params;

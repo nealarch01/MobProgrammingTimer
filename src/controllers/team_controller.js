@@ -33,6 +33,9 @@ class TeamController {
         const contents = fs.readFileSync(teamsFilepath);
         const jsonData = JSON.parse(contents);
         this.currentTeamIndex = jsonData.lastTeamIndex ?? -1;
+        if (this.currentTeamIndex >= jsonData.teams.length) {
+            this.currentTeamIndex = -1;
+        }
         this.allTeams = jsonData.teams ?? [];
     }
 
@@ -91,13 +94,20 @@ class TeamController {
     }
 
     removeTeam(teamIndex) { //remove team by name, not index
-        console.log(teamIndex);
-        if (this.allTeams.count === 0 || this.currentTeamIndex === -1) {
+        if (teamIndex === undefined) {
+            console.log("Error in removeTeam: teamIndex is undefined");
+            return;
+        }
+        if (this.allTeams.count === 0 || teamIndex === -1) {
             return;
         }
         this.allTeams.splice(teamIndex, 1);
         if (this.allTeams.length === 0) {
             this.currentTeamIndex = -1;
+        } else  {
+            if (this.currentTeamIndex === teamIndex) {
+                this.currentTeamIndex = 0;
+            }
         }
         this.writeFile();
     }
