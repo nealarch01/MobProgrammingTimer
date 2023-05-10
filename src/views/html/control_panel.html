@@ -67,12 +67,16 @@
     </div>
 
     <div class="team-members-container col">
-        <h3>Queue</h3>
-        <button class="randomize-btn" id="randomize-btn-ID">Randomize Team</button>
+        <div class="queue-label-container row">
+            <h3 class="queue-label">Queue</h3>
+            <span class="material-icons" id="randomize-btn-ID">casino</span>
+        </div>
         <div class="member-list row" id="active-queue" ondragover="onDragOver(event)" ondrop="onDrop(event)">
         </div>
 
-        <h3>Inactive</h3>
+        <div class="queue-label-container">
+            <h3 class="queue-label">Inactive</h3>
+        </div>
         <!-- <div class="member-list row" id="inactive-list" ondragover="ondragover(event)" ondrop="inactiveondrop(event)">
         </div> -->
         <div class="member-list row" id="inactive-list">
