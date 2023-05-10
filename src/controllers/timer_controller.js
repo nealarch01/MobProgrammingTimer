@@ -67,9 +67,9 @@ class TimerController {
         if (this.#roundsLeft === 0) {
             this.setTimeRemainingToBreakTime();
             this.redirectToBreakPage();
+            this.resetRoundsLeft();
             return;
         }  
-        this.resetRoundsLeft();
         this.setTimeRemainingToRoundTime();
         this.redirectToNextRolePage();
     }
