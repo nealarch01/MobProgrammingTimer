@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron main.js",
-    "mock-teams": "node ./src/scripts/create_mock_teams.js"
+    "mock-teams": "node ./src/scripts/create_mock_teams.js",
+    "package-mac": "electron-packager . MyApp --overwrite --platform=darwin --arch=x64 --arch=arm64 --out=dist/ --prune --ignore=/.gitignore --ignore=/.git",
+    "package-win": "electron-packager . MyApp --overwrite --platform=win32 --arch=x64 --arch=arm64 --out=dist/ --prune --ignore=/.gitignore --ignore=/.git",
+    "package-linux": "electron-packager . MyApp --overwrite --platform=linux --arch=x64 --arch=arm64 --out=dist/ --prune --ignore=/.gitignore --ignore=/.git"
   },
   "keywords": [],
   "author": "",
