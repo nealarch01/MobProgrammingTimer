@@ -329,11 +329,23 @@ function inactiveOnDrop(event) {
 }
 
 randomize.addEventListener("click", async () => {
-    for (var i = activeQueue.children.length; i >= 0; i--) {
-        activeQueue.appendChild(activeQueue.children[Math.floor(Math.random() * i | 0)]);
+    for (var i = activeQueue.children.length - 1; i >= 0; i--) {
+        const randomIndex = Math.random() * i | 0;
+        if (randomIndex === i) {
+            continue;
+        }
+        let currentChild = activeQueue.children[i];
+        let randomChild = activeQueue.children[randomIndex];
+        const currentChildName = currentChild.getElementsByClassName("name-text")[0].innerText;
+        const randomChildName = randomChild.getElementsByClassName("name-text")[0].innerText;
+        await TimerControllerBridge.swapMembers(currentChildName, randomChildName);
     }
-    //driverText.innerText = `Driver: ${activeQueue.children[0].getElementsByTagName('p')[0].innerHTML}`;
-    //navigatorText.innerText = `Navigator: ${activeQueue.children[1].getElementsByTagName('p')[0].innerHTML}`;
-    console.log(activeQueue.childNodes);
+    TimerControllerBridge.getAllMembers()
+        .then((members) => {
+            activeQueue.innerHTML = "";
+            members.active.forEach((member, index) => {
+                createActiveMemberField(member.name, index);
+            });
+        });
     renderRolesText();
 });
