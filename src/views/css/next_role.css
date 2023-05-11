@@ -21,6 +21,11 @@
     border-radius: 16px;
 }
 
+
+.roles-container {
+    margin-top: 20px;
+}
+
 #quote-text {
     margin-top: 15px;
     margin-left: 20px;
@@ -34,6 +39,7 @@
     margin-left: 35px;
     font-size: 1.0em;
     margin-bottom: 15px;
+    margin-top: 15px;
 }
 
 #driver-text, #navigator-text {
@@ -45,7 +51,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 200px;
+    margin-top: 30px;
 }
 
 .ctrl-panel-btn {
