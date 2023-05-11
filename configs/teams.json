@@ -1,0 +1,39 @@
+{
+    "lastTeamIndex": 0,
+    "teams": [
+        {
+            "name": "Web 1",
+            "members": [
+                {
+                    "name": "Irvin",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Neal",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Eduardo",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                }
+            ],
+            "timerConfig": {
+                "roundTime_SEC": 60,
+                "roundsUntilNextBreak": 2,
+                "breakTime_SEC": 300
+            }
+        }
+    ]
+}
