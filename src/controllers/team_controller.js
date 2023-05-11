@@ -9,6 +9,8 @@ const { Person } = require('../models/person_model.js');
 class TeamController {
     constructor() {
         this.filepath = path.join(__dirname, "./");
+        this.configsPath = path.join(__dirname, "../../configs/");
+        this.teamsFilename = "teams.json";
 
         this.teamName = "";
         this.teamMembers = [];
@@ -20,7 +22,7 @@ class TeamController {
     }
 
     async initTeams() {
-        const teamsFilepath = path.join(__dirname, "./teams.json");
+        const teamsFilepath = path.join(this.configsPath, `./${this.teamsFilename}`);
         if (!fs.existsSync(teamsFilepath)) {
             const defaultData = {
                 "lastTeamIndex": -1,
@@ -40,12 +42,12 @@ class TeamController {
     }
 
     writeFile() {
-        let filepath = path.join(__dirname, "./teams.json"); //TODO: Change to teams.json
+        let teamsFilepath = path.join(this.configsPath, `./${this.teamsFilename}`); //TODO: Change to teams.json
         const jsonData = {
             "lastTeamIndex": this.currentTeamIndex ?? -1,
             "teams": this.allTeams ?? []
         }
-        fs.writeFile(filepath, JSON.stringify(jsonData, null, 4), "utf8", (err) => {
+        fs.writeFile(teamsFilepath, JSON.stringify(jsonData, null, 4), "utf8", (err) => {
             // console.log(err ?? "Successfully write to file");
         });
     }
