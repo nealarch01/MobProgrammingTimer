@@ -119,6 +119,7 @@ function disableButtons() {
     for (let i = 0; i < memberFieldxBtns.length; i++) {
         memberFieldxBtns[i].disabled = true;
     }
+    randomize.disabled = true;
 }
 
 function enableButtons() {
@@ -128,6 +129,7 @@ function enableButtons() {
     for (let i = 0; i < memberFieldxBtns.length; i++) {
         memberFieldxBtns[i].disabled = false;
     }
+    randomize.disabled = false;
 }
 
 function disableDragAndDrop() {
@@ -299,6 +301,9 @@ function inactiveOnDrop(event) {
 }
 
 randomize.addEventListener("click", async () => {
+    if (await TimerControllerBridge.isActive()) {
+        return; // Disabling button on span does not seem to work, this is a workaround
+    }
     for (var i = activeQueue.children.length - 1; i >= 0; i--) {
         const randomIndex = Math.random() * i | 0;
         if (randomIndex === i) {
