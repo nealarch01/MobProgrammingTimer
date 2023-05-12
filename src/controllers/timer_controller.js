@@ -59,7 +59,6 @@ class TimerController {
     }
 
     #roundComplete() {
-        this.updateRoles();
         if (this.#MainWindow.isMinimized()) { 
             this.#MainWindow.restore();
         }
@@ -70,7 +69,9 @@ class TimerController {
             this.resetRoundsLeft();
             this.#roundsLeft += 1; // Offset by 1 because the break page will decrement it when it ends
             return;
-        }  
+        } else {
+            this.updateRoles();
+        }
         this.setTimeRemainingToRoundTime();
         this.redirectToNextRolePage();
     }
@@ -91,6 +92,7 @@ class TimerController {
     }
 
     skipBreak(postponeBy = undefined) {
+        this.updateRoles();
         if (postponeBy === undefined) {
             this.resetRoundsLeft();
         } else {

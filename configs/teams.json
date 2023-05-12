@@ -5,6 +5,56 @@
             "name": "Web 1",
             "members": [
                 {
+                    "name": "Neal",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Eduardo",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Irvin",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                }
+            ],
+            "timerConfig": {
+                "roundTime_SEC": 10,
+                "roundsUntilNextBreak": 2,
+                "breakTime_SEC": 8
+            }
+        },
+        {
+            "name": "Mobile 1",
+            "members": [
+                {
+                    "name": "Eduardo",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "John",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
                     "name": "Irvin",
                     "stats": {
                         "drivingTime_SEC": 0,
@@ -21,7 +71,23 @@
                     }
                 },
                 {
-                    "name": "Eduardo",
+                    "name": "Sam",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Logan",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Charlie",
                     "stats": {
                         "drivingTime_SEC": 0,
                         "navigatingTime_SEC": 0,
@@ -31,8 +97,50 @@
             ],
             "timerConfig": {
                 "roundTime_SEC": 60,
-                "roundsUntilNextBreak": 2,
-                "breakTime_SEC": 300
+                "roundsUntilNextBreak": 3,
+                "breakTime_SEC": 60
+            }
+        },
+        {
+            "name": "Mobile 2",
+            "members": [
+                {
+                    "name": "Eduardo",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Neal",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Chris",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                },
+                {
+                    "name": "Irvin",
+                    "stats": {
+                        "drivingTime_SEC": 0,
+                        "navigatingTime_SEC": 0,
+                        "observingTime_SEC": 0
+                    }
+                }
+            ],
+            "timerConfig": {
+                "roundTime_SEC": 60,
+                "roundsUntilNextBreak": 1,
+                "breakTime_SEC": 60
             }
         }
     ]
