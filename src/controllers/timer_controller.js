@@ -68,6 +68,7 @@ class TimerController {
             this.setTimeRemainingToBreakTime();
             this.redirectToBreakPage();
             this.resetRoundsLeft();
+            this.#roundsLeft += 1; // Offset by 1 because the break page will decrement it when it ends
             return;
         }  
         this.setTimeRemainingToRoundTime();
