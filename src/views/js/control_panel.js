@@ -321,6 +321,6 @@ randomize.addEventListener("click", async () => {
             members.active.forEach((member, index) => {
                 createActiveMemberField(member.name, index);
             });
+            renderRolesText();
         });
-    renderRolesText();
 });
