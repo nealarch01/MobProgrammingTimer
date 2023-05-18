@@ -6,7 +6,7 @@ CS 490 Capstone Project Sponsored by Hunter Industries
 1. Clone this repo
 2. Navigate into project directory
 3. Build the application
-	- MacOS: `npm run package-macos`
+	- MacOS: `npm run package-mac`
 	- Windows: `npm run package-win`
 	- Linux: `npm run package-linux`
 4. Navigate into the `./dist/` directory
