@@ -40,4 +40,10 @@ CS 490 Capstone Project Sponsored by Hunter Industries
 	<br>
 	<img width="1006" alt="Screenshot 2023-05-15 at 11 58 16 PM" src="https://github.com/nealarch01/MobProgrammingTimer/assets/73256760/1d4ceb39-e37b-4631-ba36-6b17972e7af4">
 </details>
+<details>
+	<summary>Widget</summary>
+	<br>
+	<img width="1920" alt="Screenshot 2023-07-09 at 3 02 43 PM" src="https://github.com/nealarch01/MobProgrammingTimer/assets/73256760/dd8dc953-b5f1-4e1e-95b7-f5fac3522fc5">
+	<img width="1920" alt="Screenshot 2023-07-09 at 3 02 53 PM" src="https://github.com/nealarch01/MobProgrammingTimer/assets/73256760/997efbc5-65b7-4685-a039-d57874744ec6">
+</details>
 
